@@ -2631,6 +2631,12 @@
             Preço Shopee ${getSortIcon(isGrouped ? 'preco_shopee_min' : 'preco_shopee')}
           </div>
         </th>
+        <th class="sortable" data-sort="${isGrouped ? 'preco_tiktok_min' : 'preco_tiktok'}" style="background-color: rgba(254, 44, 85, 0.05);">
+          <div class="th-content" style="color: #fe2c55; font-weight: 700;">
+            <span class="tiktok-badge" style="padding: 1px 4px; font-size: 0.65rem; margin-right: 3px;">TikTok</span>
+            Preço TikTok ${getSortIcon(isGrouped ? 'preco_tiktok_min' : 'preco_tiktok')}
+          </div>
+        </th>
         <th class="sortable" data-sort="${isGrouped ? 'estoque_total' : 'estoque'}">
           <div class="th-content">Estoque ${getSortIcon(isGrouped ? 'estoque_total' : 'estoque')}</div>
         </th>
@@ -2640,7 +2646,7 @@
         <th class="sortable" data-sort="margem_pct">
           <div class="th-content">Margem Loja ${getSortIcon('margem_pct')}</div>
         </th>
-        <th style="text-align: center;">Análise Shopee</th>
+        <th style="text-align: center;">Análise &amp; Detalhes</th>
       </tr>
     `;
 
@@ -2649,7 +2655,7 @@
     if (pageItems.length === 0) {
       elements.tableBody.innerHTML = `
         <tr>
-          <td colspan="12">
+          <td colspan="13">
             <div class="empty-state">
               <div class="empty-state-icon">🔍</div>
               <h3>Nenhum produto encontrado</h3>
@@ -2687,6 +2693,7 @@
       ? `${fmtCurrency.format(item.preco_min)} ~ ${fmtCurrency.format(item.preco_max)}` 
       : fmtCurrency.format(item.preco_min);
 
+    // Shopee
     const cadMin = item.preco_shopee_cad_min || item.preco_shopee_cad || item.preco_shopee_min || 0;
     const cadMax = item.preco_shopee_cad_max || item.preco_shopee_cad || item.preco_shopee_max || 0;
     const promoMin = item.preco_shopee_promo_min || item.preco_shopee_min || item.preco_shopee || 0;
@@ -2700,6 +2707,21 @@
     const shopeePromoDisplay = hasMultipleCosts 
       ? `${fmtCurrency.format(promoMin)} ~ ${fmtCurrency.format(promoMax)}` 
       : fmtCurrency.format(promoMin);
+
+    // TikTok
+    const tikCadMin = item.preco_tiktok_cad_min || item.preco_tiktok_cad || item.preco_tiktok_min || 0;
+    const tikCadMax = item.preco_tiktok_cad_max || item.preco_tiktok_cad || item.preco_tiktok_max || 0;
+    const tikPromoMin = item.preco_tiktok_promo_min || item.preco_tiktok_min || item.preco_tiktok || 0;
+    const tikPromoMax = item.preco_tiktok_promo_max || item.preco_tiktok_max || item.preco_tiktok || 0;
+    const tikDescPct = item.tiktok_desc_pct || 30.0;
+
+    const tiktokCadDisplay = hasMultipleCosts 
+      ? `${fmtCurrency.format(tikCadMin)} ~ ${fmtCurrency.format(tikCadMax)}` 
+      : fmtCurrency.format(tikCadMin);
+
+    const tiktokPromoDisplay = hasMultipleCosts 
+      ? `${fmtCurrency.format(tikPromoMin)} ~ ${fmtCurrency.format(tikPromoMax)}` 
+      : fmtCurrency.format(tikPromoMin);
 
     const imgSrc = item.img || PLACEHOLDER_IMG;
     const firstSku = item.variacoes && item.variacoes.length > 0 ? item.variacoes[0].sku : item.sku;
@@ -2759,6 +2781,22 @@
             </div>
           </div>
         </td>
+        <td style="background-color: rgba(254, 44, 85, 0.04);">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <div style="font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+              <span style="font-weight: 500;">Cad:</span>
+              <span style="font-weight: 600; text-decoration: line-through; color: var(--text-secondary);">${tiktokCadDisplay}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <strong style="color: #fe2c55; font-size: 0.88rem; background: rgba(254, 44, 85, 0.12); padding: 2px 6px; border-radius: 4px;">
+                ${tiktokPromoDisplay}
+              </strong>
+              <span style="background: #fe2c55; color: white; font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px;">
+                -${tikDescPct.toFixed(0)}%
+              </span>
+            </div>
+          </div>
+        </td>
         <td>
           <div class="stock-badge ${stockClass}">
             <span class="stock-dot"></span>
@@ -2772,9 +2810,14 @@
           <span class="margin-pill">${item.margem_pct.toFixed(1)}%</span>
         </td>
         <td style="text-align: center;">
-          <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(firstSku)}" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;" title="Abrir análise detalhada no Precificador Shopee">
-            🔍 Detalhar
-          </button>
+          <div style="display: flex; gap: 4px; justify-content: center;">
+            <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(firstSku)}" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" title="Abrir análise detalhada no Precificador Shopee">
+              Shopee
+            </button>
+            <button class="btn btn-outline-tiktok btn-goto-tiktok" data-target-sku="${escapeHtml(firstSku)}" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" title="Abrir análise detalhada no Precificador TikTok Shop">
+              TikTok
+            </button>
+          </div>
         </td>
       </tr>
     `;
@@ -2782,7 +2825,7 @@
     if (isExpanded && item.variacoes && item.variacoes.length > 0) {
       html += `
         <tr class="nested-variations-row">
-          <td colspan="12" style="padding: 0.5rem 1.5rem 1rem 3rem;">
+          <td colspan="13" style="padding: 0.5rem 1.5rem 1rem 3rem;">
             <table class="nested-variations-table">
               <thead>
                 <tr>
@@ -2790,17 +2833,19 @@
                   <th>SKU Específico</th>
                   <th>Preço Custo</th>
                   <th>Preço Loja</th>
-                  <th style="color: #ee4d2d;">Preço Shopee (Cad. & Promo)</th>
+                  <th style="color: #ee4d2d;">Preço Shopee (Cad &amp; Promo)</th>
+                  <th style="color: #fe2c55;">Preço TikTok (Cad &amp; Promo)</th>
                   <th>Estoque</th>
                   <th>Custo em Estoque</th>
                   <th>Status</th>
-                  <th style="text-align: center;">Análise Shopee</th>
+                  <th style="text-align: center;">Simular</th>
                 </tr>
               </thead>
               <tbody>
                 ${item.variacoes.map(v => {
                   const vStockClass = getStockBadgeClass(v.estoque);
                   const vDesc = v.shopee_desc_pct || descPct;
+                  const vTikDesc = v.tiktok_desc_pct || tikDescPct;
                   return `
                     <tr>
                       <td><strong>${escapeHtml(v.variacao)}</strong></td>
@@ -2833,6 +2878,22 @@
                           </div>
                         </div>
                       </td>
+                      <td style="background-color: rgba(254, 44, 85, 0.04);">
+                        <div style="display: flex; flex-direction: column; gap: 1px;">
+                          <div style="font-size: 0.7rem; color: var(--text-muted);">
+                            <span>Cad: </span>
+                            <span style="text-decoration: line-through; color: var(--text-secondary); font-weight: 600;">${fmtCurrency.format(v.preco_tiktok_cad || v.preco_tiktok)}</span>
+                          </div>
+                          <div style="display: flex; align-items: center; gap: 2px;">
+                            <strong style="color: #fe2c55; background: rgba(254, 44, 85, 0.1); padding: 1px 5px; border-radius: 3px; font-size: 0.82rem;">
+                              ${fmtCurrency.format(v.preco_tiktok_promo || v.preco_tiktok)}
+                            </strong>
+                            <span style="background: #fe2c55; color: white; font-size: 0.6rem; font-weight: 700; padding: 1px 3px; border-radius: 3px;">
+                              -${vTikDesc.toFixed(0)}%
+                            </span>
+                          </div>
+                        </div>
+                      </td>
                       <td>
                         <div class="stock-badge ${vStockClass}">
                           <span class="stock-dot"></span>
@@ -2846,9 +2907,14 @@
                         </span>
                       </td>
                       <td style="text-align: center;">
-                        <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(v.sku)}" style="padding: 0.15rem 0.45rem; font-size: 0.7rem;" title="Abrir análise detalhada no Precificador Shopee">
-                          🔍 Detalhar
-                        </button>
+                        <div style="display: flex; gap: 3px; justify-content: center;">
+                          <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(v.sku)}" style="padding: 0.15rem 0.35rem; font-size: 0.68rem;" title="Abrir no Precificador Shopee">
+                            Shopee
+                          </button>
+                          <button class="btn btn-outline-tiktok btn-goto-tiktok" data-target-sku="${escapeHtml(v.sku)}" style="padding: 0.15rem 0.35rem; font-size: 0.68rem;" title="Abrir no Precificador TikTok Shop">
+                            TikTok
+                          </button>
+                        </div>
                       </td>
                     </tr>
                   `;
@@ -2866,9 +2932,16 @@
   function renderSkuRow(item) {
     const stockClass = getStockBadgeClass(item.estoque);
     const imgSrc = item.img || PLACEHOLDER_IMG;
+
+    // Shopee
     const cadPrice = item.preco_shopee_cad || item.preco_shopee;
     const promoPrice = item.preco_shopee_promo || item.preco_shopee;
     const descPct = item.shopee_desc_pct || 30.0;
+
+    // TikTok
+    const tikCadPrice = item.preco_tiktok_cad || item.preco_tiktok;
+    const tikPromoPrice = item.preco_tiktok_promo || item.preco_tiktok;
+    const tikDescPct = item.tiktok_desc_pct || 30.0;
 
     return `
       <tr>
@@ -2923,6 +2996,22 @@
             </div>
           </div>
         </td>
+        <td style="background-color: rgba(254, 44, 85, 0.04);">
+          <div style="display: flex; flex-direction: column; gap: 2px;">
+            <div style="font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
+              <span style="font-weight: 500;">Cad:</span>
+              <span style="font-weight: 600; text-decoration: line-through; color: var(--text-secondary);">${fmtCurrency.format(tikCadPrice)}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 4px;">
+              <strong style="color: #fe2c55; font-size: 0.88rem; background: rgba(254, 44, 85, 0.12); padding: 2px 6px; border-radius: 4px;">
+                ${fmtCurrency.format(tikPromoPrice)}
+              </strong>
+              <span style="background: #fe2c55; color: white; font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px;">
+                -${tikDescPct.toFixed(0)}%
+              </span>
+            </div>
+          </div>
+        </td>
         <td>
           <div class="stock-badge ${stockClass}">
             <span class="stock-dot"></span>
@@ -2936,9 +3025,14 @@
           <span class="margin-pill">${item.margem_pct.toFixed(1)}%</span>
         </td>
         <td style="text-align: center;">
-          <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(item.sku)}" style="padding: 0.25rem 0.6rem; font-size: 0.75rem;" title="Abrir análise detalhada no Precificador Shopee">
-            🔍 Detalhar
-          </button>
+          <div style="display: flex; gap: 4px; justify-content: center;">
+            <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(item.sku)}" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" title="Abrir análise detalhada no Precificador Shopee">
+              Shopee
+            </button>
+            <button class="btn btn-outline-tiktok btn-goto-tiktok" data-target-sku="${escapeHtml(item.sku)}" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" title="Abrir análise detalhada no Precificador TikTok Shop">
+              TikTok
+            </button>
+          </div>
         </td>
       </tr>
     `;
@@ -2980,6 +3074,7 @@
         ? (item.preco_min === item.preco_max ? fmtCurrency.format(item.preco_min) : `${fmtCurrency.format(item.preco_min)}~${fmtCurrency.format(item.preco_max)}`)
         : fmtCurrency.format(item.preco_venda);
 
+      // Shopee
       const cadMin = item.preco_shopee_cad_min || item.preco_shopee_cad || item.preco_shopee_min || 0;
       const cadMax = item.preco_shopee_cad_max || item.preco_shopee_cad || item.preco_shopee_max || 0;
       const promoMin = item.preco_shopee_promo_min || item.preco_shopee_min || item.preco_shopee || 0;
@@ -2994,6 +3089,21 @@
       const shopeePromoDisplay = isGrouped && hasMultipleCosts 
         ? `${fmtCurrency.format(promoMin)} ~ ${fmtCurrency.format(promoMax)}`
         : fmtCurrency.format(item.preco_shopee_promo || promoMin);
+
+      // TikTok
+      const tikCadMin = item.preco_tiktok_cad_min || item.preco_tiktok_cad || item.preco_tiktok_min || 0;
+      const tikCadMax = item.preco_tiktok_cad_max || item.preco_tiktok_cad || item.preco_tiktok_max || 0;
+      const tikPromoMin = item.preco_tiktok_promo_min || item.preco_tiktok_min || item.preco_tiktok || 0;
+      const tikPromoMax = item.preco_tiktok_promo_max || item.preco_tiktok_max || item.preco_tiktok || 0;
+      const tikDescPct = item.tiktok_desc_pct || 30.0;
+
+      const tiktokCadDisplay = isGrouped && hasMultipleCosts 
+        ? `${fmtCurrency.format(tikCadMin)} ~ ${fmtCurrency.format(tikCadMax)}`
+        : fmtCurrency.format(tikCadMin);
+
+      const tiktokPromoDisplay = isGrouped && hasMultipleCosts 
+        ? `${fmtCurrency.format(tikPromoMin)} ~ ${fmtCurrency.format(tikPromoMax)}`
+        : fmtCurrency.format(item.preco_tiktok_promo || tikPromoMin);
 
       cardsHtml += `
         <div class="product-card">
@@ -3062,15 +3172,34 @@
                   <span style="font-size: 0.9rem; color: #ee4d2d; font-weight: 800;">${shopeePromoDisplay}</span>
                 </div>
               </div>
+              <div class="card-metric-item" style="background: rgba(254, 44, 85, 0.08); border-radius: var(--radius-sm); padding: 5px; border: 1px solid rgba(254, 44, 85, 0.2);">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                  <span class="card-metric-label" style="color: #fe2c55; font-weight: 700;">Preços TikTok Shop</span>
+                  <span style="background: #fe2c55; color: #fff; font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px;">-${tikDescPct.toFixed(0)}% OFF</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 3px;">
+                  <span style="font-size: 0.7rem; color: var(--text-muted);">Cadastro (Âncora):</span>
+                  <span style="font-size: 0.75rem; text-decoration: line-through; color: var(--text-secondary); font-weight: 600;">${tiktokCadDisplay}</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 1px;">
+                  <span style="font-size: 0.72rem; color: #fe2c55; font-weight: 600;">Com Desconto:</span>
+                  <span style="font-size: 0.9rem; color: #fe2c55; font-weight: 800;">${tiktokPromoDisplay}</span>
+                </div>
+              </div>
               <div class="card-metric-item">
                 <span class="card-metric-label">Custo Estoque</span>
                 <span class="card-metric-val currency-total">${fmtCurrency.format(item.custo_total)}</span>
               </div>
             </div>
 
-            <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(firstSku)}" style="margin-top: 0.5rem; justify-content: center; width: 100%;">
-              🔍 Detalhar na Shopee
-            </button>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-top: 0.5rem;">
+              <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(firstSku)}" style="justify-content: center; font-size: 0.75rem; padding: 0.35rem;">
+                Shopee
+              </button>
+              <button class="btn btn-outline-tiktok btn-goto-tiktok" data-target-sku="${escapeHtml(firstSku)}" style="justify-content: center; font-size: 0.75rem; padding: 0.35rem;">
+                TikTok Shop
+              </button>
+            </div>
           </div>
         </div>
       `;
@@ -3555,7 +3684,7 @@
 
     elements.tableBody.querySelectorAll('tr.accordion-toggle').forEach(tr => {
       tr.addEventListener('click', (e) => {
-        if (e.target.closest('.sku-copy-btn') || e.target.closest('.product-thumb') || e.target.closest('.btn-goto-shopee')) return;
+        if (e.target.closest('.sku-copy-btn') || e.target.closest('.product-thumb') || e.target.closest('.btn-goto-shopee') || e.target.closest('.btn-goto-tiktok')) return;
 
         const sku = tr.getAttribute('data-group-sku');
         if (state.expandedGroups.has(sku)) {
@@ -3597,6 +3726,17 @@
         showToast(`Produto ${sku} aberto no Precificador Shopee!`, 'info');
       });
     });
+
+    elements.tableBody.querySelectorAll('.btn-goto-tiktok').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sku = btn.getAttribute('data-target-sku');
+        switchTab('tiktok');
+        selectTikTokProduct(sku);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast(`Produto ${sku} aberto no Precificador TikTok Shop!`, 'info');
+      });
+    });
   }
 
   function attachCardEvents() {
@@ -3627,6 +3767,17 @@
         selectShopeeProduct(sku);
         window.scrollTo({ top: 0, behavior: 'smooth' });
         showToast(`Produto ${sku} aberto no Precificador Shopee!`, 'info');
+      });
+    });
+
+    elements.cardsContainer.querySelectorAll('.btn-goto-tiktok').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sku = btn.getAttribute('data-target-sku');
+        switchTab('tiktok');
+        selectTikTokProduct(sku);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast(`Produto ${sku} aberto no Precificador TikTok Shop!`, 'info');
       });
     });
   }
@@ -3917,7 +4068,13 @@
     let rowsData = [];
 
     if (isGrouped) {
-      headers = ['SKU Pai', 'Produto', 'Categoria', 'Grades', 'Custo Min', 'Custo Max', 'Preço Venda Min', 'Preço Venda Max', 'Estoque Total', 'Custo Total em Estoque', 'Margem (%)', 'Status'];
+      headers = [
+        'SKU Pai', 'Produto', 'Categoria', 'Grades', 
+        'Custo Min', 'Custo Max', 'Preço Venda Min', 'Preço Venda Max', 
+        'Preço Shopee Cad (Min/Max)', 'Preço Shopee Promo (Min/Max)',
+        'Preço TikTok Cad (Min/Max)', 'Preço TikTok Promo (Min/Max)',
+        'Estoque Total', 'Custo Total em Estoque', 'Margem (%)', 'Status'
+      ];
       rowsData = state.filteredItems.map(p => [
         p.sku,
         `"${(p.nome || '').replace(/"/g, '""')}"`,
@@ -3927,13 +4084,23 @@
         p.custo_max.toFixed(2),
         p.preco_min.toFixed(2),
         p.preco_max.toFixed(2),
+        `${(p.preco_shopee_cad_min || 0).toFixed(2)} - ${(p.preco_shopee_cad_max || 0).toFixed(2)}`,
+        `${(p.preco_shopee_promo_min || 0).toFixed(2)} - ${(p.preco_shopee_promo_max || 0).toFixed(2)}`,
+        `${(p.preco_tiktok_cad_min || 0).toFixed(2)} - ${(p.preco_tiktok_cad_max || 0).toFixed(2)}`,
+        `${(p.preco_tiktok_promo_min || 0).toFixed(2)} - ${(p.preco_tiktok_promo_max || 0).toFixed(2)}`,
         p.estoque_total,
         p.custo_total.toFixed(2),
         p.margem_pct.toFixed(1),
         p.ativo === 'S' ? 'Ativo' : 'Inativo'
       ]);
     } else {
-      headers = ['SKU', 'SKU Pai', 'Produto', 'Variação / Tamanho', 'Categoria', 'Preço Custo', 'Preço Cheio', 'Preço Promo', 'Preço Venda', 'Estoque', 'Custo Total Estoque', 'Venda Total Estoque', 'Margem (%)', 'Status'];
+      headers = [
+        'SKU', 'SKU Pai', 'Produto', 'Variação / Tamanho', 'Categoria', 
+        'Preço Custo', 'Preço Cheio', 'Preço Promo', 'Preço Venda', 
+        'Preço Shopee Cad', 'Preço Shopee Promo',
+        'Preço TikTok Cad', 'Preço TikTok Promo',
+        'Estoque', 'Custo Total Estoque', 'Venda Total Estoque', 'Margem (%)', 'Status'
+      ];
       rowsData = state.filteredItems.map(it => [
         it.sku,
         it.sku_pai || '',
@@ -3944,6 +4111,10 @@
         it.preco_cheio.toFixed(2),
         it.preco_promo.toFixed(2),
         it.preco_venda.toFixed(2),
+        (it.preco_shopee_cad || 0).toFixed(2),
+        (it.preco_shopee_promo || 0).toFixed(2),
+        (it.preco_tiktok_cad || 0).toFixed(2),
+        (it.preco_tiktok_promo || 0).toFixed(2),
         it.estoque,
         it.custo_total.toFixed(2),
         it.venda_total.toFixed(2),
