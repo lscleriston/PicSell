@@ -65,6 +65,29 @@
       }
     },
 
+    // Parâmetros do TikTok Shop Brasil 2026
+    tiktok: {
+      marginPct: 20.0,        // Margem de lucro desejada (Padrão 20%)
+      packagingCost: 1.50,    // Custo de embalagem (Padrão R$ 1,50)
+      sellerRegime: 'standard', // 'standard' | 'new_seller'
+      taxPct: 0.0,            // Alíquota de imposto (Padrão 0.0%)
+      rounding: 'none',       // 'none' | '90' | '99'
+      discountPromoPct: 30.0, // Desconto planejado na promoção do TikTok Shop (Padrão 30%)
+      selectedProductSku: null,
+      manualPrice: null,
+      tableSearch: '',
+      tableStockFilter: 'in_stock',
+      currentPage: 1,
+      pageSize: 25,
+
+      // Parâmetros de Criadores / Afiliados
+      affiliate: {
+        testedPct: 5.0,       // Comissão de criador testada (Padrão 5%)
+        minMarginPct: 10.0,   // Piso mínimo de margem que o vendedor aceita (Padrão 10%)
+        mode: 'absorb'        // 'absorb' (da margem) ou 'repass' (no preço)
+      }
+    },
+
     // Auditoria Shopee Real (184 itens reais)
     audit: {
       discountPct: 20.0,
@@ -82,11 +105,13 @@
     // Abas de navegação
     navBtnCatalog: document.getElementById('nav-btn-catalog'),
     navBtnShopee: document.getElementById('nav-btn-shopee'),
+    navBtnTiktok: document.getElementById('nav-btn-tiktok'),
     navBtnAudit: document.getElementById('nav-btn-audit'),
     navCatalogBadge: document.getElementById('nav-catalog-badge'),
     navAuditBadge: document.getElementById('nav-audit-badge'),
     viewCatalog: document.getElementById('view-catalog'),
     viewShopee: document.getElementById('view-shopee'),
+    viewTiktok: document.getElementById('view-tiktok'),
     viewAudit: document.getElementById('view-audit'),
 
     // Auditoria Shopee Real
@@ -228,6 +253,90 @@
     shopeePaginationInfo: document.getElementById('shopee-pagination-info'),
     shopeePaginationPages: document.getElementById('shopee-pagination-pages'),
 
+    // Precificador TikTok Shop
+    tiktokCfgMargin: document.getElementById('tiktok-cfg-margin'),
+    tiktokCfgPack: document.getElementById('tiktok-cfg-pack'),
+    tiktokCfgPromoDiscount: document.getElementById('tiktok-cfg-promo-discount'),
+    tiktokCfgNewSeller: document.getElementById('tiktok-cfg-new-seller'),
+    tiktokCfgTax: document.getElementById('tiktok-cfg-tax'),
+    tiktokCfgRounding: document.getElementById('tiktok-cfg-rounding'),
+    tiktokRulesToggle: document.getElementById('tiktok-rules-toggle'),
+    tiktokRulesContent: document.getElementById('tiktok-rules-content'),
+    tiktokRulesChevron: document.getElementById('tiktok-rules-chevron'),
+    btnExportTiktok: document.getElementById('btn-export-tiktok'),
+
+    // Simulador Individual TikTok Shop
+    tiktokSimProductSearch: document.getElementById('tiktok-sim-product-search'),
+    tiktokSimSearchClear: document.getElementById('tiktok-sim-search-clear'),
+    tiktokSimAutocompleteList: document.getElementById('tiktok-sim-autocomplete-list'),
+    tiktokSimProductPreview: document.getElementById('tiktok-sim-product-preview'),
+    tiktokSimProductImg: document.getElementById('tiktok-sim-product-img'),
+    tiktokSimProductName: document.getElementById('tiktok-sim-product-name'),
+    tiktokSimProductCat: document.getElementById('tiktok-sim-product-cat'),
+    tiktokSimProductStorePrice: document.getElementById('tiktok-sim-product-store-price'),
+    tiktokSimProductShopeePrice: document.getElementById('tiktok-sim-product-shopee-price'),
+    tiktokSimCostInput: document.getElementById('tiktok-sim-cost-input'),
+    tiktokSimPackInput: document.getElementById('tiktok-sim-pack-input'),
+    tiktokSimPromoDiscountInput: document.getElementById('tiktok-sim-promo-discount-input'),
+    tiktokSimDiscountPills: document.querySelectorAll('.tiktok-sim-discount-pill'),
+    tiktokSimManualPrice: document.getElementById('tiktok-sim-manual-price'),
+    tiktokSimDisplayCadPrice: document.getElementById('tiktok-sim-display-cad-price'),
+    tiktokSimDisplayCadSub: document.getElementById('tiktok-sim-display-cad-sub'),
+    tiktokSimDisplayPromoPrice: document.getElementById('tiktok-sim-display-promo-price'),
+    tiktokSimDisplayPromoBadge: document.getElementById('tiktok-sim-display-promo-badge'),
+    tiktokSimDisplayTier: document.getElementById('tiktok-sim-display-tier'),
+    tiktokSimComparisonBadge: document.getElementById('tiktok-sim-comparison-badge'),
+    tiktokSimVsShopeeBadge: document.getElementById('tiktok-sim-vs-shopee-badge'),
+
+    // DRE TikTok Shop
+    tiktokDreCadVal: document.getElementById('tiktok-dre-cad-val'),
+    tiktokDrePromoDiscountRow: document.getElementById('tiktok-dre-promo-discount-row'),
+    tiktokDrePromoDiscountPct: document.getElementById('tiktok-dre-promo-discount-pct'),
+    tiktokDrePromoDiscountVal: document.getElementById('tiktok-dre-promo-discount-val'),
+    tiktokDreVenda: document.getElementById('tiktok-dre-venda'),
+    tiktokDrePct: document.getElementById('tiktok-dre-pct'),
+    tiktokDrePctVal: document.getElementById('tiktok-dre-pct-val'),
+    tiktokDreFixVal: document.getElementById('tiktok-dre-fix-val'),
+    tiktokDrePackVal: document.getElementById('tiktok-dre-pack-val'),
+    tiktokDreCostVal: document.getElementById('tiktok-dre-cost-val'),
+    tiktokDreTaxRow: document.getElementById('tiktok-dre-tax-row'),
+    tiktokDreTaxPct: document.getElementById('tiktok-dre-tax-pct'),
+    tiktokDreTaxVal: document.getElementById('tiktok-dre-tax-val'),
+    tiktokDreRepasse: document.getElementById('tiktok-dre-repasse'),
+    tiktokDreLucro: document.getElementById('tiktok-dre-lucro'),
+
+    // Barra de Composição TikTok
+    tiktokBarCost: document.getElementById('tiktok-bar-cost'),
+    tiktokBarPack: document.getElementById('tiktok-bar-pack'),
+    tiktokBarFee: document.getElementById('tiktok-bar-fee'),
+    tiktokBarTax: document.getElementById('tiktok-bar-tax'),
+    tiktokBarProfit: document.getElementById('tiktok-bar-profit'),
+    tiktokBreakdownSummary: document.getElementById('tiktok-breakdown-summary'),
+
+    // Simulador Criadores TikTok
+    tiktokAffModeAbsorb: document.getElementById('tiktok-aff-mode-absorb'),
+    tiktokAffModeRepass: document.getElementById('tiktok-aff-mode-repass'),
+    tiktokAffTestedPct: document.getElementById('tiktok-aff-tested-pct'),
+    tiktokAffTestedValLabel: document.getElementById('tiktok-aff-tested-val-label'),
+    tiktokAffMinMargin: document.getElementById('tiktok-aff-min-margin'),
+    tiktokAffQuickPctBtns: document.querySelectorAll('.tiktok-quick-pct-btn'),
+    tiktokAffKpiMaxPct: document.getElementById('tiktok-aff-kpi-max-pct'),
+    tiktokAffKpiMaxVal: document.getElementById('tiktok-aff-kpi-max-val'),
+    tiktokAffKpiAffVal: document.getElementById('tiktok-aff-kpi-aff-val'),
+    tiktokAffKpiAffSub: document.getElementById('tiktok-aff-kpi-aff-sub'),
+    tiktokAffKpiStatusPill: document.getElementById('tiktok-aff-kpi-status-pill'),
+    tiktokAffKpiStatusSub: document.getElementById('tiktok-aff-kpi-status-sub'),
+
+    // Tabela em Massa TikTok
+    tiktokMassCount: document.getElementById('tiktok-mass-count'),
+    tiktokMassMarginLabel: document.getElementById('tiktok-mass-margin-label'),
+    tiktokMassPackLabel: document.getElementById('tiktok-mass-pack-label'),
+    tiktokTableSearch: document.getElementById('tiktok-table-search'),
+    tiktokTableStockFilter: document.getElementById('tiktok-table-stock-filter'),
+    tiktokTableBody: document.getElementById('tiktok-table-body'),
+    tiktokPaginationInfo: document.getElementById('tiktok-pagination-info'),
+    tiktokPaginationPages: document.getElementById('tiktok-pagination-pages'),
+
     // Modais e Utilitários
     lightboxModal: document.getElementById('lightbox-modal'),
     lightboxImg: document.getElementById('lightbox-img'),
@@ -249,8 +358,10 @@
     setupEventListeners();
     setupShopeeEventListeners();
     setupAffiliateEventListeners();
+    setupTikTokEventListeners();
     setupShopeeAuditEventListeners();
     initShopeeSimulator();
+    initTikTokSimulator();
   }
 
   function initTheme() {
@@ -291,6 +402,7 @@
     populateCategories();
     populateShopeeProductsSelect();
     computeCatalogShopeePrices();
+    computeCatalogTikTokPrices();
 
     if (elements.activeFilename) {
       elements.activeFilename.textContent = state.data.kpis?.arquivo_origem || 'Planilha Carregada';
@@ -306,6 +418,7 @@
 
     applyFilters();
     renderShopeeTable();
+    renderTikTokTable();
   }
 
   function applyPriceRounding(price, rounding) {
@@ -403,10 +516,12 @@
 
     elements.navBtnCatalog.classList.remove('active');
     elements.navBtnShopee.classList.remove('active', 'active-shopee');
+    if (elements.navBtnTiktok) elements.navBtnTiktok.classList.remove('active', 'active-tiktok');
     if (elements.navBtnAudit) elements.navBtnAudit.classList.remove('active', 'active-audit');
 
     elements.viewCatalog.style.display = 'none';
     elements.viewShopee.style.display = 'none';
+    if (elements.viewTiktok) elements.viewTiktok.style.display = 'none';
     if (elements.viewAudit) elements.viewAudit.style.display = 'none';
 
     if (tabName === 'catalog') {
@@ -417,6 +532,11 @@
       elements.viewShopee.style.display = 'block';
       updateShopeeSimulator();
       renderShopeeTable();
+    } else if (tabName === 'tiktok') {
+      if (elements.navBtnTiktok) elements.navBtnTiktok.classList.add('active', 'active-tiktok');
+      if (elements.viewTiktok) elements.viewTiktok.style.display = 'block';
+      updateTikTokSimulator();
+      renderTikTokTable();
     } else if (tabName === 'audit') {
       if (elements.navBtnAudit) elements.navBtnAudit.classList.add('active', 'active-audit');
       if (elements.viewAudit) elements.viewAudit.style.display = 'block';
@@ -1272,6 +1392,985 @@
     document.body.removeChild(link);
 
     showToast('Tabela Shopee & Afiliados exportada com sucesso!', 'success');
+  }
+
+  // =========================================================================
+  // MOTOR DE CÁLCULO TIKTOK SHOP BRASIL 2026
+  // =========================================================================
+  function calcTikTokPrice(cost, packaging, marginPct, taxPct, sellerRegime, rounding, extraAffiliatePct = 0) {
+    const directCost = cost + packaging;
+    const m = marginPct / 100.0;
+    const t = taxPct / 100.0;
+    const aff = extraAffiliatePct / 100.0;
+    const isNewSeller = sellerRegime === 'new_seller';
+
+    let finalPrice = 0;
+    let tierName = '';
+
+    // Faixa 1: Sub R$ 50,00 -> 10% (0% novo vendedor) + R$ 4,00
+    const feePct1 = isNewSeller ? 0.0 : 0.10;
+    const denom1 = 1.0 - (feePct1 + t + m + aff);
+    if (denom1 > 0) {
+      const p1 = (directCost + 4.00) / denom1;
+      if (p1 < 50.00) {
+        finalPrice = p1;
+        tierName = isNewSeller ? 'Sub R$ 50 (Novo Vendedor): 0% + R$ 4,00' : 'Sub R$ 50: 10% + R$ 4,00';
+      }
+    }
+
+    // Faixa 2: A partir de R$ 50,00 -> 6% (0% novo vendedor) + R$ 6,00
+    if (!finalPrice) {
+      const feePct2 = isNewSeller ? 0.0 : 0.06;
+      const denom2 = 1.0 - (feePct2 + t + m + aff);
+      if (denom2 > 0) {
+        const p2 = (directCost + 6.00) / denom2;
+        finalPrice = p2;
+        tierName = isNewSeller ? 'A partir de R$ 50 (Novo Vendedor): 0% + R$ 6,00' : 'A partir de R$ 50: 6% + R$ 6,00';
+      }
+    }
+
+    if (!finalPrice || finalPrice < 0) {
+      finalPrice = directCost * 1.8;
+      tierName = 'Estimativa de Segurança';
+    }
+
+    let displayPrice = applyPriceRounding(finalPrice, rounding);
+    return getTikTokFinancialBreakdown(displayPrice, cost, packaging, taxPct, sellerRegime, tierName, extraAffiliatePct);
+  }
+
+  function getTikTokFinancialBreakdown(salePrice, cost, packaging, taxPct, sellerRegime, optionalTierName, affiliatePct = 0) {
+    const isNewSeller = sellerRegime === 'new_seller';
+    let feePct = 0.10;
+    let feeFixed = 4.00;
+    let tierName = optionalTierName;
+
+    if (salePrice < 50.00) {
+      feePct = isNewSeller ? 0.0 : 0.10;
+      feeFixed = 4.00;
+      if (!tierName) tierName = isNewSeller ? 'Sub R$ 50 (Novo Vendedor): 0% + R$ 4,00' : 'Sub R$ 50: 10% + R$ 4,00';
+    } else {
+      feePct = isNewSeller ? 0.0 : 0.06;
+      feeFixed = 6.00;
+      if (!tierName) tierName = isNewSeller ? 'A partir de R$ 50 (Novo Vendedor): 0% + R$ 6,00' : 'A partir de R$ 50: 6% + R$ 6,00';
+    }
+
+    const tiktokPctVal = salePrice * feePct;
+    const tiktokTotalFee = tiktokPctVal + feeFixed;
+    const taxVal = salePrice * (taxPct / 100.0);
+    const affiliateVal = salePrice * (affiliatePct / 100.0);
+    const repasseTikTok = salePrice - tiktokTotalFee;
+    const lucroLiquido = repasseTikTok - packaging - cost - taxVal - affiliateVal;
+    const margemRealPct = salePrice > 0 ? (lucroLiquido / salePrice * 100.0) : 0.0;
+    const totalCustos = cost + packaging;
+    const markupRealPct = totalCustos > 0 ? (lucroLiquido / totalCustos * 100.0) : 0.0;
+
+    return {
+      precoVenda: salePrice,
+      custoProduto: cost,
+      custoEmbalagem: packaging,
+      taxaPercentualPct: feePct * 100.0,
+      taxaPercentualVal: tiktokPctVal,
+      taxaFixaVal: feeFixed,
+      taxaTikTokTotal: tiktokTotalFee,
+      impostoPct: taxPct,
+      impostoVal: taxVal,
+      affiliatePct: affiliatePct,
+      affiliateVal: affiliateVal,
+      repasseTikTok: repasseTikTok,
+      lucroLiquido: lucroLiquido,
+      margemRealPct: margemRealPct,
+      markupRealPct: markupRealPct,
+      tierName: tierName
+    };
+  }
+
+  function calcTikTokPricingPair(cost, packaging, marginPct, taxPct, sellerRegime, rounding, discountPromoPct = 30.0, extraAffiliatePct = 0) {
+    const promoBreakdown = calcTikTokPrice(cost, packaging, marginPct, taxPct, sellerRegime, rounding, extraAffiliatePct);
+    const precoComDesconto = promoBreakdown.precoVenda;
+
+    let precoCadastro = precoComDesconto;
+    let descontoReais = 0;
+    let descontoEfetivoPct = 0;
+
+    const disc = parseFloat(discountPromoPct);
+    if (!isNaN(disc) && disc > 0 && disc < 100) {
+      const rawCad = precoComDesconto / (1.0 - (disc / 100.0));
+      precoCadastro = applyPriceRounding(rawCad, rounding);
+      descontoReais = Math.max(0, precoCadastro - precoComDesconto);
+      descontoEfetivoPct = precoCadastro > 0 ? (descontoReais / precoCadastro * 100.0) : 0;
+    }
+
+    return {
+      precoCadastro,
+      precoComDesconto,
+      descontoReais,
+      descontoEfetivoPct,
+      discountPromoPct: disc || 0,
+      breakdown: promoBreakdown
+    };
+  }
+
+  function computeCatalogTikTokPrices() {
+    if (!state.data) return;
+    const packaging = parseFloat(elements.tiktokCfgPack?.value) || state.tiktok?.packagingCost || 1.50;
+    const margin = parseFloat(elements.tiktokCfgMargin?.value) || state.tiktok?.marginPct || 20.0;
+    const tax = parseFloat(elements.tiktokCfgTax?.value) || state.tiktok?.taxPct || 0.0;
+    const sellerRegime = elements.tiktokCfgNewSeller?.value || state.tiktok?.sellerRegime || 'standard';
+    const rounding = elements.tiktokCfgRounding?.value || state.tiktok?.rounding || 'none';
+    const discountPromo = parseFloat(elements.tiktokCfgPromoDiscount?.value) || state.tiktok?.discountPromoPct || 30.0;
+
+    if (state.data.itens_detalhados) {
+      state.data.itens_detalhados.forEach(it => {
+        const pair = calcTikTokPricingPair(it.custo, packaging, margin, tax, sellerRegime, rounding, discountPromo);
+        it.preco_tiktok_cad = pair.precoCadastro;
+        it.preco_tiktok_promo = pair.precoComDesconto;
+        it.preco_tiktok = pair.precoComDesconto;
+        it.tiktok_desc_pct = pair.descontoEfetivoPct;
+      });
+    }
+
+    if (state.data.produtos_agrupados) {
+      state.data.produtos_agrupados.forEach(grp => {
+        const pairMin = calcTikTokPricingPair(grp.custo_min, packaging, margin, tax, sellerRegime, rounding, discountPromo);
+        const pairMax = calcTikTokPricingPair(grp.custo_max, packaging, margin, tax, sellerRegime, rounding, discountPromo);
+        grp.preco_tiktok_cad_min = pairMin.precoCadastro;
+        grp.preco_tiktok_cad_max = pairMax.precoCadastro;
+        grp.preco_tiktok_promo_min = pairMin.precoComDesconto;
+        grp.preco_tiktok_promo_max = pairMax.precoComDesconto;
+        grp.preco_tiktok_min = pairMin.precoComDesconto;
+        grp.preco_tiktok_max = pairMax.precoComDesconto;
+        grp.preco_tiktok = pairMin.precoComDesconto;
+        grp.preco_tiktok_cad = pairMin.precoCadastro;
+        grp.tiktok_desc_pct = pairMin.descontoEfetivoPct;
+
+        if (grp.variacoes) {
+          grp.variacoes.forEach(v => {
+            const vPair = calcTikTokPricingPair(v.custo, packaging, margin, tax, sellerRegime, rounding, discountPromo);
+            v.preco_tiktok_cad = vPair.precoCadastro;
+            v.preco_tiktok_promo = vPair.precoComDesconto;
+            v.preco_tiktok = vPair.precoComDesconto;
+            v.tiktok_desc_pct = vPair.descontoEfetivoPct;
+          });
+        }
+      });
+    }
+  }
+
+  // =========================================================================
+  // SIMULADOR INDIVIDUAL TIKTOK SHOP
+  // =========================================================================
+  function initTikTokSimulator() {
+    if (state.data?.itens_detalhados && state.data.itens_detalhados.length > 0) {
+      const firstWithStock = state.data.itens_detalhados.find(it => it.estoque > 0 && it.custo > 0) || state.data.itens_detalhados[0];
+      selectTikTokProduct(firstWithStock.sku);
+    } else {
+      updateTikTokSimulator();
+    }
+  }
+
+  function selectTikTokProduct(sku) {
+    if (!state.data?.itens_detalhados) return;
+    const product = state.data.itens_detalhados.find(p => p.sku === sku);
+    if (!product) return;
+
+    state.tiktok.selectedProductSku = sku;
+
+    if (elements.tiktokSimProductSearch) {
+      elements.tiktokSimProductSearch.value = `${product.nome} [${product.variacao || 'Padrão'}] (SKU: ${product.sku})`;
+    }
+    if (elements.tiktokSimSearchClear) {
+      elements.tiktokSimSearchClear.style.display = 'block';
+    }
+    if (elements.tiktokSimAutocompleteList) {
+      elements.tiktokSimAutocompleteList.style.display = 'none';
+    }
+
+    if (elements.tiktokSimProductPreview) {
+      elements.tiktokSimProductPreview.style.display = 'flex';
+      elements.tiktokSimProductImg.src = product.img || PLACEHOLDER_IMG;
+      elements.tiktokSimProductName.textContent = `${product.nome} (${product.variacao})`;
+      elements.tiktokSimProductCat.textContent = `SKU: ${product.sku} | Categoria: ${product.categoria}`;
+      elements.tiktokSimProductStorePrice.textContent = `Loja Integrada: ${fmtCurrency.format(product.preco_venda)}`;
+      if (elements.tiktokSimProductShopeePrice) {
+        const shopeePair = calcShopeePricingPair(product.custo, 1.50, 20.0, 0.0, 'cnpj', 'none', 30.0);
+        elements.tiktokSimProductShopeePrice.textContent = `Shopee (Promo): ${fmtCurrency.format(shopeePair.precoComDesconto)}`;
+      }
+    }
+
+    if (elements.tiktokSimCostInput) {
+      elements.tiktokSimCostInput.value = product.custo.toFixed(2);
+    }
+
+    if (elements.tiktokSimManualPrice) {
+      elements.tiktokSimManualPrice.value = '';
+    }
+
+    updateTikTokSimulator();
+  }
+
+  function updateTikTokSimulator() {
+    const cost = parseFloat(elements.tiktokSimCostInput?.value) || 0;
+    const packaging = parseFloat(elements.tiktokCfgPack?.value) || 1.50;
+    const marginPct = parseFloat(elements.tiktokCfgMargin?.value) || 20.0;
+    const taxPct = parseFloat(elements.tiktokCfgTax?.value) || 0.0;
+    const sellerRegime = elements.tiktokCfgNewSeller?.value || 'standard';
+    const rounding = elements.tiktokCfgRounding?.value || 'none';
+    const discountPromo = parseFloat(elements.tiktokSimPromoDiscountInput?.value) ?? (parseFloat(elements.tiktokCfgPromoDiscount?.value) || 30.0);
+
+    if (elements.tiktokSimPackInput) elements.tiktokSimPackInput.value = packaging.toFixed(2);
+    if (elements.tiktokMassMarginLabel) elements.tiktokMassMarginLabel.textContent = `${marginPct}%`;
+    if (elements.tiktokMassPackLabel) elements.tiktokMassPackLabel.textContent = fmtCurrency.format(packaging);
+
+    const manualPriceVal = parseFloat(elements.tiktokSimManualPrice?.value);
+    let baseResult;
+    let pricingPair;
+
+    if (manualPriceVal && manualPriceVal > 0) {
+      baseResult = getTikTokFinancialBreakdown(manualPriceVal, cost, packaging, taxPct, sellerRegime);
+      const rawCad = discountPromo > 0 ? manualPriceVal / (1.0 - (discountPromo / 100.0)) : manualPriceVal;
+      const precoCadastro = applyPriceRounding(rawCad, rounding);
+      const descReais = Math.max(0, precoCadastro - manualPriceVal);
+      const descEff = precoCadastro > 0 ? (descReais / precoCadastro * 100.0) : 0;
+      pricingPair = {
+        precoCadastro,
+        precoComDesconto: manualPriceVal,
+        descontoReais: descReais,
+        descontoEfetivoPct: descEff,
+        discountPromoPct: discountPromo,
+        breakdown: baseResult
+      };
+    } else {
+      pricingPair = calcTikTokPricingPair(cost, packaging, marginPct, taxPct, sellerRegime, rounding, discountPromo);
+      baseResult = pricingPair.breakdown;
+    }
+
+    renderTikTokSimulatorResults(baseResult, pricingPair);
+    updateTikTokAffiliateSimulation(baseResult, cost, packaging, marginPct, taxPct, sellerRegime, rounding);
+  }
+
+  function renderTikTokSimulatorResults(res, pair) {
+    if (elements.tiktokSimDisplayCadPrice) elements.tiktokSimDisplayCadPrice.textContent = fmtCurrency.format(pair ? pair.precoCadastro : res.precoVenda);
+    if (elements.tiktokSimDisplayPromoPrice) elements.tiktokSimDisplayPromoPrice.textContent = fmtCurrency.format(pair ? pair.precoComDesconto : res.precoVenda);
+    if (elements.tiktokSimDisplayPromoBadge) {
+      const disc = pair ? pair.descontoEfetivoPct : 30;
+      elements.tiktokSimDisplayPromoBadge.textContent = `2. Preço c/ Desconto (-${disc.toFixed(0)}%)`;
+    }
+    if (elements.tiktokSimDisplayTier) elements.tiktokSimDisplayTier.textContent = `Regra TikTok: ${res.tierName}`;
+
+    // Comparativo com a Loja Integrada e Shopee
+    if (state.tiktok.selectedProductSku && state.data?.itens_detalhados) {
+      const prod = state.data.itens_detalhados.find(p => p.sku === state.tiktok.selectedProductSku);
+      const salePrice = pair ? pair.precoComDesconto : res.precoVenda;
+
+      if (prod && prod.preco_venda > 0 && elements.tiktokSimComparisonBadge) {
+        const diff = salePrice - prod.preco_venda;
+        const diffPct = (diff / prod.preco_venda) * 100;
+        const diffSign = diff >= 0 ? '+' : '';
+        const colorClass = diff >= 0 ? '#10b981' : '#f59e0b';
+        elements.tiktokSimComparisonBadge.innerHTML = `
+          <span style="font-size: 0.75rem; font-weight: 600; color: ${colorClass}; background: var(--bg-surface); padding: 3px 10px; border-radius: var(--radius-full); border: 1px solid var(--border-subtle);">
+            Loja Própria: ${fmtCurrency.format(prod.preco_venda)} (${diffSign}${fmtCurrency.format(diff)} / ${diffSign}${diffPct.toFixed(1)}%)
+          </span>
+        `;
+      } else if (elements.tiktokSimComparisonBadge) {
+        elements.tiktokSimComparisonBadge.innerHTML = '';
+      }
+
+      if (prod && elements.tiktokSimVsShopeeBadge) {
+        const shopeePair = calcShopeePricingPair(prod.custo, 1.50, 20.0, 0.0, 'cnpj', 'none', 30.0);
+        const shopeePrice = shopeePair.precoComDesconto;
+        const diffShopee = salePrice - shopeePrice;
+        const diffShopeePct = shopeePrice > 0 ? (diffShopee / shopeePrice * 100) : 0;
+        const isCheaper = diffShopee < 0;
+        const shopeeColor = isCheaper ? '#10b981' : '#ee4d2d';
+        const label = isCheaper 
+          ? `🔥 TikTok ${fmtCurrency.format(Math.abs(diffShopee))} mais barato que Shopee (${Math.abs(diffShopeePct).toFixed(1)}% menor)!`
+          : `Shopee: ${fmtCurrency.format(shopeePrice)}`;
+
+        elements.tiktokSimVsShopeeBadge.innerHTML = `
+          <span class="tiktok-vs-shopee-badge" style="font-size: 0.75rem; font-weight: 700; color: ${shopeeColor}; background: var(--bg-surface); padding: 3px 10px; border-radius: var(--radius-full); border: 1px solid var(--border-subtle);">
+            ${label}
+          </span>
+        `;
+      } else if (elements.tiktokSimVsShopeeBadge) {
+        elements.tiktokSimVsShopeeBadge.innerHTML = '';
+      }
+    } else {
+      if (elements.tiktokSimComparisonBadge) elements.tiktokSimComparisonBadge.innerHTML = '';
+      if (elements.tiktokSimVsShopeeBadge) elements.tiktokSimVsShopeeBadge.innerHTML = '';
+    }
+
+    // DRE TikTok
+    if (elements.tiktokDreCadVal) elements.tiktokDreCadVal.textContent = fmtCurrency.format(pair ? pair.precoCadastro : res.precoVenda);
+    if (elements.tiktokDrePromoDiscountRow) {
+      if (pair && pair.descontoReais > 0) {
+        elements.tiktokDrePromoDiscountRow.style.display = 'flex';
+        if (elements.tiktokDrePromoDiscountPct) elements.tiktokDrePromoDiscountPct.textContent = `${pair.descontoEfetivoPct.toFixed(1)}%`;
+        if (elements.tiktokDrePromoDiscountVal) elements.tiktokDrePromoDiscountVal.textContent = `-${fmtCurrency.format(pair.descontoReais)}`;
+      } else {
+        elements.tiktokDrePromoDiscountRow.style.display = 'none';
+      }
+    }
+
+    if (elements.tiktokDreVenda) elements.tiktokDreVenda.textContent = fmtCurrency.format(res.precoVenda);
+    if (elements.tiktokDrePct) elements.tiktokDrePct.textContent = `${res.taxaPercentualPct.toFixed(0)}%`;
+    if (elements.tiktokDrePctVal) elements.tiktokDrePctVal.textContent = `-${fmtCurrency.format(res.taxaPercentualVal)}`;
+    if (elements.tiktokDreFixVal) elements.tiktokDreFixVal.textContent = `-${fmtCurrency.format(res.taxaFixaVal)}`;
+    if (elements.tiktokDrePackVal) elements.tiktokDrePackVal.textContent = `-${fmtCurrency.format(res.custoEmbalagem)}`;
+    if (elements.tiktokDreCostVal) elements.tiktokDreCostVal.textContent = `-${fmtCurrency.format(res.custoProduto)}`;
+
+    if (elements.tiktokDreTaxRow) {
+      if (res.impostoPct > 0) {
+        elements.tiktokDreTaxRow.style.display = 'flex';
+        elements.tiktokDreTaxPct.textContent = `${res.impostoPct}%`;
+        elements.tiktokDreTaxVal.textContent = `-${fmtCurrency.format(res.impostoVal)}`;
+      } else {
+        elements.tiktokDreTaxRow.style.display = 'none';
+      }
+    }
+
+    if (elements.tiktokDreRepasse) elements.tiktokDreRepasse.textContent = fmtCurrency.format(res.repasseTikTok);
+    if (elements.tiktokDreLucro) {
+      elements.tiktokDreLucro.textContent = `${fmtCurrency.format(res.lucroLiquido)} (${res.margemRealPct.toFixed(1)}%)`;
+      elements.tiktokDreLucro.style.color = res.lucroLiquido >= 0 ? 'var(--success-text)' : 'var(--danger-text)';
+    }
+
+    // Gráfico de Barras de Composição TikTok
+    if (res.precoVenda > 0) {
+      const pctCost = Math.max(0, (res.custoProduto / res.precoVenda) * 100);
+      const pctPack = Math.max(0, (res.custoEmbalagem / res.precoVenda) * 100);
+      const pctFee = Math.max(0, (res.taxaTikTokTotal / res.precoVenda) * 100);
+      const pctTax = Math.max(0, (res.impostoVal / res.precoVenda) * 100);
+      const pctProfit = Math.max(0, (res.lucroLiquido / res.precoVenda) * 100);
+
+      if (elements.tiktokBarCost) elements.tiktokBarCost.style.width = `${pctCost.toFixed(1)}%`;
+      if (elements.tiktokBarPack) elements.tiktokBarPack.style.width = `${pctPack.toFixed(1)}%`;
+      if (elements.tiktokBarFee) elements.tiktokBarFee.style.width = `${pctFee.toFixed(1)}%`;
+      if (elements.tiktokBarTax) elements.tiktokBarTax.style.width = `${pctTax.toFixed(1)}%`;
+      if (elements.tiktokBarProfit) elements.tiktokBarProfit.style.width = `${pctProfit.toFixed(1)}%`;
+
+      if (elements.tiktokBreakdownSummary) {
+        elements.tiktokBreakdownSummary.textContent = `Taxas TikTok: ${pctFee.toFixed(1)}% | Custos: ${(pctCost + pctPack).toFixed(1)}% | Lucro: ${pctProfit.toFixed(1)}%`;
+      }
+    }
+  }
+
+  function updateTikTokAffiliateSimulation(baseResult, cost, packaging, marginPct, taxPct, sellerRegime, rounding) {
+    const testedPct = state.tiktok.affiliate.testedPct;
+    const minMarginPct = state.tiktok.affiliate.minMarginPct;
+    const mode = state.tiktok.affiliate.mode;
+
+    const maxViablePct = Math.max(0, baseResult.margemRealPct - minMarginPct);
+    const maxViableVal = baseResult.precoVenda * (maxViablePct / 100.0);
+
+    if (elements.tiktokAffKpiMaxPct) elements.tiktokAffKpiMaxPct.textContent = `${maxViablePct.toFixed(1)}%`;
+    if (elements.tiktokAffKpiMaxVal) {
+      elements.tiktokAffKpiMaxVal.textContent = `Até ${fmtCurrency.format(maxViableVal)} por venda (Piso: ${minMarginPct.toFixed(1)}% margem)`;
+    }
+
+    let activePrice = baseResult.precoVenda;
+    let affVal = 0;
+    let profitRemaining = 0;
+    let marginRemaining = 0;
+
+    if (mode === 'absorb') {
+      activePrice = baseResult.precoVenda;
+      affVal = activePrice * (testedPct / 100.0);
+      profitRemaining = baseResult.lucroLiquido - affVal;
+      marginRemaining = activePrice > 0 ? (profitRemaining / activePrice * 100.0) : 0;
+    } else {
+      const repassCalc = calcTikTokPrice(cost, packaging, marginPct, taxPct, sellerRegime, rounding, testedPct);
+      activePrice = repassCalc.precoVenda;
+      affVal = activePrice * (testedPct / 100.0);
+      profitRemaining = repassCalc.lucroLiquido;
+      marginRemaining = repassCalc.margemRealPct;
+    }
+
+    if (elements.tiktokAffTestedValLabel) {
+      elements.tiktokAffTestedValLabel.textContent = `${fmtCurrency.format(affVal)} / venda`;
+    }
+
+    if (elements.tiktokAffKpiAffVal) elements.tiktokAffKpiAffVal.textContent = fmtCurrency.format(affVal);
+    if (elements.tiktokAffKpiAffSub) {
+      elements.tiktokAffKpiAffSub.textContent = `${testedPct.toFixed(1)}% ${mode === 'absorb' ? 'absorvido da margem' : 'repassado no preço'}`;
+    }
+
+    if (elements.tiktokAffKpiStatusPill && elements.tiktokAffKpiStatusSub) {
+      if (marginRemaining >= 15.0) {
+        elements.tiktokAffKpiStatusPill.className = 'risk-pill risk-safe';
+        elements.tiktokAffKpiStatusPill.innerHTML = '● Excelente &amp; Muito Seguro';
+        elements.tiktokAffKpiStatusSub.textContent = `Sua margem (${marginRemaining.toFixed(1)}%) é excelente para atrair criadores do TikTok.`;
+      } else if (marginRemaining >= minMarginPct) {
+        elements.tiktokAffKpiStatusPill.className = 'risk-pill risk-moderate';
+        elements.tiktokAffKpiStatusPill.innerHTML = '● Viável &amp; Dentro do Piso';
+        elements.tiktokAffKpiStatusSub.textContent = `Sua margem (${marginRemaining.toFixed(1)}%) atende ao piso seguro (${minMarginPct.toFixed(1)}%).`;
+      } else if (marginRemaining > 0) {
+        elements.tiktokAffKpiStatusPill.className = 'risk-pill risk-warning';
+        elements.tiktokAffKpiStatusPill.innerHTML = '● Alerta: Abaixo do Piso';
+        elements.tiktokAffKpiStatusSub.textContent = `Margem de ${marginRemaining.toFixed(1)}% compromete seu retorno financeiro mínimo.`;
+      } else {
+        elements.tiktokAffKpiStatusPill.className = 'risk-pill risk-danger';
+        elements.tiktokAffKpiStatusPill.innerHTML = '● Prejuízo / Inviável';
+        elements.tiktokAffKpiStatusSub.textContent = 'Essa comissão faz a operação ter prejuízo por venda!';
+      }
+    }
+  }
+
+  // =========================================================================
+  // TABELA DE PRECIFICAÇÃO EM MASSA TIKTOK SHOP
+  // =========================================================================
+  function renderTikTokTable() {
+    if (!elements.tiktokTableBody || !state.data?.itens_detalhados) return;
+
+    const list = state.data.itens_detalhados;
+    const search = state.tiktok.tableSearch.toLowerCase().trim();
+    const stockFilter = state.tiktok.tableStockFilter;
+
+    const packaging = parseFloat(elements.tiktokCfgPack?.value) || 1.50;
+    const marginPct = parseFloat(elements.tiktokCfgMargin?.value) || 20.0;
+    const taxPct = parseFloat(elements.tiktokCfgTax?.value) || 0.0;
+    const sellerRegime = elements.tiktokCfgNewSeller?.value || 'standard';
+    const rounding = elements.tiktokCfgRounding?.value || 'none';
+    const discountPromo = parseFloat(elements.tiktokCfgPromoDiscount?.value) || state.tiktok.discountPromoPct || 30.0;
+    const minMarginPct = state.tiktok.affiliate.minMarginPct;
+
+    const filtered = list.filter(item => {
+      if (search) {
+        const mNome = (item.nome || '').toLowerCase().includes(search);
+        const mSku = (item.sku || '').toLowerCase().includes(search);
+        const mVar = (item.variacao || '').toLowerCase().includes(search);
+        if (!mNome && !mSku && !mVar) return false;
+      }
+
+      if (stockFilter === 'in_stock' && item.estoque <= 0) return false;
+      if (stockFilter === 'zero' && item.estoque > 0) return false;
+
+      return true;
+    });
+
+    if (elements.tiktokMassCount) {
+      elements.tiktokMassCount.textContent = `${filtered.length} itens`;
+    }
+
+    const size = state.tiktok.pageSize;
+    const total = filtered.length;
+    const totalPages = Math.ceil(total / size) || 1;
+    const current = Math.min(state.tiktok.currentPage, totalPages);
+    const start = (current - 1) * size;
+    const pageItems = filtered.slice(start, start + size);
+
+    if (pageItems.length === 0) {
+      elements.tiktokTableBody.innerHTML = `
+        <tr>
+          <td colspan="14">
+            <div class="empty-state">
+              <div class="empty-state-icon">🔍</div>
+              <h3>Nenhum produto encontrado no TikTok Shop</h3>
+              <p>Tente ajustar a busca ou o filtro de estoque.</p>
+            </div>
+          </td>
+        </tr>
+      `;
+      if (elements.tiktokPaginationInfo) elements.tiktokPaginationInfo.textContent = 'Nenhum item';
+      if (elements.tiktokPaginationPages) elements.tiktokPaginationPages.innerHTML = '';
+      return;
+    }
+
+    let rowsHtml = '';
+
+    pageItems.forEach(item => {
+      const pair = calcTikTokPricingPair(item.custo, packaging, marginPct, taxPct, sellerRegime, rounding, discountPromo);
+      const calc = pair.breakdown;
+      const stockBadge = getStockBadgeClass(item.estoque);
+      const imgSrc = item.img || PLACEHOLDER_IMG;
+
+      const maxAffPct = Math.max(0, calc.margemRealPct - minMarginPct);
+      const maxAffVal = calc.precoVenda * (maxAffPct / 100.0);
+
+      rowsHtml += `
+        <tr>
+          <td>
+            <img src="${imgSrc}" class="product-thumb" alt="${escapeHtml(item.nome)}"
+                 onerror="this.onerror=null; this.src='${PLACEHOLDER_IMG}';"
+                 onclick="openLightbox('${escapeHtml(imgSrc)}', '${escapeHtml(item.nome)}', '${escapeHtml(item.sku)}', ${item.estoque}, ${item.custo});">
+          </td>
+          <td>
+            <div class="product-meta">
+              <span class="product-title">${escapeHtml(item.nome)}</span>
+              <span class="product-cat">${escapeHtml(item.categoria)}</span>
+            </div>
+          </td>
+          <td>
+            <span class="sku-tag">
+              ${escapeHtml(item.sku)}
+              <button class="sku-copy-btn" data-copy-sku="${escapeHtml(item.sku)}">
+                <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
+              </button>
+            </span>
+          </td>
+          <td>
+            <span class="variation-badge">${escapeHtml(item.variacao)}</span>
+          </td>
+          <td>
+            <span class="currency-cost">${fmtCurrency.format(item.custo)}</span>
+          </td>
+          <td>
+            <span class="currency-sale">${fmtCurrency.format(item.preco_venda)}</span>
+          </td>
+          <td>
+            <span style="color: #fe2c55; font-weight: 600; font-size: 0.85rem;" title="${calc.tierName}">
+              ${fmtCurrency.format(calc.taxaTikTokTotal)}
+            </span>
+          </td>
+          <td style="background-color: rgba(254, 44, 85, 0.04);">
+            <span style="font-weight: 600; color: var(--text-secondary); text-decoration: line-through;">
+              ${fmtCurrency.format(pair.precoCadastro)}
+            </span>
+          </td>
+          <td>
+            <span class="price-tiktok-cell">${fmtCurrency.format(pair.precoComDesconto)}</span>
+            <span style="background: #fe2c55; color: white; font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px; margin-left: 3px;">
+              -${pair.descontoEfetivoPct.toFixed(0)}%
+            </span>
+          </td>
+          <td>
+            <strong style="color: var(--success-text);">${fmtCurrency.format(calc.lucroLiquido)}</strong>
+          </td>
+          <td>
+            <span class="margin-pill">${calc.margemRealPct.toFixed(1)}%</span>
+          </td>
+          <td>
+            <span style="font-weight: 700; color: #fe2c55; font-size: 0.85rem;" title="Comissão máxima para manter ${minMarginPct}% de margem">
+              ${fmtCurrency.format(maxAffVal)} <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: 500;">(${maxAffPct.toFixed(0)}%)</span>
+            </span>
+          </td>
+          <td>
+            <div class="stock-badge ${stockBadge}">
+              <span class="stock-dot"></span>
+              <span>${fmtNumber.format(item.estoque)} un</span>
+            </div>
+          </td>
+          <td style="text-align: center;">
+            <button class="btn btn-outline-tiktok btn-sim-tiktok-product" data-sim-sku="${escapeHtml(item.sku)}" style="padding: 0.25rem 0.65rem; font-size: 0.75rem;" title="Carregar no simulador TikTok">
+              ⚡ Simular
+            </button>
+          </td>
+        </tr>
+      `;
+    });
+
+    elements.tiktokTableBody.innerHTML = rowsHtml;
+
+    elements.tiktokTableBody.querySelectorAll('.btn-sim-tiktok-product').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const sku = btn.getAttribute('data-sim-sku');
+        selectTikTokProduct(sku);
+        window.scrollTo({ top: elements.tiktokCfgMargin ? elements.tiktokCfgMargin.offsetTop - 120 : 0, behavior: 'smooth' });
+        showToast(`Produto ${sku} carregado no simulador TikTok!`, 'success');
+      });
+    });
+
+    elements.tiktokTableBody.querySelectorAll('[data-copy-sku]').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        copySku(btn.getAttribute('data-copy-sku'));
+      });
+    });
+
+    const startNum = start + 1;
+    const endNum = Math.min(start + size, total);
+    if (elements.tiktokPaginationInfo) {
+      elements.tiktokPaginationInfo.textContent = `Mostrando ${startNum}–${endNum} de ${total} produtos no TikTok Shop`;
+    }
+
+    renderTikTokPagination(totalPages, current);
+  }
+
+  function renderTikTokPagination(totalPages, current) {
+    if (!elements.tiktokPaginationPages) return;
+
+    if (totalPages <= 1) {
+      elements.tiktokPaginationPages.innerHTML = '';
+      return;
+    }
+
+    let html = `
+      <button class="page-btn" ${current === 1 ? 'disabled' : ''} data-tiktok-page="${current - 1}">&laquo;</button>
+    `;
+
+    for (let p = 1; p <= totalPages; p++) {
+      if (totalPages > 8 && Math.abs(p - current) > 2 && p !== 1 && p !== totalPages) {
+        if (p === 2 || p === totalPages - 1) {
+          html += '<span style="padding: 0 4px; color: var(--text-muted);">...</span>';
+        }
+        continue;
+      }
+      html += `
+        <button class="page-btn ${p === current ? 'active' : ''}" data-tiktok-page="${p}">${p}</button>
+      `;
+    }
+
+    html += `
+      <button class="page-btn" ${current === totalPages ? 'disabled' : ''} data-tiktok-page="${current + 1}">&raquo;</button>
+    `;
+
+    elements.tiktokPaginationPages.innerHTML = html;
+
+    elements.tiktokPaginationPages.querySelectorAll('[data-tiktok-page]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const page = parseInt(btn.getAttribute('data-tiktok-page'));
+        if (page && page !== state.tiktok.currentPage) {
+          state.tiktok.currentPage = page;
+          renderTikTokTable();
+        }
+      });
+    });
+  }
+
+  // =========================================================================
+  // Exportar Tabela TikTok Shop para CSV / Excel
+  // =========================================================================
+  function exportTikTokToCsv() {
+    if (!state.data?.itens_detalhados) {
+      showToast('Nenhum dado disponível para exportação.', 'warning');
+      return;
+    }
+
+    const packaging = parseFloat(elements.tiktokCfgPack?.value) || 1.50;
+    const marginPct = parseFloat(elements.tiktokCfgMargin?.value) || 20.0;
+    const taxPct = parseFloat(elements.tiktokCfgTax?.value) || 0.0;
+    const sellerRegime = elements.tiktokCfgNewSeller?.value || 'standard';
+    const rounding = elements.tiktokCfgRounding?.value || 'none';
+    const discountPromo = parseFloat(elements.tiktokCfgPromoDiscount?.value) || state.tiktok.discountPromoPct || 30.0;
+    const minMarginPct = state.tiktok.affiliate.minMarginPct;
+
+    const headers = [
+      'SKU', 'SKU Pai', 'Produto', 'Variação / Tamanho', 'Categoria',
+      'Preço Custo', 'Embalagem', 'Preço Loja Integrada',
+      'Taxa Percentual TikTok (%)', 'Taxa Fixa TikTok (R$)', 'Total Taxas TikTok (R$)',
+      'Preço Cadastro TikTok Âncora (R$)', 'Desconto Promo (%)', 'Preço com Desconto TikTok (R$)',
+      'Repasse TikTok (R$)', 'Lucro Líquido (R$)', 'Margem Real (%)',
+      'Teto Criadores %', 'Teto Criadores R$', 'Regra Aplicada', 'Estoque Atual'
+    ];
+
+    const rowsData = state.data.itens_detalhados.map(item => {
+      const pair = calcTikTokPricingPair(item.custo, packaging, marginPct, taxPct, sellerRegime, rounding, discountPromo);
+      const calc = pair.breakdown;
+      const maxAffPct = Math.max(0, calc.margemRealPct - minMarginPct);
+      const maxAffVal = calc.precoVenda * (maxAffPct / 100.0);
+
+      return [
+        item.sku,
+        item.sku_pai || '',
+        `"${(item.nome || '').replace(/"/g, '""')}"`,
+        `"${(item.variacao || '').replace(/"/g, '""')}"`,
+        `"${(item.categoria || '').replace(/"/g, '""')}"`,
+        item.custo.toFixed(2),
+        packaging.toFixed(2),
+        item.preco_venda.toFixed(2),
+        calc.taxaPercentualPct.toFixed(1),
+        calc.taxaFixaVal.toFixed(2),
+        calc.taxaTikTokTotal.toFixed(2),
+        pair.precoCadastro.toFixed(2),
+        pair.descontoEfetivoPct.toFixed(1),
+        pair.precoComDesconto.toFixed(2),
+        calc.repasseTikTok.toFixed(2),
+        calc.lucroLiquido.toFixed(2),
+        calc.margemRealPct.toFixed(1),
+        maxAffPct.toFixed(1),
+        maxAffVal.toFixed(2),
+        `"${calc.tierName}"`,
+        item.estoque
+      ];
+    });
+
+    const csvContent = '\uFEFF' + [
+      headers.join(';'),
+      ...rowsData.map(r => r.join(';'))
+    ].join('\r\n');
+
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.setAttribute('href', url);
+    link.setAttribute('download', `tiktok_shop_precificacao_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    showToast('Tabela TikTok Shop exportada com sucesso!', 'success');
+  }
+
+  // =========================================================================
+  // Configuração de Event Listeners TikTok Shop
+  // =========================================================================
+  function setupTikTokEventListeners() {
+    if (elements.navBtnTiktok) {
+      elements.navBtnTiktok.addEventListener('click', () => switchTab('tiktok'));
+    }
+
+    const updateAllTikTok = () => {
+      computeCatalogTikTokPrices();
+      updateTikTokSimulator();
+      renderTikTokTable();
+    };
+
+    if (elements.tiktokCfgMargin) elements.tiktokCfgMargin.addEventListener('input', updateAllTikTok);
+    if (elements.tiktokCfgPack) elements.tiktokCfgPack.addEventListener('input', updateAllTikTok);
+    if (elements.tiktokCfgPromoDiscount) {
+      elements.tiktokCfgPromoDiscount.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (elements.tiktokSimPromoDiscountInput) elements.tiktokSimPromoDiscountInput.value = val;
+        if (elements.tiktokSimDiscountPills) {
+          elements.tiktokSimDiscountPills.forEach(pill => {
+            pill.classList.toggle('active', pill.getAttribute('data-discount') === val);
+          });
+        }
+        updateAllTikTok();
+      });
+    }
+    if (elements.tiktokCfgNewSeller) elements.tiktokCfgNewSeller.addEventListener('change', updateAllTikTok);
+    if (elements.tiktokCfgTax) elements.tiktokCfgTax.addEventListener('input', updateAllTikTok);
+    if (elements.tiktokCfgRounding) elements.tiktokCfgRounding.addEventListener('change', updateAllTikTok);
+
+    if (elements.tiktokSimPromoDiscountInput) {
+      elements.tiktokSimPromoDiscountInput.addEventListener('input', (e) => {
+        const val = e.target.value;
+        if (elements.tiktokCfgPromoDiscount) elements.tiktokCfgPromoDiscount.value = val;
+        if (elements.tiktokSimDiscountPills) {
+          elements.tiktokSimDiscountPills.forEach(pill => {
+            pill.classList.toggle('active', pill.getAttribute('data-discount') === val);
+          });
+        }
+        updateAllTikTok();
+      });
+    }
+
+    if (elements.tiktokSimDiscountPills) {
+      elements.tiktokSimDiscountPills.forEach(pill => {
+        pill.addEventListener('click', () => {
+          const disc = pill.getAttribute('data-discount');
+          if (elements.tiktokSimPromoDiscountInput) elements.tiktokSimPromoDiscountInput.value = disc;
+          if (elements.tiktokCfgPromoDiscount) elements.tiktokCfgPromoDiscount.value = disc;
+          elements.tiktokSimDiscountPills.forEach(p => p.classList.toggle('active', p === pill));
+          updateAllTikTok();
+        });
+      });
+    }
+
+    if (elements.tiktokRulesToggle) {
+      elements.tiktokRulesToggle.addEventListener('click', () => {
+        const isOpen = elements.tiktokRulesContent.classList.toggle('open');
+        if (elements.tiktokRulesChevron) {
+          elements.tiktokRulesChevron.style.transform = isOpen ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+      });
+    }
+
+    // Autocomplete TikTok
+    if (elements.tiktokSimProductSearch && elements.tiktokSimAutocompleteList) {
+      let tiktokSearchTimeout;
+      let activeIndex = -1;
+
+      const renderTikTokAutocomplete = (query) => {
+        if (!state.data?.itens_detalhados) return;
+        const q = (query || '').trim().toLowerCase();
+
+        let matches = [];
+        if (q.length === 0) {
+          matches = state.data.itens_detalhados
+            .filter(it => it.estoque > 0 && it.custo > 0)
+            .slice(0, 20);
+        } else {
+          const terms = q.split(/\s+/).filter(Boolean);
+          matches = state.data.itens_detalhados.filter(item => {
+            const itemStr = `${item.sku} ${item.nome} ${item.variacao || ''} ${item.categoria || ''}`.toLowerCase();
+            return terms.every(t => itemStr.includes(t));
+          }).slice(0, 25);
+        }
+
+        activeIndex = -1;
+
+        if (matches.length === 0) {
+          elements.tiktokSimAutocompleteList.innerHTML = `<div class="sim-autocomplete-empty">Nenhum produto encontrado para "<strong>${escapeHtml(q)}</strong>"</div>`;
+        } else {
+          elements.tiktokSimAutocompleteList.innerHTML = matches.map((it, idx) => {
+            const thumb = it.img || PLACEHOLDER_IMG;
+            const stockBadge = it.estoque > 0 ? `Estoque: ${it.estoque} un` : 'Sem estoque';
+            return `
+              <div class="sim-autocomplete-item ${idx === 0 ? 'active' : ''}" data-sku="${escapeHtml(it.sku)}" data-index="${idx}">
+                <img src="${thumb}" class="sim-autocomplete-thumb" alt="${escapeHtml(it.nome)}">
+                <div class="sim-autocomplete-info">
+                  <div class="sim-autocomplete-title">${escapeHtml(it.nome)}</div>
+                  <div class="sim-autocomplete-meta">
+                    <span class="sim-autocomplete-sku-badge" style="background: rgba(254, 44, 85, 0.1); color: #fe2c55;">${escapeHtml(it.sku)}</span>
+                    <span>${escapeHtml(it.variacao ? `[${it.variacao}]` : '')}</span>
+                    <span class="sim-autocomplete-cost">Custo: ${fmtCurrency.format(it.custo)}</span>
+                    <span class="sim-autocomplete-stock">• ${stockBadge}</span>
+                    <span style="color: #2563eb;">• Loja: ${fmtCurrency.format(it.preco_venda)}</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('');
+
+          elements.tiktokSimAutocompleteList.querySelectorAll('.sim-autocomplete-item').forEach(el => {
+            el.addEventListener('click', () => {
+              const sku = el.getAttribute('data-sku');
+              if (sku) selectTikTokProduct(sku);
+            });
+          });
+        }
+
+        elements.tiktokSimAutocompleteList.style.display = 'block';
+      };
+
+      elements.tiktokSimProductSearch.addEventListener('input', (e) => {
+        clearTimeout(tiktokSearchTimeout);
+        const val = e.target.value;
+        if (elements.tiktokSimSearchClear) {
+          elements.tiktokSimSearchClear.style.display = val.length > 0 ? 'block' : 'none';
+        }
+        tiktokSearchTimeout = setTimeout(() => {
+          renderTikTokAutocomplete(val);
+        }, 120);
+      });
+
+      elements.tiktokSimProductSearch.addEventListener('focus', () => {
+        renderTikTokAutocomplete(elements.tiktokSimProductSearch.value);
+      });
+
+      elements.tiktokSimProductSearch.addEventListener('keydown', (e) => {
+        if (elements.tiktokSimAutocompleteList.style.display === 'none') return;
+        const items = elements.tiktokSimAutocompleteList.querySelectorAll('.sim-autocomplete-item');
+        if (items.length === 0) return;
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          activeIndex = (activeIndex + 1) % items.length;
+          items.forEach((it, idx) => it.classList.toggle('active', idx === activeIndex));
+          items[activeIndex]?.scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          activeIndex = (activeIndex - 1 + items.length) % items.length;
+          items.forEach((it, idx) => it.classList.toggle('active', idx === activeIndex));
+          items[activeIndex]?.scrollIntoView({ block: 'nearest' });
+        } else if (e.key === 'Enter') {
+          e.preventDefault();
+          const target = activeIndex >= 0 ? items[activeIndex] : items[0];
+          if (target) {
+            const sku = target.getAttribute('data-sku');
+            if (sku) selectTikTokProduct(sku);
+          }
+        } else if (e.key === 'Escape') {
+          elements.tiktokSimAutocompleteList.style.display = 'none';
+        }
+      });
+
+      if (elements.tiktokSimSearchClear) {
+        elements.tiktokSimSearchClear.addEventListener('click', () => {
+          elements.tiktokSimProductSearch.value = '';
+          elements.tiktokSimSearchClear.style.display = 'none';
+          elements.tiktokSimAutocompleteList.style.display = 'none';
+          state.tiktok.selectedProductSku = null;
+          if (elements.tiktokSimProductPreview) elements.tiktokSimProductPreview.style.display = 'none';
+          if (elements.tiktokSimCostInput) elements.tiktokSimCostInput.value = '18.00';
+          updateTikTokSimulator();
+          elements.tiktokSimProductSearch.focus();
+        });
+      }
+
+      document.addEventListener('click', (e) => {
+        if (!elements.tiktokSimProductSearch.contains(e.target) && !elements.tiktokSimAutocompleteList.contains(e.target)) {
+          elements.tiktokSimAutocompleteList.style.display = 'none';
+        }
+      });
+    }
+
+    if (elements.tiktokSimCostInput) elements.tiktokSimCostInput.addEventListener('input', updateTikTokSimulator);
+    if (elements.tiktokSimPackInput) {
+      elements.tiktokSimPackInput.addEventListener('input', (e) => {
+        if (elements.tiktokCfgPack) elements.tiktokCfgPack.value = e.target.value;
+        updateTikTokSimulator();
+        renderTikTokTable();
+      });
+    }
+    if (elements.tiktokSimManualPrice) elements.tiktokSimManualPrice.addEventListener('input', updateTikTokSimulator);
+
+    // Creators / Affiliates
+    if (elements.tiktokAffModeAbsorb && elements.tiktokAffModeRepass) {
+      elements.tiktokAffModeAbsorb.addEventListener('click', () => {
+        elements.tiktokAffModeAbsorb.classList.add('active');
+        elements.tiktokAffModeRepass.classList.remove('active');
+        state.tiktok.affiliate.mode = 'absorb';
+        updateTikTokSimulator();
+      });
+
+      elements.tiktokAffModeRepass.addEventListener('click', () => {
+        elements.tiktokAffModeRepass.classList.add('active');
+        elements.tiktokAffModeAbsorb.classList.remove('active');
+        state.tiktok.affiliate.mode = 'repass';
+        updateTikTokSimulator();
+      });
+    }
+
+    if (elements.tiktokAffTestedPct) {
+      elements.tiktokAffTestedPct.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value) || 0;
+        state.tiktok.affiliate.testedPct = val;
+        if (elements.tiktokAffQuickPctBtns) {
+          elements.tiktokAffQuickPctBtns.forEach(b => {
+            b.classList.toggle('active', parseFloat(b.getAttribute('data-pct')) === val);
+          });
+        }
+        updateTikTokSimulator();
+      });
+    }
+
+    if (elements.tiktokAffMinMargin) {
+      elements.tiktokAffMinMargin.addEventListener('input', (e) => {
+        state.tiktok.affiliate.minMarginPct = parseFloat(e.target.value) || 10.0;
+        updateTikTokSimulator();
+        renderTikTokTable();
+      });
+    }
+
+    if (elements.tiktokAffQuickPctBtns) {
+      elements.tiktokAffQuickPctBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const val = parseFloat(btn.getAttribute('data-pct'));
+          state.tiktok.affiliate.testedPct = val;
+          if (elements.tiktokAffTestedPct) elements.tiktokAffTestedPct.value = val;
+          elements.tiktokAffQuickPctBtns.forEach(b => b.classList.toggle('active', b === btn));
+          updateTikTokSimulator();
+        });
+      });
+    }
+
+    // Mass Table
+    if (elements.tiktokTableSearch) {
+      let massTiktokTimeout;
+      elements.tiktokTableSearch.addEventListener('input', (e) => {
+        clearTimeout(massTiktokTimeout);
+        massTiktokTimeout = setTimeout(() => {
+          state.tiktok.tableSearch = e.target.value;
+          state.tiktok.currentPage = 1;
+          renderTikTokTable();
+        }, 150);
+      });
+    }
+
+    if (elements.tiktokTableStockFilter) {
+      elements.tiktokTableStockFilter.addEventListener('change', (e) => {
+        state.tiktok.tableStockFilter = e.target.value;
+        state.tiktok.currentPage = 1;
+        renderTikTokTable();
+      });
+    }
+
+    if (elements.btnExportTiktok) {
+      elements.btnExportTiktok.addEventListener('click', exportTikTokToCsv);
+    }
   }
 
   // =========================================================================
@@ -2782,12 +3881,16 @@
 
         populateCategories();
         populateShopeeProductsSelect();
+        computeCatalogShopeePrices();
+        computeCatalogTikTokPrices();
         if (elements.activeFilename) elements.activeFilename.textContent = file.name;
         if (elements.navCatalogBadge) elements.navCatalogBadge.textContent = items.length;
 
         applyFilters();
         initShopeeSimulator();
+        initTikTokSimulator();
         renderShopeeTable();
+        renderTikTokTable();
 
         showToast(`Planilha "${file.name}" carregada com ${items.length} itens!`, 'success');
 

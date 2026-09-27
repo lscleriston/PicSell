@@ -1258,6 +1258,134 @@ body {
   color: #ee4d2d;
 }
 
+.tab-nav-btn.active-tiktok {
+  color: #fe2c55;
+  border-bottom-color: #fe2c55;
+}
+
+.tab-nav-btn.active-tiktok .tab-badge {
+  background: rgba(254, 44, 85, 0.15);
+  color: #fe2c55;
+}
+
+/* ==========================================================================
+   Precificador TikTok Shop
+   ========================================================================== */
+.tiktok-badge {
+  background: linear-gradient(135deg, #000000 0%, #fe2c55 50%, #25f4ee 100%);
+  color: white;
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.btn-tiktok {
+  background: linear-gradient(135deg, #fe2c55 0%, #ff0050 100%);
+  color: white;
+  border: none;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  padding: 0.55rem 1.15rem;
+  font-size: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(254, 44, 85, 0.25);
+  transition: var(--transition);
+}
+
+.btn-tiktok:hover {
+  background: linear-gradient(135deg, #e02449 0%, #d80044 100%);
+  box-shadow: 0 4px 12px rgba(254, 44, 85, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-outline-tiktok {
+  background-color: transparent;
+  color: #fe2c55;
+  border: 1px solid #fe2c55;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 600;
+  transition: var(--transition);
+}
+
+.btn-outline-tiktok:hover {
+  background-color: #fe2c55;
+  color: white;
+}
+
+.tiktok-config-card {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 4px solid #fe2c55;
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.tiktok-price-promo-card {
+  background: linear-gradient(135deg, rgba(254, 44, 85, 0.12) 0%, rgba(37, 244, 238, 0.05) 100%);
+  border: 2px solid #fe2c55;
+  box-shadow: 0 4px 14px rgba(254, 44, 85, 0.15);
+}
+
+.tiktok-promo-val {
+  font-size: 2.1rem;
+  color: #fe2c55;
+}
+
+.tiktok-badge-promo {
+  color: white;
+  background: #fe2c55;
+}
+
+.tiktok-table-th-highlight {
+  background-color: rgba(254, 44, 85, 0.1) !important;
+  color: #fe2c55 !important;
+  font-weight: 700;
+}
+
+.price-tiktok-cell {
+  font-weight: 700;
+  color: #fe2c55;
+  background-color: rgba(254, 44, 85, 0.1);
+  padding: 3px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.tiktok-vs-shopee-badge {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(37, 244, 238, 0.1) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #065f46;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 6px 12px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+[data-theme="dark"] .tiktok-vs-shopee-badge {
+  color: #6ee7b7;
+  border-color: rgba(16, 185, 129, 0.4);
+}
+
 /* ==========================================================================
    Precificador Shopee
    ========================================================================== */

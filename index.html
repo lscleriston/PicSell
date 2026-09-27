@@ -72,6 +72,15 @@
         <span class="tab-badge" style="background: rgba(238, 77, 45, 0.12); color: #ee4d2d;">Margem 20%</span>
       </button>
 
+      <button id="nav-btn-tiktok" class="tab-nav-btn" data-tab="tiktok">
+        <span class="tiktok-badge">
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+          TikTok Shop
+        </span>
+        Precificador &amp; Criadores
+        <span class="tab-badge" style="background: rgba(254, 44, 85, 0.12); color: #fe2c55;">Novo 2026</span>
+      </button>
+
       <button id="nav-btn-audit" class="tab-nav-btn" data-tab="audit">
         <span class="shopee-badge" style="background: linear-gradient(135deg, #1d4ed8, #2563eb);">
           <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
@@ -800,7 +809,512 @@
   </main>
 
   <!-- =========================================================================
-       ABA 3: AUDITORIA SHOPEE REAL (184 Itens Cadastrados & Preço Âncora)
+       ABA 3: PRECIFICADOR TIKTOK SHOP BRASIL 2026 + ANÁLISE DE CRIADORES / AFILIADOS
+       ========================================================================= -->
+  <main id="view-tiktok" class="main-container" style="display: none;">
+
+    <!-- Card de Configurações das Taxas e Margem do TikTok Shop -->
+    <section class="tiktok-config-card">
+      <div class="config-header">
+        <div class="config-title-group">
+          <h2>
+            <span class="tiktok-badge">
+              <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1.04-.1z"/></svg>
+              TikTok Shop Brasil 2026
+            </span>
+            Parâmetros de Precificação
+          </h2>
+          <p>
+            Comissões oficiais do TikTok Shop: <strong>10% + R$ 4,00</strong> para itens &lt; R$ 50,00 ou <strong>6% + R$ 6,00</strong> para itens &ge; R$ 50,00.
+          </p>
+        </div>
+
+        <div>
+          <button id="btn-export-tiktok" class="btn btn-tiktok" title="Exportar tabela completa com preços do TikTok Shop">
+            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Exportar Preços TikTok (Excel)
+          </button>
+        </div>
+      </div>
+
+      <!-- Inputs de Configuração Editáveis TikTok -->
+      <div class="config-inputs-grid">
+        <!-- Margem de Lucro Desejada -->
+        <div class="form-group">
+          <label class="form-label" for="tiktok-cfg-margin">
+            <span>Margem de Lucro Líquida</span>
+            <span class="brand-badge" style="background: rgba(16, 185, 129, 0.15); color: #065f46;">Editável</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="tiktok-cfg-margin" class="input-custom input-has-suffix" value="20" min="1" max="95" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <span class="form-helper">Percentual de lucro sobre o preço de venda no TikTok Shop (Padrão: 20%)</span>
+        </div>
+
+        <!-- Custo de Embalagem -->
+        <div class="form-group">
+          <label class="form-label" for="tiktok-cfg-pack">
+            <span>Custo de Embalagem</span>
+            <span class="brand-badge" style="background: rgba(79, 70, 229, 0.15); color: #4338ca;">Editável</span>
+          </label>
+          <div class="input-with-prefix">
+            <span class="input-prefix">R$</span>
+            <input type="number" id="tiktok-cfg-pack" class="input-custom input-has-prefix" value="1.50" min="0" step="0.10">
+          </div>
+          <span class="form-helper">Custo médio por pacote/envio (Padrão: R$ 1,50)</span>
+        </div>
+
+        <!-- Desconto Promocional Planejado (Âncora vs Promo) -->
+        <div class="form-group">
+          <label class="form-label" for="tiktok-cfg-promo-discount">
+            <span>Desconto na Promoção TikTok</span>
+            <span class="brand-badge" style="background: rgba(254, 44, 85, 0.15); color: #fe2c55;">Estratégia Âncora</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="tiktok-cfg-promo-discount" class="input-custom input-has-suffix" value="30" min="0" max="80" step="1">
+            <span class="input-suffix">% OFF</span>
+          </div>
+          <span class="form-helper">Desconto planejado nas promoções (gera o Preço de Cadastro Âncora)</span>
+        </div>
+
+        <!-- Regime Novo Vendedor / Isenção 60 dias -->
+        <div class="form-group">
+          <label class="form-label" for="tiktok-cfg-new-seller">
+            <span>Programa Especial Novo Vendedor</span>
+          </label>
+          <select id="tiktok-cfg-new-seller" class="select-filter" style="width: 100%;">
+            <option value="standard" selected>Tarifas Padrão (10% &lt; R$50 | 6% &ge; R$50)</option>
+            <option value="new_seller">🎁 Novo Vendedor (0% comissão por 60 dias - até R$ 17k)</option>
+          </select>
+          <span class="form-helper">Isenção da comissão percentual por 60 dias (paga apenas a tarifa fixa)</span>
+        </div>
+
+        <!-- Alíquota de Imposto (Simples / MEI) -->
+        <div class="form-group">
+          <label class="form-label" for="tiktok-cfg-tax">
+            <span>Imposto / DAS</span>
+            <span class="brand-badge" style="background: var(--bg-secondary); color: var(--text-muted);">Opcional</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="tiktok-cfg-tax" class="input-custom input-has-suffix" value="0.0" min="0" max="30" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <span class="form-helper">Alíquota de imposto sobre a nota (0% para MEI, 4-6% Simples)</span>
+        </div>
+
+        <!-- Arredondamento Comercial -->
+        <div class="form-group">
+          <label class="form-label" for="tiktok-cfg-rounding">
+            <span>Arredondamento Psicológico</span>
+          </label>
+          <select id="tiktok-cfg-rounding" class="select-filter" style="width: 100%;">
+            <option value="none" selected>Preço Matemático Exato (ex: R$ 33,57)</option>
+            <option value="90">Arredondar para final ,90 (ex: R$ 33,90)</option>
+            <option value="99">Arredondar para final ,99 (ex: R$ 33,99)</option>
+          </select>
+          <span class="form-helper">Formata os preços finais para maior apelo comercial</span>
+        </div>
+      </div>
+
+      <!-- Tabela Explicativa das Regras TikTok Shop (Colapsável) -->
+      <div class="rules-accordion">
+        <div id="tiktok-rules-toggle" class="rules-toggle">
+          <span style="display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <strong>Como funcionam as taxas de vendas do TikTok Shop Brasil?</strong> (Clique para ver os detalhes)
+          </span>
+          <span id="tiktok-rules-chevron" style="transition: transform 0.2s;">▼</span>
+        </div>
+        <div id="tiktok-rules-content" class="rules-content">
+          <p style="margin-bottom: 0.5rem; line-height: 1.4;">
+            As taxas de vendas do TikTok Shop são calculadas por item vendido com base no preço final após descontos do vendedor:
+          </p>
+          <table class="rules-table">
+            <thead>
+              <tr>
+                <th>Preço do Produto (após descontos)</th>
+                <th>Tarifa de Comissão da Plataforma</th>
+                <th>Tarifa por Item Vendido (Fixa)</th>
+                <th>Fórmula de Cobrança Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Menor que R$ 50,00 (&lt; R$ 50)</strong></td>
+                <td><strong style="color: #fe2c55;">10%</strong></td>
+                <td><strong>R$ 4,00</strong></td>
+                <td><code>(Preço Efetivo * 10%) + R$ 4,00</code></td>
+              </tr>
+              <tr>
+                <td><strong>A partir de R$ 50,00 (&ge; R$ 50)</strong></td>
+                <td><strong style="color: #fe2c55;">6%</strong></td>
+                <td><strong>R$ 6,00</strong></td>
+                <td><code>(Preço Efetivo * 6%) + R$ 6,00</code></td>
+              </tr>
+              <tr style="background: rgba(254, 44, 85, 0.05);">
+                <td><strong>🎁 Oferta Novos Vendedores (60 dias)</strong></td>
+                <td><strong style="color: #10b981;">0% (Isenção Total)</strong></td>
+                <td>R$ 4,00 ou R$ 6,00</td>
+                <td>Paga apenas a tarifa fixa por item (limitada a R$ 17.000 em vendas)</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">
+            💡 <strong>Dica Estratégica:</strong> O TikTok Shop possui taxas significativamente menores que a Shopee (10% vs 20% abaixo de R$ 50 e 6% vs 14% acima de R$ 50), permitindo preços mais competitivos ou lucros maiores por peça!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULADOR INDIVIDUAL TIKTOK SHOP -->
+    <section class="simulator-grid">
+      <!-- Coluna da Esquerda: Seleção e Entradas do Produto -->
+      <div class="sim-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3 style="font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+            <svg width="18" height="18" fill="none" stroke="#fe2c55" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            Simulador de Produto no TikTok Shop
+          </h3>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Tempo real</span>
+        </div>
+
+        <!-- Seletor Rápido de Produto do Catálogo com Busca Inteligente -->
+        <div class="form-group" style="position: relative;">
+          <label class="form-label" for="tiktok-sim-product-search">
+            <span>Buscar Produto por SKU ou Nome</span>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">digite SKU ou nome</span>
+          </label>
+          <div class="search-box" style="width: 100%; position: relative;">
+            <span class="search-icon">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </span>
+            <input type="text" id="tiktok-sim-product-search" class="search-input" placeholder="🔍 Digite SKU ou Nome (ex: DVX2, Romper, Calça...)" autocomplete="off">
+            <button type="button" id="tiktok-sim-search-clear" class="search-clear" title="Limpar busca" style="display: none;">&times;</button>
+          </div>
+
+          <!-- Dropdown Flutuante de Autocomplete TikTok -->
+          <div id="tiktok-sim-autocomplete-list" class="sim-autocomplete-dropdown" style="display: none;"></div>
+        </div>
+
+        <!-- Pré-visualização do Produto Selecionado -->
+        <div id="tiktok-sim-product-preview" style="display: none; align-items: center; gap: 0.85rem; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <img id="tiktok-sim-product-img" src="" class="product-thumb" alt="Preview">
+          <div style="display: flex; flex-direction: column; min-width: 0;">
+            <strong id="tiktok-sim-product-name" style="font-size: 0.85rem; color: var(--text-primary); line-height: 1.2;"></strong>
+            <span id="tiktok-sim-product-cat" style="font-size: 0.75rem; color: var(--text-muted);"></span>
+            <div style="display: flex; gap: 0.6rem; margin-top: 2px; flex-wrap: wrap;">
+              <span id="tiktok-sim-product-store-price" style="font-size: 0.75rem; color: #2563eb; font-weight: 600;"></span>
+              <span id="tiktok-sim-product-shopee-price" style="font-size: 0.75rem; color: #ee4d2d; font-weight: 600;"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Entradas de Custo & Desconto para o Cálculo -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+          <div class="form-group">
+            <label class="form-label" for="tiktok-sim-cost-input">
+              <span>Preço de Custo (R$)</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="tiktok-sim-cost-input" class="input-custom input-has-prefix" value="18.00" min="0" step="0.50">
+            </div>
+            <span class="form-helper">Custo unitário de compra/produção</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="tiktok-sim-pack-input">
+              <span>Embalagem (R$)</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="tiktok-sim-pack-input" class="input-custom input-has-prefix" value="1.50" min="0" step="0.10">
+            </div>
+            <span class="form-helper">Embalagem individual do pedido</span>
+          </div>
+        </div>
+
+        <!-- Desconto Promocional no Produto -->
+        <div class="form-group" style="padding-top: 0.5rem; border-top: 1px solid var(--border-subtle);">
+          <label class="form-label" for="tiktok-sim-promo-discount-input">
+            <span>Desconto da Promoção TikTok (% OFF)</span>
+            <span class="brand-badge" style="background: rgba(254, 44, 85, 0.15); color: #fe2c55;">Central do Vendedor</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="tiktok-sim-promo-discount-input" class="input-custom input-has-suffix" value="30" min="0" max="80" step="1">
+            <span class="input-suffix">% OFF</span>
+          </div>
+          <div style="display: flex; gap: 0.35rem; margin-top: 0.35rem;">
+            <button type="button" class="preset-pill tiktok-sim-discount-pill" data-discount="15">15%</button>
+            <button type="button" class="preset-pill tiktok-sim-discount-pill" data-discount="20">20%</button>
+            <button type="button" class="preset-pill tiktok-sim-discount-pill active" data-discount="30">30%</button>
+            <button type="button" class="preset-pill tiktok-sim-discount-pill" data-discount="40">40%</button>
+            <button type="button" class="preset-pill tiktok-sim-discount-pill" data-discount="50">50%</button>
+          </div>
+          <span class="form-helper">Gera o Preço de Cadastro Âncora no TikTok para você aplicar esse desconto na promoção</span>
+        </div>
+
+        <!-- Simulação Reversa (Preço Manual Alternativo) -->
+        <div style="padding-top: 0.5rem; border-top: 1px solid var(--border-subtle);">
+          <div class="form-group">
+            <label class="form-label" for="tiktok-sim-manual-price">
+              <span>Ou teste um Preço Livre no TikTok</span>
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Simulação Reversa</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="tiktok-sim-manual-price" class="input-custom input-has-prefix" placeholder="Ex: 34.90 (deixe em branco p/ usar o sugerido)" step="0.50">
+            </div>
+            <span class="form-helper">Preço que o cliente vai pagar para ver o lucro e o Preço de Cadastro correspondente</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita: Preços Sugeridos (Cadastro & Desconto) & DRE Detalhado -->
+      <div class="sim-card">
+        <!-- Caixa Dupla de Preços TikTok Shop -->
+        <div class="sim-dual-price-grid">
+          <!-- 1. Preço de Cadastro (Âncora) -->
+          <div class="sim-price-card sim-price-cad-card">
+            <div class="sim-price-card-header">
+              <span class="sim-price-tag-badge">1. Preço de Cadastro</span>
+              <span class="sim-price-tag-sub">Cadastrar no Produto</span>
+            </div>
+            <div class="sim-price-val" id="tiktok-sim-display-cad-price">R$ 47,96</div>
+            <span class="sim-price-note" id="tiktok-sim-display-cad-sub">Preço de lista / Âncora</span>
+          </div>
+
+          <!-- 2. Preço com Desconto (Promoção) -->
+          <div class="sim-price-card tiktok-price-promo-card">
+            <div class="sim-price-card-header">
+              <span class="sim-price-tag-badge tiktok-badge-promo" id="tiktok-sim-display-promo-badge">2. Preço c/ Desconto (-30%)</span>
+              <span class="sim-price-tag-sub">Central de Promoções TikTok</span>
+            </div>
+            <div class="sim-price-val tiktok-promo-val" id="tiktok-sim-display-promo-price">R$ 33,57</div>
+            <span class="sim-price-note" id="tiktok-sim-display-tier">Faixa TikTok: 10% + R$ 4,00</span>
+          </div>
+        </div>
+
+        <!-- Badges Comparativos: vs Loja Integrada e vs Shopee -->
+        <div style="display: flex; flex-direction: column; gap: 0.4rem; align-items: center;">
+          <div id="tiktok-sim-comparison-badge"></div>
+          <div id="tiktok-sim-vs-shopee-badge"></div>
+        </div>
+
+        <!-- DRE Detalhado da Venda com Desconto TikTok -->
+        <div class="dre-list">
+          <div class="dre-item" style="background: rgba(254, 44, 85, 0.04);">
+            <span class="dre-label"><strong>(+) Preço de Cadastro (Âncora no Anúncio)</strong></span>
+            <span class="dre-val" id="tiktok-dre-cad-val" style="font-weight: 700;">R$ 47,96</span>
+          </div>
+          <div class="dre-item" id="tiktok-dre-promo-discount-row">
+            <span class="dre-label">
+              (-) Desconto Promocional (<span id="tiktok-dre-promo-discount-pct">30,0%</span> OFF)
+            </span>
+            <span class="dre-val dre-deduction" id="tiktok-dre-promo-discount-val">-R$ 14,39</span>
+          </div>
+          <div class="dre-item" style="background: var(--bg-tertiary); font-weight: 600;">
+            <span class="dre-label"><strong>(=) Preço Efetivo Pago pelo Cliente</strong></span>
+            <span class="dre-val" id="tiktok-dre-venda" style="color: #fe2c55; font-weight: 700;">R$ 33,57</span>
+          </div>
+          <div class="dre-item">
+            <span class="dre-label">
+              (-) Tarifa de Comissão Plataforma (<span id="tiktok-dre-pct">10%</span>)
+            </span>
+            <span class="dre-val dre-deduction" id="tiktok-dre-pct-val">-R$ 3,36</span>
+          </div>
+          <div class="dre-item">
+            <span class="dre-label">
+              (-) Tarifa por Item Vendido (Fixa)
+            </span>
+            <span class="dre-val dre-deduction" id="tiktok-dre-fix-val">-R$ 4,00</span>
+          </div>
+          <div class="dre-item">
+            <span class="dre-label">(-) Custo de Embalagem</span>
+            <span class="dre-val dre-deduction" id="tiktok-dre-pack-val">-R$ 1,50</span>
+          </div>
+          <div class="dre-item">
+            <span class="dre-label">(-) Custo da Mercadoria (CMV)</span>
+            <span class="dre-val dre-deduction" id="tiktok-dre-cost-val">-R$ 18,00</span>
+          </div>
+          <div class="dre-item" id="tiktok-dre-tax-row" style="display: none;">
+            <span class="dre-label">(-) Imposto (<span id="tiktok-dre-tax-pct">0%</span>)</span>
+            <span class="dre-val dre-deduction" id="tiktok-dre-tax-val">-R$ 0,00</span>
+          </div>
+          <div class="dre-item" style="background: var(--bg-tertiary); font-weight: 600;">
+            <span class="dre-label">(=) Repasse Líquido TikTok (na sua conta)</span>
+            <span class="dre-val" style="color: #2563eb;" id="tiktok-dre-repasse">R$ 26,21</span>
+          </div>
+          <div class="dre-item dre-item-total">
+            <span class="dre-label">
+              <strong>(=) Lucro Líquido Real no Bolso</strong>
+            </span>
+            <span class="dre-val" id="tiktok-dre-lucro">R$ 6,71 (20,0%)</span>
+          </div>
+        </div>
+
+        <!-- Gráfico Visual de Composição do Preço TikTok -->
+        <div class="breakdown-bar-container">
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">
+            <span>Distribuição do Preço no TikTok</span>
+            <span id="tiktok-breakdown-summary">Taxas: 21,9% | Custos: 58,1% | Lucro: 20,0%</span>
+          </div>
+          <div class="breakdown-bar">
+            <div id="tiktok-bar-cost" class="breakdown-segment bg-cost" style="width: 54%;" title="Custo do Produto"></div>
+            <div id="tiktok-bar-pack" class="breakdown-segment bg-pack" style="width: 4%;" title="Embalagem"></div>
+            <div id="tiktok-bar-fee" class="breakdown-segment" style="width: 22%; background-color: #fe2c55;" title="Taxas TikTok Shop"></div>
+            <div id="tiktok-bar-tax" class="breakdown-segment bg-tax" style="width: 0%;" title="Imposto"></div>
+            <div id="tiktok-bar-profit" class="breakdown-segment bg-profit" style="width: 20%;" title="Seu Lucro"></div>
+          </div>
+          <div class="breakdown-legend">
+            <div class="legend-item"><span class="legend-dot bg-cost"></span> Produto</div>
+            <div class="legend-item"><span class="legend-dot bg-pack"></span> Embalagem</div>
+            <div class="legend-item"><span class="legend-dot" style="background-color: #fe2c55;"></span> TikTok (Comissão + Fixa)</div>
+            <div class="legend-item"><span class="legend-dot bg-tax"></span> Imposto</div>
+            <div class="legend-item"><span class="legend-dot bg-profit"></span> Seu Lucro</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SIMULADOR DE CRIADORES & AFILIADOS TIKTOK -->
+    <section class="affiliate-section" style="border-left-color: #fe2c55;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">
+            <span class="affiliate-badge" style="background: linear-gradient(135deg, #fe2c55 0%, #25f4ee 100%);">TikTok Creators</span>
+            Simulador de Comissão para Criadores de Conteúdo &amp; Afiliados
+          </h2>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 3px;">
+            Simule comissões para criadores divulgarem seus produtos em vídeos e lives no TikTok sem comprometer seu lucro.
+          </p>
+        </div>
+
+        <div class="segmented-control" title="Como aplicar a comissão do criador">
+          <button id="tiktok-aff-mode-absorb" class="segmented-btn active" data-tiktok-aff-mode="absorb">
+            📉 Absorver na Margem
+          </button>
+          <button id="tiktok-aff-mode-repass" class="segmented-btn" data-tiktok-aff-mode="repass">
+            📈 Repassar no Preço
+          </button>
+        </div>
+      </div>
+
+      <div class="affiliate-controls-grid">
+        <div class="form-group">
+          <label class="form-label" for="tiktok-aff-tested-pct">
+            <span>Comissão Oferecida ao Criador</span>
+            <span class="brand-badge" style="background: rgba(254, 44, 85, 0.15); color: #fe2c55;" id="tiktok-aff-tested-val-label">R$ 1,68 / venda</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="tiktok-aff-tested-pct" class="input-custom input-has-suffix" value="5" min="0" max="40" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <div style="display: flex; gap: 0.35rem; margin-top: 0.35rem;">
+            <button type="button" class="preset-pill tiktok-quick-pct-btn" data-pct="3">3%</button>
+            <button type="button" class="preset-pill tiktok-quick-pct-btn active" data-pct="5">5%</button>
+            <button type="button" class="preset-pill tiktok-quick-pct-btn" data-pct="8">8%</button>
+            <button type="button" class="preset-pill tiktok-quick-pct-btn" data-pct="10">10%</button>
+            <button type="button" class="preset-pill tiktok-quick-pct-btn" data-pct="15">15%</button>
+            <button type="button" class="preset-pill tiktok-quick-pct-btn" data-pct="20">20%</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="tiktok-aff-min-margin">
+            <span>Piso Mínimo de Margem Aceitável</span>
+            <span class="brand-badge" style="background: rgba(16, 185, 129, 0.15); color: #065f46;">Proteção</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="tiktok-aff-min-margin" class="input-custom input-has-suffix" value="10" min="1" max="50" step="1">
+            <span class="input-suffix">%</span>
+          </div>
+          <span class="form-helper">Se a margem cair abaixo desse piso, o sistema emitirá alerta vermelho</span>
+        </div>
+      </div>
+
+      <div class="aff-kpi-grid">
+        <div class="aff-kpi-card">
+          <span class="aff-kpi-label">Teto Seguro p/ Criadores (Margem &ge; 10%)</span>
+          <div class="aff-kpi-val" style="color: #fe2c55;" id="tiktok-aff-kpi-max-pct">10,0%</div>
+          <span class="aff-kpi-sub" id="tiktok-aff-kpi-max-val">Até R$ 3,36 por venda</span>
+        </div>
+
+        <div class="aff-kpi-card">
+          <span class="aff-kpi-label">Comissão Selecionada (5,0%)</span>
+          <div class="aff-kpi-val" id="tiktok-aff-kpi-aff-val">R$ 1,68</div>
+          <span class="aff-kpi-sub" id="tiktok-aff-kpi-aff-sub">paga ao criador do TikTok</span>
+        </div>
+
+        <div class="aff-kpi-card">
+          <span class="aff-kpi-label">Diagnóstico de Viabilidade</span>
+          <div id="tiktok-aff-kpi-status-pill" class="risk-pill risk-safe">● Seguro / Viável</div>
+          <span class="aff-kpi-sub" id="tiktok-aff-kpi-status-sub">Sua margem atende ao piso seguro configurado.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABELA DE PRECIFICAÇÃO EM MASSA TIKTOK SHOP -->
+    <section class="table-card" style="margin-top: 0.5rem;">
+      <div style="padding: 1.25rem; border-bottom: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">
+            <span>📋 Tabela de Preços TikTok Shop para Todos os Produtos</span>
+            <span class="brand-badge" id="tiktok-mass-count" style="background: rgba(254, 44, 85, 0.15); color: #fe2c55;">376 itens</span>
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+            Preços sugeridos para cada item no TikTok Shop aplicando a margem configurada (<strong id="tiktok-mass-margin-label">20%</strong>), embalagem (<strong id="tiktok-mass-pack-label">R$ 1,50</strong>) e regras de comissão da plataforma.
+          </p>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+          <input type="text" id="tiktok-table-search" class="search-input" placeholder="Filtrar produtos ou SKU..." style="width: 240px; padding: 0.45rem 0.85rem;">
+          
+          <select id="tiktok-table-stock-filter" class="select-filter" style="padding: 0.45rem 1.6rem 0.45rem 0.75rem; font-size: 0.82rem;">
+            <option value="all">Todos os Produtos</option>
+            <option value="in_stock" selected>Apenas com Estoque (&gt; 0)</option>
+            <option value="zero">Apenas Zerados</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">Foto</th>
+              <th>Produto / Modelo</th>
+              <th>SKU</th>
+              <th>Variação</th>
+              <th>Custo Unit.</th>
+              <th>Preço Loja</th>
+              <th>Taxas TikTok</th>
+              <th style="background-color: rgba(254, 44, 85, 0.08); color: #fe2c55;">Preço Cadastro (Âncora)</th>
+              <th class="tiktok-table-th-highlight">Preço c/ Desconto (Promo)</th>
+              <th>Lucro Líquido</th>
+              <th>Margem Real</th>
+              <th style="background-color: rgba(254, 44, 85, 0.08); color: #fe2c55;">Teto Criadores (R$)</th>
+              <th>Estoque</th>
+              <th style="text-align: center;">Simular</th>
+            </tr>
+          </thead>
+          <tbody id="tiktok-table-body">
+            <!-- Linhas geradas dinamicamente via app.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <div id="tiktok-pagination-info">Mostrando produtos...</div>
+        <div id="tiktok-pagination-pages" class="pagination-controls"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       ABA 4: AUDITORIA SHOPEE REAL (184 Itens Cadastrados & Preço Âncora)
        ========================================================================= -->
   <main id="view-audit" class="main-container" style="display: none;">
 
