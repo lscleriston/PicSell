@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Luluks Baby & Kids - Estoque, Custos & Precificador Shopee + Afiliados</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='25' fill='%234f46e5'/%3E%3Ctext y='65' x='50' font-size='50' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='bold'%3EL%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- Overlay para Drag & Drop de arquivo -->
+  <div id="drag-overlay" class="drag-overlay">
+    <div>📂 Solte a planilha aqui para atualizar os produtos</div>
+  </div>
+
+  <!-- Cabeçalho / Barra Superior -->
+  <header class="header">
+    <div class="header-container">
+      <div class="brand-section">
+        <div class="brand-icon">L</div>
+        <div class="brand-info">
+          <h1>
+            Luluks Baby & Kids
+            <span class="brand-badge">Gestão Financeira</span>
+          </h1>
+          <p id="active-filename">produtos-2026-03-28.xlsx</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <!-- Input de arquivo invisível -->
+        <input type="file" id="file-input" accept=".xlsx, .xls, .csv" style="display: none;">
+        
+        <button id="btn-upload" class="btn btn-outline" title="Carregar nova planilha da Loja Integrada">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
+          Carregar Planilha
+        </button>
+
+        <button id="btn-export" class="btn btn-outline" title="Exportar dados filtrados para CSV / Excel">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          Exportar Excel
+        </button>
+
+        <button id="btn-print" class="btn btn-outline" title="Imprimir Relatório">
+          <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/></svg>
+          Imprimir
+        </button>
+
+        <button id="theme-toggle" class="btn btn-icon" title="Alternar Modo Escuro / Claro">
+          <svg width="18" height="18" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Barra de Navegação por Abas Principais -->
+  <nav class="main-nav-bar">
+    <div class="main-nav-container">
+      <button id="nav-btn-catalog" class="tab-nav-btn active" data-tab="catalog">
+        <svg width="17" height="17" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+        Catálogo &amp; Estoque
+        <span id="nav-catalog-badge" class="tab-badge">376</span>
+      </button>
+
+      <button id="nav-btn-shopee" class="tab-nav-btn" data-tab="shopee">
+        <span class="shopee-badge">
+          <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+          Shopee
+        </span>
+        Precificador &amp; Afiliados
+        <span class="tab-badge" style="background: rgba(238, 77, 45, 0.12); color: #ee4d2d;">Margem 20%</span>
+      </button>
+
+      <button id="nav-btn-audit" class="tab-nav-btn" data-tab="audit">
+        <span class="shopee-badge" style="background: linear-gradient(135deg, #1d4ed8, #2563eb);">
+          <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          Auditoria
+        </span>
+        Shopee Real (184 itens)
+        <span class="tab-badge" id="nav-audit-badge" style="background: rgba(37, 99, 235, 0.12); color: #2563eb;">Preço Âncora</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- =========================================================================
+       ABA 1: CATÁLOGO & ESTOQUE (Visualizador Principal)
+       ========================================================================= -->
+  <main id="view-catalog" class="main-container">
+
+    <!-- Painel de Indicadores Financeiros & Estoque (KPI Cards) -->
+    <section id="kpis-container" class="kpi-grid">
+      <!-- Preenchido via app.js -->
+    </section>
+
+    <!-- Barra de Controle, Pesquisa e Filtros -->
+    <section class="controls-card">
+      <div class="controls-row-top">
+        <!-- Caixa de Busca -->
+        <div class="search-box">
+          <span class="search-icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </span>
+          <input type="text" id="search-input" class="search-input" placeholder="Buscar por Nome, SKU, Tamanho ou Categoria...">
+          <button id="search-clear" class="search-clear" title="Limpar busca">&times;</button>
+        </div>
+
+        <!-- Filtros Suspensos -->
+        <div class="filters-group">
+          <select id="category-filter" class="select-filter">
+            <option value="all">Todas as Categorias</option>
+          </select>
+
+          <select id="status-filter" class="select-filter">
+            <option value="all">Todos os Status</option>
+            <option value="S">Apenas Ativos</option>
+            <option value="N">Apenas Inativos</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Linha de Filtros Rápidos de Estoque & Alternadores de Visualização -->
+      <div class="filter-pills-row">
+        <!-- Pills de Estoque -->
+        <div class="pills-container">
+          <button class="filter-pill active" data-stock="all">
+            Todos <span id="count-all" class="pill-count">0</span>
+          </button>
+          <button class="filter-pill" data-stock="in_stock">
+            Com Estoque <span id="count-in-stock" class="pill-count">0</span>
+          </button>
+          <button class="filter-pill" data-stock="low_stock">
+            Estoque Baixo (1-2) <span id="count-low-stock" class="pill-count">0</span>
+          </button>
+          <button class="filter-pill" data-stock="out_of_stock">
+            Sem Estoque <span id="count-out-stock" class="pill-count">0</span>
+          </button>
+        </div>
+
+        <!-- Alternadores de Visualização -->
+        <div class="view-toggles">
+          <div class="segmented-control" title="Agrupamento">
+            <button class="segmented-btn active" data-structure="grouped">
+              📦 Por Modelo
+            </button>
+            <button class="segmented-btn" data-structure="skus">
+              🏷️ Por Variação
+            </button>
+          </div>
+
+          <div class="segmented-control" title="Layout">
+            <button class="segmented-btn active" data-view-mode="table">
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/></svg>
+              Tabela
+            </button>
+            <button class="segmented-btn" data-view-mode="cards">
+              <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+              Cards
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visualização em Tabela -->
+    <section id="table-view-container" class="table-card">
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead id="table-head">
+            <!-- Cabeçalhos dinâmicos via app.js -->
+          </thead>
+          <tbody id="table-body">
+            <!-- Linhas dinâmicas via app.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Rodapé com Paginação e Seletor de Itens por Página -->
+      <div class="table-footer">
+        <div id="pagination-info">Mostrando itens...</div>
+        
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+          <div style="display: flex; align-items: center; gap: 0.4rem; font-size: 0.8rem;">
+            <span>Itens por página:</span>
+            <select id="page-size-select" class="select-filter" style="padding: 0.25rem 1.5rem 0.25rem 0.6rem; font-size: 0.8rem;">
+              <option value="25" selected>25</option>
+              <option value="50">50</option>
+              <option value="100">100</option>
+              <option value="-1">Todos</option>
+            </select>
+          </div>
+
+          <div id="pagination-pages" class="pagination-controls">
+            <!-- Botões de página via app.js -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Visualização em Grade / Cards -->
+    <section id="cards-view-container" class="cards-grid" style="display: none;">
+      <!-- Cards dinâmicos via app.js -->
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       ABA 2: PRECIFICADOR SHOPEE 2026 + ANÁLISE DE AFILIADOS
+       ========================================================================= -->
+  <main id="view-shopee" class="main-container" style="display: none;">
+
+    <!-- Card de Configurações das Taxas e Margem da Shopee -->
+    <section class="shopee-config-card">
+      <div class="config-header">
+        <div class="config-title-group">
+          <h2>
+            <span class="shopee-badge">Shopee Brasil 2026</span>
+            Parâmetros de Precificação
+          </h2>
+          <p>
+            Baseado na política oficial da Shopee (Artigo 26839). Altere a margem de lucro e os custos para recalcular em tempo real.
+          </p>
+        </div>
+
+        <div>
+          <button id="btn-export-shopee" class="btn btn-shopee" title="Exportar tabela completa com preços da Shopee">
+            <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Exportar Preços Shopee (Excel)
+          </button>
+        </div>
+      </div>
+
+      <!-- Inputs de Configuração Editáveis -->
+      <div class="config-inputs-grid">
+        <!-- Margem de Lucro Desejada -->
+        <div class="form-group">
+          <label class="form-label" for="shopee-cfg-margin">
+            <span>Margem de Lucro Líquida</span>
+            <span class="brand-badge" style="background: rgba(16, 185, 129, 0.15); color: #065f46;">Editável</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="shopee-cfg-margin" class="input-custom input-has-suffix" value="20" min="1" max="95" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <span class="form-helper">Percentual de lucro sobre o preço de venda na Shopee (Padrão: 20%)</span>
+        </div>
+
+        <!-- Custo de Embalagem -->
+        <div class="form-group">
+          <label class="form-label" for="shopee-cfg-pack">
+            <span>Custo de Embalagem</span>
+            <span class="brand-badge" style="background: rgba(79, 70, 229, 0.15); color: #4338ca;">Editável</span>
+          </label>
+          <div class="input-with-prefix">
+            <span class="input-prefix">R$</span>
+            <input type="number" id="shopee-cfg-pack" class="input-custom input-has-prefix" value="1.50" min="0" step="0.10">
+          </div>
+          <span class="form-helper">Custo médio por pacote/envio (Padrão: R$ 1,50)</span>
+        </div>
+
+        <!-- Desconto Promocional Planejado (Âncora vs Promo) -->
+        <div class="form-group">
+          <label class="form-label" for="shopee-cfg-promo-discount">
+            <span>Desconto na Promoção</span>
+            <span class="brand-badge" style="background: rgba(238, 77, 45, 0.15); color: #c2410c;">Estratégia Âncora</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="shopee-cfg-promo-discount" class="input-custom input-has-suffix" value="30" min="0" max="80" step="1">
+            <span class="input-suffix">% OFF</span>
+          </div>
+          <span class="form-helper">Desconto planejado nas promoções (gera o Preço de Cadastro Âncora)</span>
+        </div>
+
+        <!-- Tipo de Vendedor (Regime) -->
+        <div class="form-group">
+          <label class="form-label" for="shopee-cfg-seller-type">
+            <span>Tipo de Conta Shopee</span>
+          </label>
+          <select id="shopee-cfg-seller-type" class="select-filter" style="width: 100%;">
+            <option value="cnpj" selected>CNPJ (Padrão Oficial 2026)</option>
+            <option value="cpf_normal">CPF (Padrão - até 450 pedidos)</option>
+            <option value="cpf_high_volume">CPF Alto Volume (> 450 pedidos / +R$ 3,00)</option>
+          </select>
+          <span class="form-helper">Vendedores CPF com &gt; 450 pedidos em 90 dias têm +R$ 3,00 de taxa</span>
+        </div>
+
+        <!-- Alíquota de Imposto (Simples / MEI) -->
+        <div class="form-group">
+          <label class="form-label" for="shopee-cfg-tax">
+            <span>Imposto / DAS</span>
+            <span class="brand-badge" style="background: var(--bg-secondary); color: var(--text-muted);">Opcional</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="shopee-cfg-tax" class="input-custom input-has-suffix" value="0.0" min="0" max="30" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <span class="form-helper">Alíquota de imposto sobre a nota (0% para MEI, 4-6% Simples)</span>
+        </div>
+
+        <!-- Arredondamento Comercial -->
+        <div class="form-group">
+          <label class="form-label" for="shopee-cfg-rounding">
+            <span>Arredondamento Psicológico</span>
+          </label>
+          <select id="shopee-cfg-rounding" class="select-filter" style="width: 100%;">
+            <option value="none" selected>Preço Matemático Exato (ex: R$ 40,00)</option>
+            <option value="90">Arredondar para final ,90 (ex: R$ 39,90)</option>
+            <option value="99">Arredondar para final ,99 (ex: R$ 39,99)</option>
+          </select>
+          <span class="form-helper">Formata os preços finais para maior apelo comercial</span>
+        </div>
+      </div>
+
+      <!-- Tabela Explicativa das Regras Shopee (Colapsável) -->
+      <div class="rules-accordion">
+        <div id="rules-accordion-toggle" class="rules-toggle">
+          <span style="display: flex; align-items: center; gap: 0.5rem;">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <strong>Como funcionam as taxas da Shopee em 2026?</strong> (Clique para ver a tabela oficial de faixas)
+          </span>
+          <span id="rules-chevron" style="transition: transform 0.2s;">▼</span>
+        </div>
+        <div id="rules-accordion-content" class="rules-content">
+          <p style="margin-bottom: 0.5rem; line-height: 1.4;">
+            Em 2026, a Shopee atualizou a taxa fixa por item de <strong>R$ 4,00 para R$ 4,50</strong> em produtos de até R$ 79,99 (conforme o artigo oficial 26839).
+            O percentual já inclui a comissão de 14% + 6% do Programa de Frete Grátis e taxa de transação:
+          </p>
+          <table class="rules-table">
+            <thead>
+              <tr>
+                <th>Faixa de Preço do Item</th>
+                <th>Taxa Percentual</th>
+                <th>Taxa Fixa por Item</th>
+                <th>Subsídio Pix</th>
+                <th>Regra Especial</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Até R$ 79,99</strong></td>
+                <td>20%</td>
+                <td><strong>R$ 4,50</strong></td>
+                <td>—</td>
+                <td>Se o preço for &lt; R$ 9,00, a taxa fixa é de 50% do valor do item</td>
+              </tr>
+              <tr>
+                <td><strong>R$ 80,00 a R$ 99,99</strong></td>
+                <td>14%</td>
+                <td><strong>R$ 16,00</strong></td>
+                <td>5%</td>
+                <td>Comissão percentual reduzida, taxa fixa de R$ 16,00</td>
+              </tr>
+              <tr>
+                <td><strong>R$ 100,00 a R$ 199,99</strong></td>
+                <td>14%</td>
+                <td><strong>R$ 20,00</strong></td>
+                <td>5%</td>
+                <td>Taxa fixa de R$ 20,00</td>
+              </tr>
+              <tr>
+                <td><strong>R$ 200,00 a R$ 499,99</strong></td>
+                <td>14%</td>
+                <td><strong>R$ 26,00</strong></td>
+                <td>5%</td>
+                <td>Taxa fixa de R$ 26,00</td>
+              </tr>
+              <tr>
+                <td><strong>Acima de R$ 500,00</strong></td>
+                <td>14%</td>
+                <td><strong>R$ 26,00</strong></td>
+                <td>Até 8%</td>
+                <td>Taxa fixa travada em R$ 26,00</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">
+            Fonte oficial: <a href="https://seller.br.shopee.cn/edu/article/26839/Comissao-para-vendedores-CNPJ-e-CPF-em-2026" target="_blank" style="color: #ee4d2d; text-decoration: underline;">Centro de Educação do Vendedor Shopee (Artigo 26839)</a>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SIMULADOR INDIVIDUAL INTERATIVO (Raio-X de 1 Produto)
+         ========================================================================= -->
+    <section class="simulator-grid">
+      <!-- Coluna da Esquerda: Seleção e Entradas do Produto -->
+      <div class="sim-card">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+          <h3 style="font-size: 1.05rem; font-weight: 700; display: flex; align-items: center; gap: 0.4rem;">
+            <svg width="18" height="18" fill="none" stroke="#ee4d2d" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 7h6m0 10v-3m-3 3h.01M9 17h.01M9 14h.01M12 14h.01M15 11h.01M12 11h.01M9 11h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+            Simulador de Produto Específico
+          </h3>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Tempo real</span>
+        </div>
+
+        <!-- Seletor Rápido de Produto do Catálogo com Busca Inteligente -->
+        <div class="form-group" style="position: relative;">
+          <label class="form-label" for="sim-product-search">
+            <span>Buscar Produto por SKU ou Nome</span>
+            <span style="font-size: 0.72rem; color: var(--text-muted);">digite qualquer parte do SKU ou nome</span>
+          </label>
+          <div class="search-box" style="width: 100%; position: relative;">
+            <span class="search-icon">
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+            </span>
+            <input type="text" id="sim-product-search" class="search-input" placeholder="🔍 Digite SKU ou Nome (ex: DVX2, Romper, Calça, 6 meses...)" autocomplete="off">
+            <button type="button" id="sim-search-clear" class="search-clear" title="Limpar busca" style="display: none;">&times;</button>
+          </div>
+
+          <!-- Dropdown Flutuante de Autocomplete com Resultados Instantâneos -->
+          <div id="sim-autocomplete-list" class="sim-autocomplete-dropdown" style="display: none;"></div>
+
+          <!-- Select Oculto para Retrocompatibilidade -->
+          <select id="sim-product-select" style="display: none;">
+            <option value="">-- Escolha um produto da loja para preencher --</option>
+          </select>
+        </div>
+
+        <!-- Pré-visualização do Produto Selecionado -->
+        <div id="sim-product-preview" style="display: none; align-items: center; gap: 0.85rem; padding: 0.75rem; background: var(--bg-secondary); border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <img id="sim-product-img" src="" class="product-thumb" alt="Preview">
+          <div style="display: flex; flex-direction: column; min-width: 0;">
+            <strong id="sim-product-name" style="font-size: 0.85rem; color: var(--text-primary); line-height: 1.2;"></strong>
+            <span id="sim-product-cat" style="font-size: 0.75rem; color: var(--text-muted);"></span>
+            <span id="sim-product-store-price" style="font-size: 0.75rem; color: #2563eb; font-weight: 600; margin-top: 2px;"></span>
+          </div>
+        </div>
+
+        <!-- Entradas de Custo & Desconto para o Cálculo -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem;">
+          <div class="form-group">
+            <label class="form-label" for="sim-cost-input">
+              <span>Preço de Custo (R$)</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="sim-cost-input" class="input-custom input-has-prefix" value="18.00" min="0" step="0.50">
+            </div>
+            <span class="form-helper">Custo unitário de compra/produção</span>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="sim-pack-input">
+              <span>Embalagem (R$)</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="sim-pack-input" class="input-custom input-has-prefix" value="1.50" min="0" step="0.10">
+            </div>
+            <span class="form-helper">Embalagem individual do pedido</span>
+          </div>
+        </div>
+
+        <!-- Desconto Promocional no Produto -->
+        <div class="form-group" style="padding-top: 0.5rem; border-top: 1px solid var(--border-subtle);">
+          <label class="form-label" for="sim-promo-discount-input">
+            <span>Desconto da Promoção Shopee (% OFF)</span>
+            <span class="brand-badge" style="background: rgba(238, 77, 45, 0.15); color: #c2410c;">Central de Marketing</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="sim-promo-discount-input" class="input-custom input-has-suffix" value="30" min="0" max="80" step="1">
+            <span class="input-suffix">% OFF</span>
+          </div>
+          <div style="display: flex; gap: 0.35rem; margin-top: 0.35rem;">
+            <button type="button" class="preset-pill sim-discount-pill" data-discount="15">15%</button>
+            <button type="button" class="preset-pill sim-discount-pill" data-discount="20">20%</button>
+            <button type="button" class="preset-pill sim-discount-pill active" data-discount="30">30%</button>
+            <button type="button" class="preset-pill sim-discount-pill" data-discount="40">40%</button>
+            <button type="button" class="preset-pill sim-discount-pill" data-discount="50">50%</button>
+          </div>
+          <span class="form-helper">Gera o Preço de Cadastro Âncora para você aplicar esse desconto na promoção</span>
+        </div>
+
+        <!-- Simulação Reversa (Preço Manual Alternativo) -->
+        <div style="padding-top: 0.5rem; border-top: 1px solid var(--border-subtle);">
+          <div class="form-group">
+            <label class="form-label" for="sim-manual-price">
+              <span>Ou teste um Preço com Desconto Manual</span>
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Simulação Reversa</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="sim-manual-price" class="input-custom input-has-prefix" placeholder="Ex: 40.00 (deixe em branco p/ usar o sugerido)" step="0.50">
+            </div>
+            <span class="form-helper">Preço que o cliente vai pagar para ver o lucro e o Preço de Cadastro correspondente</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Coluna da Direita: Preços Sugeridos (Cadastro & Desconto) & DRE Detalhado -->
+      <div class="sim-card">
+        <!-- Caixa Dupla de Preços Shopee -->
+        <div class="sim-dual-price-grid">
+          <!-- 1. Preço de Cadastro (Âncora) -->
+          <div class="sim-price-card sim-price-cad-card">
+            <div class="sim-price-card-header">
+              <span class="sim-price-tag-badge">1. Preço de Cadastro</span>
+              <span class="sim-price-tag-sub">Cadastrar no Produto</span>
+            </div>
+            <div class="sim-price-val" id="sim-display-cad-price">R$ 57,14</div>
+            <span class="sim-price-note" id="sim-display-cad-sub">Preço de lista / Âncora</span>
+          </div>
+
+          <!-- 2. Preço com Desconto (Promoção) -->
+          <div class="sim-price-card sim-price-promo-card">
+            <div class="sim-price-card-header">
+              <span class="sim-price-tag-badge sim-badge-promo" id="sim-display-promo-badge">2. Preço c/ Desconto (-30%)</span>
+              <span class="sim-price-tag-sub">Central de Marketing</span>
+            </div>
+            <div class="sim-price-val sim-promo-val" id="sim-display-promo-price">R$ 40,00</div>
+            <span class="sim-price-note" id="sim-display-tier">Faixa Shopee: 20% + R$ 4,50</span>
+          </div>
+        </div>
+
+        <div id="sim-comparison-badge" style="display: flex; justify-content: center;"></div>
+
+        <!-- DRE Detalhado da Venda com Desconto -->
+        <div class="dre-list">
+          <div class="dre-item" style="background: rgba(238, 77, 45, 0.04);">
+            <span class="dre-label"><strong>(+) Preço de Cadastro (Âncora no Anúncio)</strong></span>
+            <span class="dre-val" id="dre-cad-val" style="font-weight: 700;">R$ 57,14</span>
+          </div>
+          <div class="dre-item" id="dre-promo-discount-row">
+            <span class="dre-label">
+              (-) Desconto Promocional (<span id="dre-promo-discount-pct">30,0%</span> OFF)
+            </span>
+            <span class="dre-val dre-deduction" id="dre-promo-discount-val">-R$ 17,14</span>
+          </div>
+          <div class="dre-item" style="background: var(--bg-tertiary); font-weight: 600;">
+            <span class="dre-label"><strong>(=) Preço Efetivo Pago pelo Cliente</strong></span>
+            <span class="dre-val" id="dre-venda" style="color: #ee4d2d; font-weight: 700;">R$ 40,00</span>
+          </div>
+          <div class="dre-item">
+            <span class="dre-label">
+              (-) Taxa Percentual Shopee (<span id="dre-shopee-pct">20%</span>)
+            </span>
+            <span class="dre-val dre-deduction" id="dre-shopee-pct-val">-R$ 8,00</span>
+          </div>
+          <div class="dre-item">
+            <span class="dre-label">
+              (-) Taxa Fixa Shopee por Item
+            </span>
+            <span class="dre-val dre-deduction" id="dre-shopee-fix-val">-R$ 4,50</span>
+          </div>
+          <div class="dre-item">
+            <span class="dre-label">(-) Custo de Embalagem</span>
+            <span class="dre-val dre-deduction" id="dre-pack-val">-R$ 1,50</span>
+          </div>
+          <div class="dre-item">
+            <span class="dre-label">(-) Custo da Mercadoria (CMV)</span>
+            <span class="dre-val dre-deduction" id="dre-cost-val">-R$ 18,00</span>
+          </div>
+          <div class="dre-item" id="dre-tax-row" style="display: none;">
+            <span class="dre-label">(-) Imposto (<span id="dre-tax-pct">0%</span>)</span>
+            <span class="dre-val dre-deduction" id="dre-tax-val">-R$ 0,00</span>
+          </div>
+          <div class="dre-item" style="background: var(--bg-tertiary); font-weight: 600;">
+            <span class="dre-label">(=) Repasse Líquido Shopee (na sua conta)</span>
+            <span class="dre-val" style="color: #2563eb;" id="dre-repasse">R$ 27,50</span>
+          </div>
+          <div class="dre-item dre-item-total">
+            <span class="dre-label">
+              <strong>(=) Lucro Líquido Real no Bolso</strong>
+            </span>
+            <span class="dre-val" id="dre-lucro">R$ 8,00 (20,0%)</span>
+          </div>
+        </div>
+
+        <!-- Gráfico Visual de Composição do Preço -->
+        <div class="breakdown-bar-container">
+          <div style="display: flex; justify-content: space-between; font-size: 0.75rem; font-weight: 600; color: var(--text-secondary);">
+            <span>Distribuição do Preço de Venda</span>
+            <span id="breakdown-summary">Taxas: 31,3% | Custos: 48,8% | Lucro: 20,0%</span>
+          </div>
+          <div class="breakdown-bar">
+            <div id="bar-cost" class="breakdown-segment bg-cost" style="width: 45%;" title="Custo da Mercadoria"></div>
+            <div id="bar-pack" class="breakdown-segment bg-pack" style="width: 4%;" title="Embalagem"></div>
+            <div id="bar-shopee" class="breakdown-segment bg-shopee" style="width: 31%;" title="Taxas Shopee"></div>
+            <div id="bar-tax" class="breakdown-segment bg-tax" style="width: 0%;" title="Imposto"></div>
+            <div id="bar-profit" class="breakdown-segment bg-profit" style="width: 20%;" title="Lucro Líquido"></div>
+          </div>
+          <div class="breakdown-legend">
+            <div class="legend-item"><span class="legend-dot bg-cost"></span> Produto</div>
+            <div class="legend-item"><span class="legend-dot bg-pack"></span> Embalagem</div>
+            <div class="legend-item"><span class="legend-dot bg-shopee"></span> Shopee (Comissão + Fixa)</div>
+            <div class="legend-item"><span class="legend-dot bg-tax"></span> Imposto</div>
+            <div class="legend-item"><span class="legend-dot bg-profit"></span> Seu Lucro</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         NOVA SEÇÃO: SIMULADOR DE COMISSÃO DE AFILIADOS (Shopee & Loja)
+         ========================================================================= -->
+    <section class="affiliate-section">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">
+            <span class="affiliate-badge">Afiliados</span>
+            Simulador de Comissão para Afiliados &amp; Influenciadores
+          </h2>
+          <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 3px;">
+            Descubra quanto você pode pagar de comissão extra aos afiliados da Shopee sem sacrificar a saúde financeira da sua operação.
+          </p>
+        </div>
+
+        <!-- Estratégia de Afiliado (Absorver vs Repassar) -->
+        <div class="segmented-control" title="Como aplicar a comissão do afiliado">
+          <button id="aff-mode-absorb" class="segmented-btn active" data-aff-mode="absorb">
+            📉 Absorver da Margem
+          </button>
+          <button id="aff-mode-repass" class="segmented-btn" data-aff-mode="repass">
+            📈 Repassar no Preço
+          </button>
+        </div>
+      </div>
+
+      <!-- Controles de Parâmetros de Afiliados -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; background: var(--bg-secondary); padding: 1.1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+        
+        <!-- Comissão Testada -->
+        <div class="form-group">
+          <label class="form-label" for="aff-tested-pct">
+            <span>Comissão de Afiliado Testada</span>
+            <span id="aff-tested-val-label" style="color: #8b5cf6; font-weight: 700;">5,0%</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="aff-tested-pct" class="input-custom input-has-suffix" value="5" min="0" max="30" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <!-- Botões Rápidos -->
+          <div class="quick-pct-btns">
+            <button class="quick-pct-btn" data-pct="3">3%</button>
+            <button class="quick-pct-btn active" data-pct="5">5%</button>
+            <button class="quick-pct-btn" data-pct="8">8%</button>
+            <button class="quick-pct-btn" data-pct="10">10%</button>
+            <button class="quick-pct-btn" data-pct="12">12%</button>
+            <button class="quick-pct-btn" data-pct="15">15%</button>
+          </div>
+        </div>
+
+        <!-- Margem Mínima Tolerada (Piso de Segurança) -->
+        <div class="form-group">
+          <label class="form-label" for="aff-min-margin">
+            <span>Piso Mínimo de Margem Segura</span>
+            <span class="brand-badge" style="background: rgba(16, 185, 129, 0.15); color: #065f46;">Segurança</span>
+          </label>
+          <div class="input-with-prefix">
+            <input type="number" id="aff-min-margin" class="input-custom input-has-suffix" value="10" min="1" max="50" step="0.5">
+            <span class="input-suffix">%</span>
+          </div>
+          <span class="form-helper">Menor margem que você aceita reter após pagar todos os custos e o afiliado (Padrão: 10%)</span>
+        </div>
+
+        <!-- Explicação da Estratégia Ativa -->
+        <div class="form-group" style="justify-content: center;">
+          <div id="aff-strategy-desc" style="font-size: 0.8rem; line-height: 1.4; color: var(--text-secondary); background: var(--bg-surface); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);">
+            <strong>Estratégia: Absorver na Margem</strong><br>
+            O preço de venda na Shopee permanece o mesmo. A comissão do afiliado é deduzida diretamente do seu lucro em cada venda gerada por link.
+          </div>
+        </div>
+      </div>
+
+      <!-- 4 KPIs de Decisão de Afiliados -->
+      <div class="affiliate-kpi-grid">
+        <!-- Teto Máximo Recomendado -->
+        <div class="affiliate-kpi-card" style="border-left: 4px solid #10b981;">
+          <span class="affiliate-kpi-title">Teto Máximo Viável de Comissão</span>
+          <div class="affiliate-kpi-value" id="aff-kpi-max-pct" style="color: #10b981;">10,0%</div>
+          <span style="font-size: 0.75rem; color: var(--text-muted);" id="aff-kpi-max-val">R$ 4,00 por peça (Piso: 10% margem)</span>
+        </div>
+
+        <!-- Comissão Paga ao Afiliado -->
+        <div class="affiliate-kpi-card" style="border-left: 4px solid #8b5cf6;">
+          <span class="affiliate-kpi-title">Comissão Paga ao Afiliado</span>
+          <div class="affiliate-kpi-value" id="aff-kpi-aff-val" style="color: #8b5cf6;">R$ 2,00</div>
+          <span style="font-size: 0.75rem; color: var(--text-muted);" id="aff-kpi-aff-pct">5,0% sobre o preço de venda</span>
+        </div>
+
+        <!-- Lucro Líquido Restante para o Vendedor -->
+        <div class="affiliate-kpi-card" style="border-left: 4px solid #2563eb;">
+          <span class="affiliate-kpi-title">Seu Lucro Líquido Restante</span>
+          <div class="affiliate-kpi-value" id="aff-kpi-profit-val" style="color: #2563eb;">R$ 6,00</div>
+          <span style="font-size: 0.75rem; color: var(--text-muted);" id="aff-kpi-profit-pct">Margem final: 15,0%</span>
+        </div>
+
+        <!-- Veredito de Segurança -->
+        <div class="affiliate-kpi-card" style="border-left: 4px solid #f59e0b;">
+          <span class="affiliate-kpi-title">Diagnóstico de Viabilidade</span>
+          <div style="margin-top: 0.25rem;" id="aff-kpi-status-container">
+            <span class="risk-pill risk-safe" id="aff-kpi-status-pill">
+              ● Seguro &amp; Recomendado
+            </span>
+          </div>
+          <span style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;" id="aff-kpi-status-sub">
+            Sua margem (15,0%) fica bem acima do piso seguro de 10%
+          </span>
+        </div>
+      </div>
+
+      <!-- Tabela Comparativa de Cenários de Afiliados (0% a 20%) -->
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); overflow: hidden;">
+        <div style="padding: 0.85rem 1rem; background: var(--bg-secondary); border-bottom: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+          <strong style="font-size: 0.85rem; color: var(--text-primary);">
+            📊 Tabela de Cenários: O que acontece com seu bolso em cada % de comissão?
+          </strong>
+          <span style="font-size: 0.75rem; color: var(--text-muted);">Simulado para o produto selecionado</span>
+        </div>
+        <div class="table-responsive">
+          <table class="scenario-table">
+            <thead>
+              <tr>
+                <th>Comissão Afiliado</th>
+                <th>Valor Pago (R$)</th>
+                <th>Preço de Venda</th>
+                <th>Taxas Shopee</th>
+                <th>Seu Lucro Líquido (R$)</th>
+                <th>Sua Margem Real</th>
+                <th>Preço se Repassar</th>
+                <th style="text-align: center;">Viabilidade</th>
+              </tr>
+            </thead>
+            <tbody id="aff-scenario-tbody">
+              <!-- Gerado via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Dica Prática de Estratégia de Afiliados -->
+      <div style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.25); border-radius: var(--radius-md); padding: 0.85rem 1.1rem; font-size: 0.82rem; color: var(--text-secondary); display: flex; align-items: flex-start; gap: 0.65rem;">
+        <span style="font-size: 1.2rem; line-height: 1;">💡</span>
+        <div>
+          <strong style="color: var(--text-primary);">Dica de Ouro para Afiliados na Shopee:</strong>
+          A maioria dos afiliados e criadores de conteúdo do nicho infantil/bebê divulga produtos com comissões extras entre <strong>5% e 10%</strong>. Oferecer 5% já coloca seus anúncios na vitrine do programa de afiliados sem comprometer drasticamente sua margem de 20%, gerando volume de vendas com lucro previsível.
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         TABELA DE PRECIFICAÇÃO EM MASSA (Todo o Catálogo na Shopee)
+         ========================================================================= -->
+    <section class="table-card" style="margin-top: 0.5rem;">
+      <div style="padding: 1.25rem; border-bottom: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+        <div>
+          <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 0.5rem;">
+            <span>📋 Tabela de Preços Shopee para Todos os Produtos</span>
+            <span class="brand-badge" id="shopee-mass-count">376 itens</span>
+          </h3>
+          <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+            Preços sugeridos para cada item aplicando a margem configurada (<strong id="mass-margin-label">20%</strong>), embalagem (<strong id="mass-pack-label">R$ 1,50</strong>) e teto de afiliados.
+          </p>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
+          <input type="text" id="shopee-table-search" class="search-input" placeholder="Filtrar produtos ou SKU..." style="width: 240px; padding: 0.45rem 0.85rem;">
+          
+          <select id="shopee-table-stock-filter" class="select-filter" style="padding: 0.45rem 1.6rem 0.45rem 0.75rem; font-size: 0.82rem;">
+            <option value="all">Todos os Produtos</option>
+            <option value="in_stock" selected>Apenas com Estoque (&gt; 0)</option>
+            <option value="zero">Apenas Zerados</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th style="width: 50px;">Foto</th>
+              <th>Produto / Modelo</th>
+              <th>SKU</th>
+              <th>Variação</th>
+              <th>Custo Unit.</th>
+              <th>Preço Loja</th>
+              <th>Taxas Shopee</th>
+              <th style="background-color: rgba(238, 77, 45, 0.08); color: #ee4d2d;">Preço Cadastro (Âncora)</th>
+              <th class="shopee-table-th-highlight">Preço c/ Desconto (Promo)</th>
+              <th>Lucro Líquido</th>
+              <th>Margem Real</th>
+              <th style="background-color: rgba(139, 92, 246, 0.08); color: #8b5cf6;">Teto Afiliado (R$)</th>
+              <th>Estoque</th>
+              <th style="text-align: center;">Simular</th>
+            </tr>
+          </thead>
+          <tbody id="shopee-table-body">
+            <!-- Linhas geradas dinamicamente via app.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <div id="shopee-pagination-info">Mostrando produtos...</div>
+        <div id="shopee-pagination-pages" class="pagination-controls"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       ABA 3: AUDITORIA SHOPEE REAL (184 Itens Cadastrados & Preço Âncora)
+       ========================================================================= -->
+  <main id="view-audit" class="main-container" style="display: none;">
+
+    <!-- Banner Estratégico: Preço Âncora vs Promoções -->
+    <section class="audit-strategy-banner">
+      <div class="audit-strategy-header">
+        <div class="audit-strategy-title">
+          <span class="audit-badge-pill">Diagnóstico Oficial Shopee 2026</span>
+          <h2>Análise Estratégica: Preço Âncora e Promoções na Shopee</h2>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary);">
+          Origem dos Dados: <strong>mass_update_sales_info_1634195952_20260927054221.xlsx</strong> (184 itens reais)
+        </div>
+      </div>
+
+      <div class="audit-strategy-grid">
+        <div class="audit-card-item">
+          <h4>
+            <svg width="18" height="18" fill="none" stroke="#16a34a" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            1. Estratégia de Preço Âncora: Aprovada!
+          </h4>
+          <p>
+            Cadastrar com preço superior para oferecer desconto (ex: "De R$ 120 por R$ 85") é a <strong>estratégia mais eficaz na Shopee</strong>. Ela gera o selo laranja de desconto, atrai cliques e permite participar de campanhas oficiais sem liquidar o estoque no prejuízo.
+          </p>
+        </div>
+
+        <div class="audit-card-item">
+          <h4>
+            <svg width="18" height="18" fill="none" stroke="#2563eb" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            2. O "Sweet Spot" (Zona de Ouro): 20% a 30% OFF
+          </h4>
+          <p>
+            Com descontos entre <strong>20% e 30%</strong>, seus produtos chegam ao preço real de venda da loja física/própria (R$ 85 médios) e ainda mantêm uma <strong>margem líquida média entre 24% e 31%</strong>, batendo com folga a meta de 20%.
+          </p>
+        </div>
+
+        <div class="audit-card-item">
+          <h4>
+            <svg width="18" height="18" fill="none" stroke="#dc2626" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            3. Zona de Perigo: Descontos &gt; 35% e Itens &lt; R$ 25
+          </h4>
+          <p>
+            Descontos de <strong>40% ou mais</strong> derrubam a margem média para 15% e levam 45 produtos a prejuízo. Além disso, itens muito baratos (ex: Babador Bandana a R$ 14) têm prejuízo imediato devido à <strong>taxa fixa mínima de R$ 4,50</strong> + R$ 1,50 de embalagem.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Indicadores Gerais Shopee Real (KPI Cards) -->
+    <section class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Itens Cadastrados Shopee</span>
+          <div class="kpi-icon" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="audit-kpi-total">184</div>
+        <div class="kpi-subtext">100% dos produtos vinculados</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Preço Médio Cadastrado (Âncora)</span>
+          <div class="kpi-icon" style="background: rgba(238, 77, 45, 0.1); color: #ee4d2d;">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="audit-kpi-price-shopee">R$ 121,47</div>
+        <div class="kpi-subtext">vs R$ 84,32 na Loja (+44% de âncora)</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Margem Atual no Preço Cheio</span>
+          <div class="kpi-icon" style="background: rgba(22, 163, 74, 0.1); color: #16a34a;">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" style="color: #16a34a;" id="audit-kpi-margin-cheio">41.0%</div>
+        <div class="kpi-subtext">Lucro médio: <strong>R$ 55,70</strong> / peça</div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Desconto Máximo Médio Seguro</span>
+          <div class="kpi-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">
+            <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" style="color: #8b5cf6;" id="audit-kpi-max-discount">Até 35.6% OFF</div>
+        <div class="kpi-subtext">Mantendo no mínimo 20% de margem</div>
+      </div>
+    </section>
+
+    <!-- Painel de Simulação Interativa de Desconto em Massa (Meus Descontos) -->
+    <section class="audit-sim-panel">
+      <div class="audit-sim-header">
+        <div>
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">
+            🎯 Simulador de Promoções Shopee ("Meus Descontos")
+          </h3>
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin: 0;">
+            Arraste o slider para simular a aplicação de desconto em massa na Central de Marketing da Shopee e veja o impacto instantâneo nos 184 itens.
+          </p>
+        </div>
+
+        <div class="audit-presets-row">
+          <button class="audit-preset-btn" data-discount="0">0% (Preço Cheio)</button>
+          <button class="audit-preset-btn" data-discount="15">15% OFF (Leve)</button>
+          <button class="audit-preset-btn active" data-discount="20">20% OFF (Recomendado)</button>
+          <button class="audit-preset-btn" data-discount="25">25% OFF (Equilibrado)</button>
+          <button class="audit-preset-btn" data-discount="30">30% OFF (Preço da Loja)</button>
+          <button class="audit-preset-btn" data-discount="40">40% OFF (Queima)</button>
+        </div>
+      </div>
+
+      <div class="audit-slider-box">
+        <div class="audit-slider-row">
+          <span style="font-size: 0.85rem; font-weight: 600; color: var(--text-secondary);">Desconto Simulado:</span>
+          <input type="range" id="audit-discount-slider" min="0" max="60" step="1" value="20">
+          <div class="audit-slider-val" id="audit-discount-display">20% OFF</div>
+        </div>
+      </div>
+
+      <div class="audit-results-bar">
+        <div class="audit-res-item">
+          <span class="audit-res-label">Preço Médio de Venda</span>
+          <span class="audit-res-value" id="audit-sim-res-price">R$ 97,17</span>
+        </div>
+        <div class="audit-res-item">
+          <span class="audit-res-label">Margem Média Resultante</span>
+          <span class="audit-res-value" id="audit-sim-res-margin" style="color: #16a34a;">31.3%</span>
+        </div>
+        <div class="audit-res-item">
+          <span class="audit-res-label">Lucro Médio por Peça</span>
+          <span class="audit-res-value" id="audit-sim-res-profit">R$ 36,13</span>
+        </div>
+        <div class="audit-res-item">
+          <span class="audit-res-label">Itens Seguros (Margem &ge; 20%)</span>
+          <span class="audit-res-value" id="audit-sim-res-safe" style="color: #16a34a;">138 / 184</span>
+        </div>
+        <div class="audit-res-item">
+          <span class="audit-res-label">Itens em Prejuízo (&lt; 0%)</span>
+          <span class="audit-res-value" id="audit-sim-res-loss" style="color: #dc2626;">2 / 184</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Barra de Filtros, Pesquisa e Exportação da Auditoria -->
+    <section class="controls-card">
+      <div class="controls-row-top">
+        <div class="search-box">
+          <span class="search-icon">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          </span>
+          <input type="text" id="audit-search-input" class="search-input" placeholder="Buscar produto na Shopee, variação ou SKU...">
+          <button id="audit-search-clear" class="search-clear" title="Limpar busca">&times;</button>
+        </div>
+
+        <div class="filter-pills-container">
+          <button class="filter-pill active" data-audit-filter="all">Todos (184)</button>
+          <button class="filter-pill" data-audit-filter="safe">Margem Segura &ge; 20%</button>
+          <button class="filter-pill" data-audit-filter="warning">Margem 0% a 20%</button>
+          <button class="filter-pill" data-audit-filter="danger">Prejuízo &lt; 0%</button>
+          <button class="filter-pill" data-audit-filter="no_sku">Sem SKU na Shopee (122)</button>
+        </div>
+
+        <div class="controls-actions">
+          <button id="btn-export-audit" class="btn btn-outline" title="Exportar tabela de auditoria para Excel">
+            <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            Exportar Auditoria Excel
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tabela Detalhada de Auditoria Shopee Real -->
+    <section class="table-card">
+      <div class="table-responsive">
+        <table class="data-table" id="audit-table">
+          <thead>
+            <tr>
+              <th>Produto Cadastrado na Shopee</th>
+              <th>SKU Shopee vs Loja</th>
+              <th>Custo Unit.</th>
+              <th>Preço Loja</th>
+              <th>Preço Âncora Shopee</th>
+              <th style="background-color: rgba(37, 99, 235, 0.08); color: #2563eb;">Preço Simulado</th>
+              <th>Taxa Shopee 2026</th>
+              <th>Lucro Líquido</th>
+              <th>Margem Real</th>
+              <th style="background-color: rgba(139, 92, 246, 0.08); color: #8b5cf6;">Teto Desconto Seguro (20%)</th>
+              <th style="text-align: center;">Diagnóstico / Ação</th>
+            </tr>
+          </thead>
+          <tbody id="audit-table-body">
+            <!-- Linhas geradas dinamicamente via app.js -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="table-footer">
+        <div id="audit-pagination-info">Mostrando itens...</div>
+        <div id="audit-pagination-pages" class="pagination-controls"></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Lightbox para Ampliar Foto do Produto -->
+  <div id="lightbox-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="lightbox-close" class="modal-close" title="Fechar">&times;</button>
+      <img id="lightbox-img" class="lightbox-img" src="" alt="Produto">
+      <div class="lightbox-details">
+        <h3 id="lightbox-title" style="margin-bottom: 0.35rem; font-size: 1.05rem;"></h3>
+        <p style="font-size: 0.82rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+          SKU: <strong id="lightbox-sku" style="color: var(--text-primary);"></strong>
+        </p>
+        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; background: var(--bg-secondary); padding: 0.75rem; border-radius: var(--radius-md);">
+          <div>Estoque Atual: <strong id="lightbox-stock" style="color: var(--text-primary);"></strong></div>
+          <div>Preço de Custo: <strong id="lightbox-cost" style="color: #2563eb;"></strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container de Notificações Toast -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="xlsx.full.min.js"></script>
+  <script src="dados_produtos.js"></script>
+  <script src="dados_shopee_real.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
