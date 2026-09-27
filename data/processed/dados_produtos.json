@@ -1,6 +1,6 @@
 {
   "arquivo_origem": "produtos-2026-03-28.xlsx",
-  "data_atualizacao": "2026-09-27 14:08:22",
+  "data_atualizacao": "2026-09-27 21:13:37",
   "totais": {
     "total_itens": 376,
     "total_modelos": 189,
@@ -27,6 +27,7 @@
   ],
   "produtos_agrupados": [
     {
+      "sku": "KS9NKP23Z",
       "sku_pai": "KS9NKP23Z",
       "nome": "2 Bloomers Unissex (3-6 meses)",
       "categoria": "Sem Categoria",
@@ -72,6 +73,7 @@
       ]
     },
     {
+      "sku": "TB5XHH8AA",
       "sku_pai": "TB5XHH8AA",
       "nome": "2 Bloomers Unissex Clean (0-3m)",
       "categoria": "BOY > Tapa Fraldas / Bloomers",
@@ -183,6 +185,7 @@
       ]
     },
     {
+      "sku": "7BT6MY54H",
       "sku_pai": "7BT6MY54H",
       "nome": "2 Gorros Unissex (9-18m)",
       "categoria": "Sem Categoria",
@@ -228,6 +231,7 @@
       ]
     },
     {
+      "sku": "TU8DZV33U",
       "sku_pai": "TU8DZV33U",
       "nome": "2 Regatas (9-12m)",
       "categoria": "Sem Categoria",
@@ -273,6 +277,7 @@
       ]
     },
     {
+      "sku": "DXKWG8M7R",
       "sku_pai": "DXKWG8M7R",
       "nome": "3 Calças de Bebê (03 meses)",
       "categoria": "Sem Categoria",
@@ -318,6 +323,7 @@
       ]
     },
     {
+      "sku": "SQVQSH2SF",
       "sku_pai": "SQVQSH2SF",
       "nome": "3 Calças de Bebê (06-09 meses)",
       "categoria": "Sem Categoria",
@@ -363,6 +369,7 @@
       ]
     },
     {
+      "sku": "3XZ4TGTWG",
       "sku_pai": "3XZ4TGTWG",
       "nome": "Babador Bandana Luluks",
       "categoria": "Sem Categoria",
@@ -408,6 +415,7 @@
       ]
     },
     {
+      "sku": "WC8PLCAKG",
       "sku_pai": "WC8PLCAKG",
       "nome": "Babador Bandana Xadrez Unissex",
       "categoria": "Sem Categoria",
@@ -453,6 +461,7 @@
       ]
     },
     {
+      "sku": "DVX2DN86Z",
       "sku_pai": "DVX2DN86Z",
       "nome": "Babador Infantil Azul Marinho Unissex",
       "categoria": "Sem Categoria",
@@ -498,6 +507,7 @@
       ]
     },
     {
+      "sku": "JE4NHHE47",
       "sku_pai": "JE4NHHE47",
       "nome": "Babador Unissex",
       "categoria": "Sem Categoria",
@@ -543,6 +553,7 @@
       ]
     },
     {
+      "sku": "38DPQKHCS",
       "sku_pai": "38DPQKHCS",
       "nome": "Bermuda Baby (Rn-3 meses); (1 ano)",
       "categoria": "Sem Categoria",
@@ -610,6 +621,7 @@
       ]
     },
     {
+      "sku": "7HKLYZBMG",
       "sku_pai": "7HKLYZBMG",
       "nome": "Bermuda Feminina (01-03m) ; (3 anos)",
       "categoria": "Sem Categoria",
@@ -699,6 +711,7 @@
       ]
     },
     {
+      "sku": "9HXM8XKCK",
       "sku_pai": "9HXM8XKCK",
       "nome": "Bermuda Feminina (1-3 meses);(2 anos)",
       "categoria": "Sem Categoria",
@@ -810,6 +823,7 @@
       ]
     },
     {
+      "sku": "ZTRPK6EGM",
       "sku_pai": "ZTRPK6EGM",
       "nome": "Bermuda Feminina com Bolso (1 ano)",
       "categoria": "Sem Categoria",
@@ -899,6 +913,7 @@
       ]
     },
     {
+      "sku": "72EVL2PDE",
       "sku_pai": "72EVL2PDE",
       "nome": "Bermuda Mostarda Unissex (3 meses)",
       "categoria": "Sem Categoria",
@@ -944,6 +959,7 @@
       ]
     },
     {
+      "sku": "RMC6WU867",
       "sku_pai": "RMC6WU867",
       "nome": "Bermuda Saruel Unissex (9-12m);(1 ano)",
       "categoria": "BOY > Bermudas",
@@ -1099,6 +1115,7 @@
       ]
     },
     {
+      "sku": "6AXEZJYE3",
       "sku_pai": "6AXEZJYE3",
       "nome": "Bermuda de Bebê Unissex (03-06 meses)",
       "categoria": "BOY > Bermudas",
@@ -1188,6 +1205,7 @@
       ]
     },
     {
+      "sku": "6PHYERTTL",
       "sku_pai": "6PHYERTTL",
       "nome": "Bermuda de Bebê Unissex (6-9m)",
       "categoria": "BOY > Bermudas",
@@ -1255,6 +1273,7 @@
       ]
     },
     {
+      "sku": "2P2YRJUCS",
       "sku_pai": "2P2YRJUCS",
       "nome": "Bloomer Unissex Caqui (Rn-03 meses) ; (06-09 meses)",
       "categoria": "Sem Categoria",
@@ -1366,6 +1385,7 @@
       ]
     },
     {
+      "sku": "4PFVCAPPN",
       "sku_pai": "4PFVCAPPN",
       "nome": "Bloomer Unissex Chumbo (9-12m)",
       "categoria": "BOY > Tapa Fraldas / Bloomers",
@@ -1477,6 +1497,7 @@
       ]
     },
     {
+      "sku": "MMYPNR92Z",
       "sku_pai": "MMYPNR92Z",
       "nome": "Bloomer Unissex Nude (6-9m)",
       "categoria": "Sem Categoria",
@@ -1588,6 +1609,7 @@
       ]
     },
     {
+      "sku": "M7HVYR57U",
       "sku_pai": "M7HVYR57U",
       "nome": "Bloomer de Baby (Rn-3m)",
       "categoria": "Sem Categoria",
@@ -1633,6 +1655,7 @@
       ]
     },
     {
+      "sku": "6EN5P7WXV",
       "sku_pai": "6EN5P7WXV",
       "nome": "Blusa Polo de Manga (3 meses)",
       "categoria": "Sem Categoria",
@@ -1678,6 +1701,7 @@
       ]
     },
     {
+      "sku": "CBKPS8AQ3",
       "sku_pai": "CBKPS8AQ3",
       "nome": "Blusa de Frio Sun Unissex (6 meses)",
       "categoria": "Sem Categoria",
@@ -1723,6 +1747,7 @@
       ]
     },
     {
+      "sku": "VKJBBFRUS",
       "sku_pai": "VKJBBFRUS",
       "nome": "Blusa de Manga (Rn-03 meses)",
       "categoria": "ÚLTIMAS PEÇAS",
@@ -1768,6 +1793,7 @@
       ]
     },
     {
+      "sku": "L3XJAP4Y6",
       "sku_pai": "L3XJAP4Y6",
       "nome": "Blusa de Moletom  Unissex (9-12m)",
       "categoria": "BOY > Casacos e Blusas de Frio",
@@ -1813,6 +1839,7 @@
       ]
     },
     {
+      "sku": "EGH85ZSFN",
       "sku_pai": "EGH85ZSFN",
       "nome": "Blusa de Moletom Mickey (1 ano)",
       "categoria": "BOY > Casacos e Blusas de Frio",
@@ -1880,6 +1907,7 @@
       ]
     },
     {
+      "sku": "BEX35S9P2",
       "sku_pai": "BEX35S9P2",
       "nome": "Blusa de Moletom Unissex (1-3m); (1 ano)",
       "categoria": "BOY > Casacos e Blusas de Frio",
@@ -1969,6 +1997,7 @@
       ]
     },
     {
+      "sku": "H873MUW8Q",
       "sku_pai": "H873MUW8Q",
       "nome": "Blusa de Moletom Unissex (Rn-3m)",
       "categoria": "BOY > Casacos e Blusas de Frio",
@@ -2014,6 +2043,7 @@
       ]
     },
     {
+      "sku": "UNCMKJ5H4",
       "sku_pai": "UNCMKJ5H4",
       "nome": "Blusa de Tricot Green Unissex",
       "categoria": "Sem Categoria",
@@ -2125,6 +2155,7 @@
       ]
     },
     {
+      "sku": "5SUB5USP2",
       "sku_pai": "5SUB5USP2",
       "nome": "Blusa de Tricot Irlanda (12-15m)",
       "categoria": "Sem Categoria",
@@ -2214,6 +2245,7 @@
       ]
     },
     {
+      "sku": "WJ5Q33WUP",
       "sku_pai": "WJ5Q33WUP",
       "nome": "Blusa de Tricot Nanda (12m)",
       "categoria": "Sem Categoria",
@@ -2303,6 +2335,7 @@
       ]
     },
     {
+      "sku": "9FX66LEDR",
       "sku_pai": "9FX66LEDR",
       "nome": "Blusa de Tricot Olívia (3m); (9m)",
       "categoria": "Sem Categoria",
@@ -2414,6 +2447,7 @@
       ]
     },
     {
+      "sku": "SWYTMGGF7",
       "sku_pai": "SWYTMGGF7",
       "nome": "Blusa de Tricot Unissex",
       "categoria": "Sem Categoria",
@@ -2547,6 +2581,7 @@
       ]
     },
     {
+      "sku": "3PVHKPU93",
       "sku_pai": "3PVHKPU93",
       "nome": "Blusa de Tricot Unissex",
       "categoria": "Sem Categoria",
@@ -2658,6 +2693,7 @@
       ]
     },
     {
+      "sku": "LD8HKJ5UA",
       "sku_pai": "LD8HKJ5UA",
       "nome": "Blusa de Tricot Unissex",
       "categoria": "Sem Categoria",
@@ -2769,6 +2805,7 @@
       ]
     },
     {
+      "sku": "APXUSNPKP",
       "sku_pai": "APXUSNPKP",
       "nome": "Blusa de Tricot Unissex (03-06 meses)",
       "categoria": "Sem Categoria",
@@ -2814,6 +2851,7 @@
       ]
     },
     {
+      "sku": "PEZW9M384",
       "sku_pai": "PEZW9M384",
       "nome": "Blusa de Tricot Unissex (12 meses)",
       "categoria": "Sem Categoria",
@@ -2881,6 +2919,7 @@
       ]
     },
     {
+      "sku": "RDAAXCWAW",
       "sku_pai": "RDAAXCWAW",
       "nome": "Body Canelado Baunilha (6-9 meses); (9-12 meses)",
       "categoria": "Sem Categoria",
@@ -2948,6 +2987,7 @@
       ]
     },
     {
+      "sku": "YGQWMN6AV",
       "sku_pai": "YGQWMN6AV",
       "nome": "Body Canelado Unissex (6 meses); (9-12 meses)",
       "categoria": "Sem Categoria",
@@ -3015,6 +3055,7 @@
       ]
     },
     {
+      "sku": "ZJSEZX2MJ",
       "sku_pai": "ZJSEZX2MJ",
       "nome": "Body Canelado Unissex (9-12 meses)",
       "categoria": "Sem Categoria",
@@ -3060,6 +3101,7 @@
       ]
     },
     {
+      "sku": "SQWHBUHY3",
       "sku_pai": "SQWHBUHY3",
       "nome": "Body Clean Unissex (03-06 meses); (9-12 meses)",
       "categoria": "BOY > Bodies",
@@ -3171,6 +3213,7 @@
       ]
     },
     {
+      "sku": "9FG9L8XVV",
       "sku_pai": "9FG9L8XVV",
       "nome": "Body Manga Longa Black (3m);(6m)",
       "categoria": "BOY > Bodies",
@@ -3282,6 +3325,7 @@
       ]
     },
     {
+      "sku": "ENPCF5MJD",
       "sku_pai": "ENPCF5MJD",
       "nome": "Body Manga Longa Branco (6m) ; (9m)",
       "categoria": "BOY > Bodies",
@@ -3371,6 +3415,7 @@
       ]
     },
     {
+      "sku": "YHXU84M3A",
       "sku_pai": "YHXU84M3A",
       "nome": "Body Manga Longa Nude (6-9 meses); (9-12 meses)",
       "categoria": "Sem Categoria",
@@ -3438,6 +3483,7 @@
       ]
     },
     {
+      "sku": "JVHAHMCPD",
       "sku_pai": "JVHAHMCPD",
       "nome": "Body de Bebê Exclusivo (6-9m)",
       "categoria": "BOY > Bodies",
@@ -3505,6 +3551,7 @@
       ]
     },
     {
+      "sku": "CAJWH9TNM",
       "sku_pai": "CAJWH9TNM",
       "nome": "Body de Bebê Exclusivo (9 meses)",
       "categoria": "Sem Categoria",
@@ -3550,6 +3597,7 @@
       ]
     },
     {
+      "sku": "VJSL48774",
       "sku_pai": "VJSL48774",
       "nome": "Boné de Bebê Unissex",
       "categoria": "Sem Categoria",
@@ -3617,6 +3665,7 @@
       ]
     },
     {
+      "sku": "B3JCE7YPX",
       "sku_pai": "B3JCE7YPX",
       "nome": "Calça Canelada Chumbo Unissex (Rn-3m);(6-9m)",
       "categoria": "Sem Categoria",
@@ -3706,6 +3755,7 @@
       ]
     },
     {
+      "sku": "JECYNX6GR",
       "sku_pai": "JECYNX6GR",
       "nome": "Calça Canelada Mescla Unissex (2 anos)",
       "categoria": "BOY > Calças",
@@ -3839,6 +3889,7 @@
       ]
     },
     {
+      "sku": "Y8BZS2R82",
       "sku_pai": "Y8BZS2R82",
       "nome": "Calça Canelada Unissex (3-6m)",
       "categoria": "Sem Categoria",
@@ -3950,6 +4001,7 @@
       ]
     },
     {
+      "sku": "UT6RPXML9",
       "sku_pai": "UT6RPXML9",
       "nome": "Calça Saruel Unissex (2 anos)",
       "categoria": "BOY > Calças",
@@ -4017,6 +4069,7 @@
       ]
     },
     {
+      "sku": "J2Q6KFCRU",
       "sku_pai": "J2Q6KFCRU",
       "nome": "Calça Saruel Unissex (6 meses)",
       "categoria": "Sem Categoria",
@@ -4062,6 +4115,7 @@
       ]
     },
     {
+      "sku": "2P4ECQYPV",
       "sku_pai": "2P4ECQYPV",
       "nome": "Calça Unissex (9-12m)",
       "categoria": "Sem Categoria",
@@ -4107,6 +4161,7 @@
       ]
     },
     {
+      "sku": "HGLA3SW76",
       "sku_pai": "HGLA3SW76",
       "nome": "Calça de Bebê Chumbo Unissex (3m)",
       "categoria": "BOY > Calças",
@@ -4218,6 +4273,7 @@
       ]
     },
     {
+      "sku": "RM97BN6YB",
       "sku_pai": "RM97BN6YB",
       "nome": "Calça de Bebê Unissex (03-12m)",
       "categoria": "Sem Categoria",
@@ -4263,6 +4319,7 @@
       ]
     },
     {
+      "sku": "SVVQMBVBW",
       "sku_pai": "SVVQMBVBW",
       "nome": "Calça de Bebê Unissex (12-18m); (18-24m)",
       "categoria": "BOY > Calças",
@@ -4374,6 +4431,7 @@
       ]
     },
     {
+      "sku": "HHDCB228G",
       "sku_pai": "HHDCB228G",
       "nome": "Calça de Bebê Unissex (3-12m)",
       "categoria": "Sem Categoria",
@@ -4419,6 +4477,7 @@
       ]
     },
     {
+      "sku": "KWV7AV2DQ",
       "sku_pai": "KWV7AV2DQ",
       "nome": "Calça de Bebê Unissex (3m)",
       "categoria": "BOY > Calças",
@@ -4486,6 +4545,7 @@
       ]
     },
     {
+      "sku": "KBJG7WRWP",
       "sku_pai": "KBJG7WRWP",
       "nome": "Calça de Bebê Unissex (6 meses)",
       "categoria": "Sem Categoria",
@@ -4531,6 +4591,7 @@
       ]
     },
     {
+      "sku": "SFH8WP98R",
       "sku_pai": "SFH8WP98R",
       "nome": "Calça de Bebê Unissex (6-9m)",
       "categoria": "BOY > Calças",
@@ -4620,6 +4681,7 @@
       ]
     },
     {
+      "sku": "6D7QQ9WEQ",
       "sku_pai": "6D7QQ9WEQ",
       "nome": "Calça de Bebê Unissex (Rn- 06 meses); (6-12m)",
       "categoria": "Sem Categoria",
@@ -4687,6 +4749,7 @@
       ]
     },
     {
+      "sku": "UEMLBFP8P",
       "sku_pai": "UEMLBFP8P",
       "nome": "Calça de Bebê Unissex (Rn-06m) ; (6-12m)",
       "categoria": "Sem Categoria",
@@ -4754,6 +4817,7 @@
       ]
     },
     {
+      "sku": "NMZHRXE8K",
       "sku_pai": "NMZHRXE8K",
       "nome": "Calça de Bebê Unissex Baunilha (Rn-6m) ; (6-12m)",
       "categoria": "Sem Categoria",
@@ -4821,6 +4885,7 @@
       ]
     },
     {
+      "sku": "FCRE7AE2S",
       "sku_pai": "FCRE7AE2S",
       "nome": "Calça de Bebê Unissex Branco (6-12 meses)",
       "categoria": "BOY > Calças",
@@ -4866,6 +4931,7 @@
       ]
     },
     {
+      "sku": "ZNH4P4DAV",
       "sku_pai": "ZNH4P4DAV",
       "nome": "Calça de Bebê Unissex Cinza (3-12 meses)",
       "categoria": "BOY > Calças",
@@ -4911,6 +4977,7 @@
       ]
     },
     {
+      "sku": "S6Q234L2Z",
       "sku_pai": "S6Q234L2Z",
       "nome": "Calça de bebê Unissex (6 meses)",
       "categoria": "Sem Categoria",
@@ -4956,6 +5023,7 @@
       ]
     },
     {
+      "sku": "RE3B4KD87",
       "sku_pai": "RE3B4KD87",
       "nome": "Conjunto Canelado Unissex (06-12 meses)",
       "categoria": "Sem Categoria",
@@ -5001,6 +5069,7 @@
       ]
     },
     {
+      "sku": "QQMTH4DS6",
       "sku_pai": "QQMTH4DS6",
       "nome": "Conjunto Canelado Unissex (12 meses)",
       "categoria": "BOY > Conjuntos",
@@ -5046,6 +5115,7 @@
       ]
     },
     {
+      "sku": "YFVF7U7N9",
       "sku_pai": "YFVF7U7N9",
       "nome": "Conjunto Canelado Unissex (6-12m) ; (1 ano)",
       "categoria": "BOY > Conjuntos",
@@ -5113,6 +5183,7 @@
       ]
     },
     {
+      "sku": "PT92BHW7P",
       "sku_pai": "PT92BHW7P",
       "nome": "Conjunto Classic Unissex (1 ano)",
       "categoria": "BOY > Conjuntos",
@@ -5180,6 +5251,7 @@
       ]
     },
     {
+      "sku": "ADPXWDZAW",
       "sku_pai": "ADPXWDZAW",
       "nome": "Conjunto Comfy Unissex",
       "categoria": "Sem Categoria",
@@ -5445,6 +5517,7 @@
       ]
     },
     {
+      "sku": "UV4BQCSJP",
       "sku_pai": "UV4BQCSJP",
       "nome": "Conjunto Comfy Unissex (1 ano); (2 anos)",
       "categoria": "Sem Categoria",
@@ -5512,6 +5585,7 @@
       ]
     },
     {
+      "sku": "23SF4VWNM",
       "sku_pai": "23SF4VWNM",
       "nome": "Conjunto Comfy Unissex (1 ano); (2 anos)",
       "categoria": "Sem Categoria",
@@ -5579,6 +5653,7 @@
       ]
     },
     {
+      "sku": "TB7V3LYCH",
       "sku_pai": "TB7V3LYCH",
       "nome": "Conjunto Comfy Unissex (3-6m); (6-9m)",
       "categoria": "Sem Categoria",
@@ -5646,6 +5721,7 @@
       ]
     },
     {
+      "sku": "HD2R4XMPB",
       "sku_pai": "HD2R4XMPB",
       "nome": "Conjunto Comfy Unissex (3-6m); (6-9m)",
       "categoria": "Sem Categoria",
@@ -5713,6 +5789,7 @@
       ]
     },
     {
+      "sku": "LBTCETZGX",
       "sku_pai": "LBTCETZGX",
       "nome": "Conjunto Davi (2 anos)",
       "categoria": "BOY > Conjuntos",
@@ -5780,6 +5857,7 @@
       ]
     },
     {
+      "sku": "CMF65J7H5",
       "sku_pai": "CMF65J7H5",
       "nome": "Conjunto Gustavo (RN-3 meses)",
       "categoria": "Sem Categoria",
@@ -5825,6 +5903,7 @@
       ]
     },
     {
+      "sku": "MWDNT8KK7",
       "sku_pai": "MWDNT8KK7",
       "nome": "Conjunto Moletom de Bebê (01-03 meses)",
       "categoria": "Sem Categoria",
@@ -5870,6 +5949,7 @@
       ]
     },
     {
+      "sku": "GYGMT6K6T",
       "sku_pai": "GYGMT6K6T",
       "nome": "Conjunto Noah (09-12m)",
       "categoria": "Sem Categoria",
@@ -5915,6 +5995,7 @@
       ]
     },
     {
+      "sku": "D5CH9BGS6",
       "sku_pai": "D5CH9BGS6",
       "nome": "Conjunto Nude Unissex (1 ano); (2 anos)",
       "categoria": "Sem Categoria",
@@ -5982,6 +6063,7 @@
       ]
     },
     {
+      "sku": "SY87U5KXS",
       "sku_pai": "SY87U5KXS",
       "nome": "Conjunto Polo (3 meses)",
       "categoria": "Sem Categoria",
@@ -6027,6 +6109,7 @@
       ]
     },
     {
+      "sku": "MWAT3ECKH",
       "sku_pai": "MWAT3ECKH",
       "nome": "Conjunto Ravi (1 ano)",
       "categoria": "Sem Categoria",
@@ -6072,6 +6155,7 @@
       ]
     },
     {
+      "sku": "YLDS4E3YW",
       "sku_pai": "YLDS4E3YW",
       "nome": "Conjunto Unissex Sun (6 meses)",
       "categoria": "Sem Categoria",
@@ -6117,6 +6201,7 @@
       ]
     },
     {
+      "sku": "WPTDW48FU",
       "sku_pai": "WPTDW48FU",
       "nome": "Faixa de Cabelo Aurora",
       "categoria": "Sem Categoria",
@@ -6162,6 +6247,7 @@
       ]
     },
     {
+      "sku": "HK6M78Y5X",
       "sku_pai": "HK6M78Y5X",
       "nome": "Faixa de Cabelo Canelada Listrada",
       "categoria": "GIRL > Acessórios",
@@ -6207,6 +6293,7 @@
       ]
     },
     {
+      "sku": "X575Q6CPR",
       "sku_pai": "X575Q6CPR",
       "nome": "Faixa de Cabelo Geovanna",
       "categoria": "Sem Categoria",
@@ -6252,6 +6339,7 @@
       ]
     },
     {
+      "sku": "V22A5TGVV",
       "sku_pai": "V22A5TGVV",
       "nome": "Faixa de Cabelo Iza",
       "categoria": "Sem Categoria",
@@ -6297,6 +6385,7 @@
       ]
     },
     {
+      "sku": "LYFZ8JJM8",
       "sku_pai": "LYFZ8JJM8",
       "nome": "Faixa de Cabelo Julie (Rn-6 meses)",
       "categoria": "GIRL > Acessórios",
@@ -6364,6 +6453,7 @@
       ]
     },
     {
+      "sku": "BB2SUBXMQ",
       "sku_pai": "BB2SUBXMQ",
       "nome": "Faixa de Cabelo Laila",
       "categoria": "Sem Categoria",
@@ -6409,6 +6499,7 @@
       ]
     },
     {
+      "sku": "M327K7KZU",
       "sku_pai": "M327K7KZU",
       "nome": "Faixa de Cabelo Laíse",
       "categoria": "GIRL > Acessórios",
@@ -6454,6 +6545,7 @@
       ]
     },
     {
+      "sku": "N2PTBQNT8",
       "sku_pai": "N2PTBQNT8",
       "nome": "Faixa de Cabelo Lis",
       "categoria": "GIRL > Acessórios",
@@ -6499,6 +6591,7 @@
       ]
     },
     {
+      "sku": "J7X8YDXV6",
       "sku_pai": "J7X8YDXV6",
       "nome": "Faixa de Cabelo Liza",
       "categoria": "Sem Categoria",
@@ -6544,6 +6637,7 @@
       ]
     },
     {
+      "sku": "WXPHKYVLX",
       "sku_pai": "WXPHKYVLX",
       "nome": "Faixa de Cabelo Lívia",
       "categoria": "Sem Categoria",
@@ -6589,6 +6683,7 @@
       ]
     },
     {
+      "sku": "DPJS3Z8JF",
       "sku_pai": "DPJS3Z8JF",
       "nome": "Faixa de Cabelo Mafê",
       "categoria": "Sem Categoria",
@@ -6634,6 +6729,7 @@
       ]
     },
     {
+      "sku": "VD8USLEGD",
       "sku_pai": "VD8USLEGD",
       "nome": "Faixa de Cabelo Malú (Rn-03 meses)",
       "categoria": "Sem Categoria",
@@ -6679,6 +6775,7 @@
       ]
     },
     {
+      "sku": "SSADVG5B9",
       "sku_pai": "SSADVG5B9",
       "nome": "Faixa de Cabelo Manu",
       "categoria": "Sem Categoria",
@@ -6724,6 +6821,7 @@
       ]
     },
     {
+      "sku": "B7QF882TS",
       "sku_pai": "B7QF882TS",
       "nome": "Faixa de Cabelo Martina",
       "categoria": "Sem Categoria",
@@ -6769,6 +6867,7 @@
       ]
     },
     {
+      "sku": "D5KCRA2HU",
       "sku_pai": "D5KCRA2HU",
       "nome": "Gorro Unissex Off White (9-18 meses)",
       "categoria": "Sem Categoria",
@@ -6836,6 +6935,7 @@
       ]
     },
     {
+      "sku": "3MQ3KC8KL",
       "sku_pai": "3MQ3KC8KL",
       "nome": "Gorro Unissex Preto (9-18 meses)",
       "categoria": "Sem Categoria",
@@ -6881,6 +6981,7 @@
       ]
     },
     {
+      "sku": "LYYTEGKPG",
       "sku_pai": "LYYTEGKPG",
       "nome": "Kit 2 pares de Meias de Bebê (Rn-06 meses)",
       "categoria": "Sem Categoria",
@@ -6926,6 +7027,7 @@
       ]
     },
     {
+      "sku": "BFVJXR3GG",
       "sku_pai": "BFVJXR3GG",
       "nome": "Kit 2 pares de Meias de Bebê Unissex (Rn-06 meses)",
       "categoria": "Sem Categoria",
@@ -6971,6 +7073,7 @@
       ]
     },
     {
+      "sku": "NP8EP6LP9",
       "sku_pai": "NP8EP6LP9",
       "nome": "Kit 2 pares de Meias de Bebê Unissex (Rn-6 meses)",
       "categoria": "Sem Categoria",
@@ -7016,6 +7119,7 @@
       ]
     },
     {
+      "sku": "GHRJB2Y44",
       "sku_pai": "GHRJB2Y44",
       "nome": "Kit 3 Pares de Meias de Bebê Unissex (Rn-06 meses)",
       "categoria": "Sem Categoria",
@@ -7061,6 +7165,7 @@
       ]
     },
     {
+      "sku": "AJP3K2NA6",
       "sku_pai": "AJP3K2NA6",
       "nome": "Kit 3 Pares de Meias de Bebê Unissex (Rn-06m)",
       "categoria": "Sem Categoria",
@@ -7106,6 +7211,7 @@
       ]
     },
     {
+      "sku": "2RKHEH9FA",
       "sku_pai": "2RKHEH9FA",
       "nome": "Kit Noah (9-12m)",
       "categoria": "Sem Categoria",
@@ -7151,6 +7257,7 @@
       ]
     },
     {
+      "sku": "2W7LHHPL5",
       "sku_pai": "2W7LHHPL5",
       "nome": "Kit com 2 Calças Unissex (03-12m)",
       "categoria": "Sem Categoria",
@@ -7196,6 +7303,7 @@
       ]
     },
     {
+      "sku": "L3ZF3N5BE",
       "sku_pai": "L3ZF3N5BE",
       "nome": "Kit com 3 Babadores Infantis",
       "categoria": "ÚLTIMAS PEÇAS",
@@ -7241,6 +7349,7 @@
       ]
     },
     {
+      "sku": "3NSG8Y3X5",
       "sku_pai": "3NSG8Y3X5",
       "nome": "Kit com 3 Bodies Unissex (06-09m)",
       "categoria": "Sem Categoria",
@@ -7286,6 +7395,7 @@
       ]
     },
     {
+      "sku": "MWQ5WY2TE",
       "sku_pai": "MWQ5WY2TE",
       "nome": "Kit com 3 Bodies Unissex (09-12m)",
       "categoria": "Sem Categoria",
@@ -7331,6 +7441,7 @@
       ]
     },
     {
+      "sku": "BHHQZWM79",
       "sku_pai": "BHHQZWM79",
       "nome": "Kit com 3 Bodies Unissex (6 meses)",
       "categoria": "Sem Categoria",
@@ -7376,6 +7487,7 @@
       ]
     },
     {
+      "sku": "A8YTRS5PA",
       "sku_pai": "A8YTRS5PA",
       "nome": "Kit com 3 Bodies Unissex (9 meses)",
       "categoria": "Sem Categoria",
@@ -7421,6 +7533,7 @@
       ]
     },
     {
+      "sku": "AJ3N2CD6J",
       "sku_pai": "AJ3N2CD6J",
       "nome": "Kit com 3 Bodies Unissex (9-12m)",
       "categoria": "Sem Categoria",
@@ -7466,6 +7579,7 @@
       ]
     },
     {
+      "sku": "FZP553NDD",
       "sku_pai": "FZP553NDD",
       "nome": "Kit com 3 Bodies Unissex (9-12m)",
       "categoria": "Sem Categoria",
@@ -7511,6 +7625,7 @@
       ]
     },
     {
+      "sku": "SUVSHV8V4",
       "sku_pai": "SUVSHV8V4",
       "nome": "Kit com 3 Bodies Unissex (Rn-03m)",
       "categoria": "Sem Categoria",
@@ -7556,6 +7671,7 @@
       ]
     },
     {
+      "sku": "B8E28Y4RS",
       "sku_pai": "B8E28Y4RS",
       "nome": "Kit com 3 Faixas de Cabelo",
       "categoria": "Sem Categoria",
@@ -7601,6 +7717,7 @@
       ]
     },
     {
+      "sku": "GW9K3CLZS",
       "sku_pai": "GW9K3CLZS",
       "nome": "Kit com 3 Faixas de Cabelos",
       "categoria": "Sem Categoria",
@@ -7646,6 +7763,7 @@
       ]
     },
     {
+      "sku": "SZH6LNCSP",
       "sku_pai": "SZH6LNCSP",
       "nome": "Kit com 3 meias 3/4 Unissex (Rn-12m)",
       "categoria": "Sem Categoria",
@@ -7691,6 +7809,7 @@
       ]
     },
     {
+      "sku": "URRAHDCV5",
       "sku_pai": "URRAHDCV5",
       "nome": "Kit com 5 peças (9-12 meses)",
       "categoria": "Sem Categoria",
@@ -7736,6 +7855,7 @@
       ]
     },
     {
+      "sku": "T9UAZYFQU",
       "sku_pai": "T9UAZYFQU",
       "nome": "Look Betina (9-12m)",
       "categoria": "Sem Categoria",
@@ -7781,6 +7901,7 @@
       ]
     },
     {
+      "sku": "AR2MQBRDL",
       "sku_pai": "AR2MQBRDL",
       "nome": "Look Laura (09-12m)",
       "categoria": "ÚLTIMAS PEÇAS",
@@ -7826,6 +7947,7 @@
       ]
     },
     {
+      "sku": "T83CXYF6G",
       "sku_pai": "T83CXYF6G",
       "nome": "Look Unissex  (6-9m); (1 ano)",
       "categoria": "Sem Categoria",
@@ -7893,6 +8015,7 @@
       ]
     },
     {
+      "sku": "PSVZF8XF6",
       "sku_pai": "PSVZF8XF6",
       "nome": "Look Unissex Romper + Body + Calça (6-9 meses)",
       "categoria": "Sem Categoria",
@@ -7938,6 +8061,7 @@
       ]
     },
     {
+      "sku": "M3HNWY64F",
       "sku_pai": "M3HNWY64F",
       "nome": "Look com Romper + Tricot + Touca (09 meses)",
       "categoria": "Sem Categoria",
@@ -7983,6 +8107,7 @@
       ]
     },
     {
+      "sku": "H6V3ZWZA5",
       "sku_pai": "H6V3ZWZA5",
       "nome": "Look de Bebê (6 meses) Calça + Body + Babador",
       "categoria": "Sem Categoria",
@@ -8028,6 +8153,7 @@
       ]
     },
     {
+      "sku": "RFFBZF64K",
       "sku_pai": "RFFBZF64K",
       "nome": "Look de Bebê Unissex (06 meses)",
       "categoria": "Sem Categoria",
@@ -8073,6 +8199,7 @@
       ]
     },
     {
+      "sku": "WMD883QEG",
       "sku_pai": "WMD883QEG",
       "nome": "Look de Bebê Unissex (6m)",
       "categoria": "Sem Categoria",
@@ -8118,6 +8245,7 @@
       ]
     },
     {
+      "sku": "V5QERCZGM",
       "sku_pai": "V5QERCZGM",
       "nome": "Look de Bebê Unissex (Rn-03 meses)",
       "categoria": "Sem Categoria",
@@ -8163,6 +8291,7 @@
       ]
     },
     {
+      "sku": "Z6ZYNK57M",
       "sku_pai": "Z6ZYNK57M",
       "nome": "Look de Tricot Nanda (12 meses)",
       "categoria": "Sem Categoria",
@@ -8208,6 +8337,7 @@
       ]
     },
     {
+      "sku": "RKKKAUK47",
       "sku_pai": "RKKKAUK47",
       "nome": "Macacão Black Unissex (12m)",
       "categoria": "Sem Categoria",
@@ -8253,6 +8383,7 @@
       ]
     },
     {
+      "sku": "TKNBY83WG",
       "sku_pai": "TKNBY83WG",
       "nome": "Macacão Cinza Unissex (3m)",
       "categoria": "Sem Categoria",
@@ -8298,6 +8429,7 @@
       ]
     },
     {
+      "sku": "6P8MVTD3R",
       "sku_pai": "6P8MVTD3R",
       "nome": "Macacão com Zíper (12-18m)",
       "categoria": "Sem Categoria",
@@ -8343,6 +8475,7 @@
       ]
     },
     {
+      "sku": "C7NDT7E49",
       "sku_pai": "C7NDT7E49",
       "nome": "Macacão de Bebê Cars (3-6m)",
       "categoria": "BOY > Macacões",
@@ -8388,6 +8521,7 @@
       ]
     },
     {
+      "sku": "52MSJDV5X",
       "sku_pai": "52MSJDV5X",
       "nome": "Macacão de Bebê Mescla Unissex (Rn-3m); (3m-6m)",
       "categoria": "BOY > Macacões",
@@ -8477,6 +8611,7 @@
       ]
     },
     {
+      "sku": "585HD864D",
       "sku_pai": "585HD864D",
       "nome": "Macacão de Bebê Nude Unissex (6-9m)",
       "categoria": "BOY > Macacões",
@@ -8566,6 +8701,7 @@
       ]
     },
     {
+      "sku": "URTS93SKA",
       "sku_pai": "URTS93SKA",
       "nome": "Macacão de Bebê com Pezinho (3-6m)",
       "categoria": "BOY > Macacões",
@@ -8611,6 +8747,7 @@
       ]
     },
     {
+      "sku": "ZQWVVQWQQ",
       "sku_pai": "ZQWVVQWQQ",
       "nome": "Macacão de Bebê com Zíper Marina (12-18m)",
       "categoria": "Sem Categoria",
@@ -8656,6 +8793,7 @@
       ]
     },
     {
+      "sku": "96SEDR4BZ",
       "sku_pai": "96SEDR4BZ",
       "nome": "Macacão de Zíper Off White Unissex (12-18m)",
       "categoria": "BOY > Macacões",
@@ -8701,6 +8839,7 @@
       ]
     },
     {
+      "sku": "5CCTSR7RW",
       "sku_pai": "5CCTSR7RW",
       "nome": "Manta White Unissex",
       "categoria": "BLUSAS DE FRIO",
@@ -8746,6 +8885,7 @@
       ]
     },
     {
+      "sku": "GBZJSVCPH",
       "sku_pai": "GBZJSVCPH",
       "nome": "Meia 3/4 Black Unissex",
       "categoria": "Sem Categoria",
@@ -8813,6 +8953,7 @@
       ]
     },
     {
+      "sku": "MG22U5927",
       "sku_pai": "MG22U5927",
       "nome": "Meia 3/4 Coffe Duda (06-12m)",
       "categoria": "Sem Categoria",
@@ -8880,6 +9021,7 @@
       ]
     },
     {
+      "sku": "PWUYEPLEE",
       "sku_pai": "PWUYEPLEE",
       "nome": "Meia 3/4 Nude Unissex",
       "categoria": "BOY > Meias",
@@ -8969,6 +9111,7 @@
       ]
     },
     {
+      "sku": "KJ5K9LMCU",
       "sku_pai": "KJ5K9LMCU",
       "nome": "Meia 3/4 Off White Unissex",
       "categoria": "BOY > Meias",
@@ -9058,6 +9201,7 @@
       ]
     },
     {
+      "sku": "9D7EEPN5J",
       "sku_pai": "9D7EEPN5J",
       "nome": "Meia 3/4 Unissex",
       "categoria": "Sem Categoria",
@@ -9103,6 +9247,7 @@
       ]
     },
     {
+      "sku": "75Y5JTGJF",
       "sku_pai": "75Y5JTGJF",
       "nome": "Meia 3/4 Unissex Caramelo",
       "categoria": "Sem Categoria",
@@ -9170,6 +9315,7 @@
       ]
     },
     {
+      "sku": "R93N8ZCK7",
       "sku_pai": "R93N8ZCK7",
       "nome": "Meia 3/4 Unissex Coffee",
       "categoria": "Sem Categoria",
@@ -9215,6 +9361,7 @@
       ]
     },
     {
+      "sku": "ZXPUUS9BY",
       "sku_pai": "ZXPUUS9BY",
       "nome": "Meia 7/8 Sophie (RN-06m);(06-12m)",
       "categoria": "Sem Categoria",
@@ -9282,6 +9429,7 @@
       ]
     },
     {
+      "sku": "NZV2H33GL",
       "sku_pai": "NZV2H33GL",
       "nome": "Meia Baby Unissex",
       "categoria": "BOY > Meias",
@@ -9503,6 +9651,7 @@
       ]
     },
     {
+      "sku": "YX4TQLLH6",
       "sku_pai": "YX4TQLLH6",
       "nome": "Meia Calça Ariela (06-12 meses)",
       "categoria": "Sem Categoria",
@@ -9548,6 +9697,7 @@
       ]
     },
     {
+      "sku": "HMR9R67HG",
       "sku_pai": "HMR9R67HG",
       "nome": "Meia Calça Off White (Rn-09m) ; (09-18m)",
       "categoria": "Sem Categoria",
@@ -9637,6 +9787,7 @@
       ]
     },
     {
+      "sku": "NBGREY6W9",
       "sku_pai": "NBGREY6W9",
       "nome": "Meia Luna (12 meses)",
       "categoria": "Sem Categoria",
@@ -9682,6 +9833,7 @@
       ]
     },
     {
+      "sku": "K2CPJ5HYW",
       "sku_pai": "K2CPJ5HYW",
       "nome": "Meia Marina Babado (Rn-06m)",
       "categoria": "Sem Categoria",
@@ -9727,6 +9879,7 @@
       ]
     },
     {
+      "sku": "9GH5Z9QK2",
       "sku_pai": "9GH5Z9QK2",
       "nome": "Meia Unissex Cinza (03-06m)",
       "categoria": "BOY > Meias",
@@ -9772,6 +9925,7 @@
       ]
     },
     {
+      "sku": "HCAJV4ZJY",
       "sku_pai": "HCAJV4ZJY",
       "nome": "Meia de Bebê Marina ( Rn-6m)",
       "categoria": "Sem Categoria",
@@ -9817,6 +9971,7 @@
       ]
     },
     {
+      "sku": "TZJ7UED9G",
       "sku_pai": "TZJ7UED9G",
       "nome": "Meia de Bebê Nude (Rn-06m)",
       "categoria": "Sem Categoria",
@@ -9862,6 +10017,7 @@
       ]
     },
     {
+      "sku": "N23PKKVWR",
       "sku_pai": "N23PKKVWR",
       "nome": "Romper Alice (1 ano)",
       "categoria": "Sem Categoria",
@@ -9929,6 +10085,7 @@
       ]
     },
     {
+      "sku": "KR5RSEH3R",
       "sku_pai": "KR5RSEH3R",
       "nome": "Romper Babado Off White (12-18m); (18-24m)",
       "categoria": "Sem Categoria",
@@ -10062,6 +10219,7 @@
       ]
     },
     {
+      "sku": "6MXMRKYLK",
       "sku_pai": "6MXMRKYLK",
       "nome": "Romper Baby Brown Unissex (6 meses)",
       "categoria": "BOY > Rompers",
@@ -10173,6 +10331,7 @@
       ]
     },
     {
+      "sku": "RMNTP6K27",
       "sku_pai": "RMNTP6K27",
       "nome": "Romper Baby London Unissex (3 meses) ; (9 meses)",
       "categoria": "Sem Categoria",
@@ -10240,6 +10399,7 @@
       ]
     },
     {
+      "sku": "KJCZ8RU6E",
       "sku_pai": "KJCZ8RU6E",
       "nome": "Romper Baby Luluk's Unissex",
       "categoria": "BOY > Rompers",
@@ -10373,6 +10533,7 @@
       ]
     },
     {
+      "sku": "53HFML7E8",
       "sku_pai": "53HFML7E8",
       "nome": "Romper Baby Unissex",
       "categoria": "Sem Categoria",
@@ -10484,6 +10645,7 @@
       ]
     },
     {
+      "sku": "TGMMJG7VE",
       "sku_pai": "TGMMJG7VE",
       "nome": "Romper Baby Unissex (3m); (6m)",
       "categoria": "Sem Categoria",
@@ -10551,6 +10713,7 @@
       ]
     },
     {
+      "sku": "57H5NQ3B2",
       "sku_pai": "57H5NQ3B2",
       "nome": "Romper Baby Unissex (6-9 meses)",
       "categoria": "Sem Categoria",
@@ -10596,6 +10759,7 @@
       ]
     },
     {
+      "sku": "A564YLMST",
       "sku_pai": "A564YLMST",
       "nome": "Romper Baunilha Unissex",
       "categoria": "Sem Categoria",
@@ -10707,6 +10871,7 @@
       ]
     },
     {
+      "sku": "WNEU66PL3",
       "sku_pai": "WNEU66PL3",
       "nome": "Romper Chumbo Unissex Oversize (12m);(18m)",
       "categoria": "Sem Categoria",
@@ -10818,6 +10983,7 @@
       ]
     },
     {
+      "sku": "6ATU2TWLU",
       "sku_pai": "6ATU2TWLU",
       "nome": "Romper Egg Unissex (2 anos)",
       "categoria": "BOY > Rompers",
@@ -10929,6 +11095,7 @@
       ]
     },
     {
+      "sku": "HMJ2Z55H9",
       "sku_pai": "HMJ2Z55H9",
       "nome": "Romper Francês Green",
       "categoria": "Sem Categoria",
@@ -11040,6 +11207,7 @@
       ]
     },
     {
+      "sku": "K5GUSMPB2",
       "sku_pai": "K5GUSMPB2",
       "nome": "Romper Laura (Rn-03m) ; (03-06m)",
       "categoria": "Sem Categoria",
@@ -11107,6 +11275,7 @@
       ]
     },
     {
+      "sku": "MT5GL46JH",
       "sku_pai": "MT5GL46JH",
       "nome": "Romper Oversize Unissex",
       "categoria": "Sem Categoria",
@@ -11196,6 +11365,7 @@
       ]
     },
     {
+      "sku": "VG5QNULF8",
       "sku_pai": "VG5QNULF8",
       "nome": "Romper Retrô Betina (9-12 meses)",
       "categoria": "Sem Categoria",
@@ -11307,6 +11477,7 @@
       ]
     },
     {
+      "sku": "LHW36TUBN",
       "sku_pai": "LHW36TUBN",
       "nome": "Romper Sophie (Rn-03 m) ; (06 meses)",
       "categoria": "Sem Categoria",
@@ -11418,6 +11589,7 @@
       ]
     },
     {
+      "sku": "PFX9LMXCP",
       "sku_pai": "PFX9LMXCP",
       "nome": "Romper Tricot Alícia (3 meses) ; (6-9 meses)",
       "categoria": "Sem Categoria",
@@ -11507,6 +11679,7 @@
       ]
     },
     {
+      "sku": "967EE8DEK",
       "sku_pai": "967EE8DEK",
       "nome": "Romper Tricot Nanda (12m)",
       "categoria": "Sem Categoria",
@@ -11596,6 +11769,7 @@
       ]
     },
     {
+      "sku": "GJCH8R6ZV",
       "sku_pai": "GJCH8R6ZV",
       "nome": "Romper Tricot Rosa Baby (12 meses)",
       "categoria": "Sem Categoria",
@@ -11685,6 +11859,7 @@
       ]
     },
     {
+      "sku": "XLM29WJKD",
       "sku_pai": "XLM29WJKD",
       "nome": "Romper Tricot Sun Unissex",
       "categoria": "Sem Categoria",
@@ -11818,6 +11993,7 @@
       ]
     },
     {
+      "sku": "WC2HW2CJL",
       "sku_pai": "WC2HW2CJL",
       "nome": "Romper Unissex Chumbo com Botões (Rn-3m), (6m); (9m)",
       "categoria": "BOY > Rompers",
@@ -11907,6 +12083,7 @@
       ]
     },
     {
+      "sku": "SVTPXYTK5",
       "sku_pai": "SVTPXYTK5",
       "nome": "Romper Unissex Dublin (3m), (6m); (9m)",
       "categoria": "Sem Categoria",
@@ -11996,6 +12173,7 @@
       ]
     },
     {
+      "sku": "4W7EMP43J",
       "sku_pai": "4W7EMP43J",
       "nome": "Romper Unissex Oversize (6m); (9m)",
       "categoria": "Sem Categoria",
@@ -12085,6 +12263,7 @@
       ]
     },
     {
+      "sku": "HEHLWT5BK",
       "sku_pai": "HEHLWT5BK",
       "nome": "Romper Unissex Oversize (9m, 12m, 18m)",
       "categoria": "Sem Categoria",
@@ -12174,6 +12353,7 @@
       ]
     },
     {
+      "sku": "56E4WTABA",
       "sku_pai": "56E4WTABA",
       "nome": "Romper Veneza (6-9m)",
       "categoria": "Sem Categoria",
@@ -12219,6 +12399,7 @@
       ]
     },
     {
+      "sku": "GATJAA747",
       "sku_pai": "GATJAA747",
       "nome": "Touca Nude Tricot Unissex (06-12m)",
       "categoria": "Sem Categoria",
@@ -12264,6 +12445,7 @@
       ]
     },
     {
+      "sku": "TEANEDCYJ",
       "sku_pai": "TEANEDCYJ",
       "nome": "Touca Tricot Unissex (04-18 meses)",
       "categoria": "Sem Categoria",
@@ -12309,6 +12491,7 @@
       ]
     },
     {
+      "sku": "WYT77LT28",
       "sku_pai": "WYT77LT28",
       "nome": "Touca de Tricot Coffee (4-18m); (2 anos)",
       "categoria": "Sem Categoria",
@@ -12376,6 +12559,7 @@
       ]
     },
     {
+      "sku": "H2HD3L5WN",
       "sku_pai": "H2HD3L5WN",
       "nome": "Turbante Alícia",
       "categoria": "Sem Categoria",
@@ -12421,6 +12605,7 @@
       ]
     },
     {
+      "sku": "3CWFRQCDW",
       "sku_pai": "3CWFRQCDW",
       "nome": "Turbante Baby Luna",
       "categoria": "GIRL > Acessórios",
@@ -12466,6 +12651,7 @@
       ]
     },
     {
+      "sku": "ZCJTZYVWM",
       "sku_pai": "ZCJTZYVWM",
       "nome": "Turbante Baby Sarah",
       "categoria": "GIRL > Acessórios",
@@ -12511,6 +12697,7 @@
       ]
     },
     {
+      "sku": "73VCBMC9E",
       "sku_pai": "73VCBMC9E",
       "nome": "Turbante Eva",
       "categoria": "Sem Categoria",
@@ -12556,6 +12743,7 @@
       ]
     },
     {
+      "sku": "ACYS4YLN2",
       "sku_pai": "ACYS4YLN2",
       "nome": "Turbante Martina",
       "categoria": "GIRL > Acessórios",
@@ -12601,6 +12789,7 @@
       ]
     },
     {
+      "sku": "JVL7X9K62",
       "sku_pai": "JVL7X9K62",
       "nome": "kit 2 Macacões Exclusivos (12-18m)",
       "categoria": "Sem Categoria",

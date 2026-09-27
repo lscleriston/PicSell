@@ -130,6 +130,7 @@ def exportar_catalogo_web(conn):
         margem_med = (lucro_tot / venda_tot * 100.0) if venda_tot > 0 else 0.0
 
         produtos_agrupados.append({
+            'sku': p_sku,
             'sku_pai': p_sku,
             'nome': p['nome'],
             'categoria': p['categoria'] or 'Sem Categoria',

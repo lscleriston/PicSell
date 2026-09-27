@@ -359,6 +359,9 @@
     editProdTitle: document.getElementById('edit-prod-title'),
     editProdSku: document.getElementById('edit-prod-sku'),
     editProdVar: document.getElementById('edit-prod-var'),
+    editProdVarContainer: document.getElementById('edit-prod-var-container'),
+    editProdVarSelect: document.getElementById('edit-prod-var-select'),
+    editProdVarCount: document.getElementById('edit-prod-var-count'),
     editProdClose: document.getElementById('edit-prod-close'),
     editProdForm: document.getElementById('edit-prod-form'),
     editProdSkuInput: document.getElementById('edit-prod-sku-input'),
@@ -476,6 +479,9 @@
 
     if (state.data.produtos_agrupados) {
       state.data.produtos_agrupados.forEach(grp => {
+        if (!grp.sku && grp.sku_pai) grp.sku = grp.sku_pai;
+        if (!grp.sku_pai && grp.sku) grp.sku_pai = grp.sku;
+
         if (grp.variacoes && grp.variacoes.length > 0) {
           let estTotal = 0;
           let cTotal = 0;
@@ -549,6 +555,13 @@
     if (!state.data) {
       showToast('Nenhum dado encontrado. Por favor, carregue a planilha.', 'warning');
       return;
+    }
+
+    if (state.data.produtos_agrupados) {
+      state.data.produtos_agrupados.forEach(grp => {
+        if (!grp.sku && grp.sku_pai) grp.sku = grp.sku_pai;
+        if (!grp.sku_pai && grp.sku) grp.sku_pai = grp.sku;
+      });
     }
 
     applyProductOverrides();
@@ -2834,7 +2847,8 @@
   }
 
   function renderGroupedRow(item, idx) {
-    const isExpanded = state.expandedGroups.has(item.sku);
+    const groupSku = item.sku_pai || item.sku;
+    const isExpanded = state.expandedGroups.has(groupSku);
     const stockClass = getStockBadgeClass(item.estoque_total);
     const hasMultipleCosts = item.custo_min !== item.custo_max;
     const custoDisplay = hasMultipleCosts 
@@ -2877,12 +2891,12 @@
       : fmtCurrency.format(tikPromoMin);
 
     const imgSrc = item.img || PLACEHOLDER_IMG;
-    const firstSku = item.variacoes && item.variacoes.length > 0 ? item.variacoes[0].sku : item.sku;
+    const firstSku = item.variacoes && item.variacoes.length > 0 ? item.variacoes[0].sku : groupSku;
 
     let html = `
-      <tr class="accordion-toggle ${isExpanded ? 'accordion-open' : ''}" data-group-sku="${escapeHtml(item.sku)}">
-        <td style="text-align: center;">
-          <span class="accordion-chevron">
+      <tr class="accordion-toggle ${isExpanded ? 'accordion-open' : ''}" data-group-sku="${escapeHtml(groupSku)}" style="cursor: pointer;">
+        <td style="text-align: center;" title="Clique para ${isExpanded ? 'recolher' : 'expandir'} variações">
+          <span class="accordion-chevron" style="transform: ${isExpanded ? 'rotate(90deg)' : 'rotate(0deg)'}; transition: transform 0.2s ease; display: inline-block;">
             <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
           </span>
         </td>
@@ -2891,7 +2905,7 @@
                onerror="this.onerror=null; this.src='${PLACEHOLDER_IMG}';"
                data-img-src="${escapeHtml(imgSrc)}"
                data-img-title="${escapeHtml(item.nome)}"
-               data-img-sku="${escapeHtml(item.sku)}"
+               data-img-sku="${escapeHtml(groupSku)}"
                data-img-stock="${item.estoque_total}"
                data-img-cost="${item.custo_min}">
         </td>
@@ -2903,15 +2917,17 @@
         </td>
         <td>
           <div class="sku-tag">
-            <span>${escapeHtml(item.sku)}</span>
-            <button class="sku-copy-btn" title="Copiar SKU" data-copy-sku="${escapeHtml(item.sku)}">
+            <span>${escapeHtml(groupSku)}</span>
+            <button class="sku-copy-btn" title="Copiar SKU Pai" data-copy-sku="${escapeHtml(groupSku)}">
               <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
             </button>
             ${item._isEdited ? '<span class="edited-badge" title="Valores alterados manualmente">✏️ Editado</span>' : ''}
           </div>
         </td>
         <td>
-          <span class="variation-badge">${item.qtd_variacoes} grade(s)</span>
+          <span class="variation-badge" style="cursor: pointer;" title="Clique para ${isExpanded ? 'recolher' : 'expandir'} variações">
+            ${item.qtd_variacoes} grade(s) ${isExpanded ? '▲' : '▼'}
+          </span>
         </td>
         <td>
           <span class="currency-cost">${custoDisplay}</span>
@@ -2965,9 +2981,15 @@
         </td>
         <td style="text-align: center;">
           <div style="display: flex; gap: 4px; justify-content: center; align-items: center; flex-wrap: wrap;">
-            <button class="btn-edit-prod" data-edit-sku="${escapeHtml(firstSku)}" title="Editar Preço e Estoque deste produto">
-              ✏️ Editar
-            </button>
+            ${item.qtd_variacoes > 1 ? `
+              <button class="btn btn-outline btn-toggle-variations" data-toggle-sku="${escapeHtml(groupSku)}" style="font-size: 0.72rem; padding: 0.25rem 0.55rem; font-weight: 600; color: #4338ca; border-color: rgba(79, 70, 229, 0.3); background: rgba(79, 70, 229, 0.05);" title="Ver e editar cada uma das ${item.qtd_variacoes} variações">
+                ${isExpanded ? '🔼 Recolher' : `📂 ${item.qtd_variacoes} Variações`}
+              </button>
+            ` : `
+              <button class="btn-edit-prod" data-edit-sku="${escapeHtml(firstSku)}" title="Editar Preço e Estoque desta peça">
+                ✏️ Editar
+              </button>
+            `}
             <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(firstSku)}" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" title="Abrir análise detalhada no Precificador Shopee">
               Shopee
             </button>
@@ -2982,7 +3004,14 @@
     if (isExpanded && item.variacoes && item.variacoes.length > 0) {
       html += `
         <tr class="nested-variations-row">
-          <td colspan="13" style="padding: 0.5rem 1.5rem 1rem 3rem;">
+          <td colspan="13" style="padding: 0.65rem 1.5rem 1.2rem 3rem; background: var(--bg-secondary);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+              <span style="font-size: 0.8rem; font-weight: 700; color: var(--text-primary); display: flex; align-items: center; gap: 6px;">
+                <span>👕 Variações / Grades de <strong>${escapeHtml(item.nome)}</strong></span>
+                <span class="brand-badge" style="background: rgba(79, 70, 229, 0.1); color: var(--brand-primary); font-size: 0.7rem;">${item.variacoes.length} itens</span>
+              </span>
+              <span style="font-size: 0.72rem; color: var(--text-muted);">Edite o preço e estoque específico de cada tamanho/variação</span>
+            </div>
             <table class="nested-variations-table">
               <thead>
                 <tr>
@@ -2995,7 +3024,7 @@
                   <th>Estoque</th>
                   <th>Custo em Estoque</th>
                   <th>Status</th>
-                  <th style="text-align: center;">Ações</th>
+                  <th style="text-align: center; min-width: 140px;">Ações por Variação</th>
                 </tr>
               </thead>
               <tbody>
@@ -3065,14 +3094,14 @@
                         </span>
                       </td>
                       <td style="text-align: center;">
-                        <div style="display: flex; gap: 3px; justify-content: center; align-items: center;">
-                          <button class="btn-edit-prod" data-edit-sku="${escapeHtml(v.sku)}" style="padding: 0.15rem 0.45rem; font-size: 0.68rem;" title="Editar Preço e Estoque">
+                        <div style="display: flex; gap: 4px; justify-content: center; align-items: center;">
+                          <button class="btn-edit-prod" data-edit-sku="${escapeHtml(v.sku)}" style="padding: 0.22rem 0.55rem; font-size: 0.72rem; font-weight: 700; color: #4338ca; border-color: rgba(79, 70, 229, 0.4); background: rgba(79, 70, 229, 0.08);" title="Editar Preço e Estoque da variação [${escapeHtml(v.variacao)}]">
                             ✏️ Editar
                           </button>
-                          <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(v.sku)}" style="padding: 0.15rem 0.35rem; font-size: 0.68rem;" title="Abrir no Precificador Shopee">
+                          <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(v.sku)}" style="padding: 0.18rem 0.38rem; font-size: 0.68rem;" title="Abrir no Precificador Shopee">
                             Shopee
                           </button>
-                          <button class="btn btn-outline-tiktok btn-goto-tiktok" data-target-sku="${escapeHtml(v.sku)}" style="padding: 0.15rem 0.35rem; font-size: 0.68rem;" title="Abrir no Precificador TikTok Shop">
+                          <button class="btn btn-outline-tiktok btn-goto-tiktok" data-target-sku="${escapeHtml(v.sku)}" style="padding: 0.18rem 0.38rem; font-size: 0.68rem;" title="Abrir no Precificador TikTok Shop">
                             TikTok
                           </button>
                         </div>
@@ -3836,6 +3865,12 @@
         if (sku) resetProductEdit(sku);
       });
     }
+    if (elements.editProdVarSelect) {
+      elements.editProdVarSelect.addEventListener('change', (e) => {
+        const sku = e.target.value;
+        if (sku) openEditProductModal(sku);
+      });
+    }
 
     // Inputs de recálculo instantâneo no modal de edição
     if (elements.editInputPrecoVenda) elements.editInputPrecoVenda.addEventListener('input', updateEditModalPreview);
@@ -3891,9 +3926,22 @@
 
     elements.tableBody.querySelectorAll('tr.accordion-toggle').forEach(tr => {
       tr.addEventListener('click', (e) => {
-        if (e.target.closest('.sku-copy-btn') || e.target.closest('.product-thumb') || e.target.closest('.btn-goto-shopee') || e.target.closest('.btn-goto-tiktok') || e.target.closest('.btn-edit-prod')) return;
+        if (e.target.closest('.sku-copy-btn') || e.target.closest('.product-thumb') || e.target.closest('.btn-goto-shopee') || e.target.closest('.btn-goto-tiktok') || e.target.closest('.btn-edit-prod') || e.target.closest('.btn-toggle-variations')) return;
 
         const sku = tr.getAttribute('data-group-sku');
+        if (state.expandedGroups.has(sku)) {
+          state.expandedGroups.delete(sku);
+        } else {
+          state.expandedGroups.add(sku);
+        }
+        renderTable();
+      });
+    });
+
+    elements.tableBody.querySelectorAll('.btn-toggle-variations').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sku = btn.getAttribute('data-group-sku');
         if (state.expandedGroups.has(sku)) {
           state.expandedGroups.delete(sku);
         } else {
@@ -4888,6 +4936,32 @@
     if (elements.editProdSku) elements.editProdSku.textContent = `SKU: ${prod.sku}`;
     if (elements.editProdVar) elements.editProdVar.textContent = prod.variacao ? `Variação: ${prod.variacao}` : 'Produto Padrão';
     if (elements.editProdImg) elements.editProdImg.src = prod.img || PLACEHOLDER_IMG;
+
+    // Popula seletor de variações irmãs se houver
+    const parentSku = prod.sku_pai || prod.sku;
+    let siblings = [];
+    if (parentSku) {
+      siblings = state.data.itens_detalhados.filter(p => (
+        (prod.sku_pai && p.sku_pai === prod.sku_pai) ||
+        p.sku_pai === prod.sku ||
+        p.sku === prod.sku_pai ||
+        p.sku === prod.sku
+      ));
+    }
+
+    if (siblings.length > 1 && elements.editProdVarContainer && elements.editProdVarSelect) {
+      elements.editProdVarContainer.style.display = 'block';
+      if (elements.editProdVarCount) {
+        elements.editProdVarCount.textContent = `(${siblings.length} variações)`;
+      }
+      elements.editProdVarSelect.innerHTML = siblings.map(s => {
+        const selected = s.sku === prod.sku ? 'selected' : '';
+        const varLabel = s.variacao || 'Padrão';
+        return `<option value="${escapeHtml(s.sku)}" ${selected}>${escapeHtml(varLabel)} (SKU: ${escapeHtml(s.sku)} | Estoque: ${s.estoque} | Preço: ${fmtCurrency.format(s.preco_venda)})</option>`;
+      }).join('');
+    } else if (elements.editProdVarContainer) {
+      elements.editProdVarContainer.style.display = 'none';
+    }
 
     if (elements.editInputPrecoVenda) elements.editInputPrecoVenda.value = prod.preco_venda.toFixed(2);
     if (elements.editInputEstoque) elements.editInputEstoque.value = prod.estoque;

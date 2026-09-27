@@ -1574,6 +1574,15 @@
       <form id="edit-prod-form">
         <input type="hidden" id="edit-prod-sku-input">
 
+        <!-- Seletor de Variação (quando o produto possui múltiplas grades) -->
+        <div id="edit-prod-var-container" style="margin-bottom: 0.85rem; display: none;">
+          <label class="form-label" for="edit-prod-var-select">
+            <span>Selecionar Variação / Tamanho a Editar</span>
+            <span id="edit-prod-var-count" class="brand-badge" style="background: rgba(79, 70, 229, 0.1); color: var(--brand-primary); font-size: 0.72rem;"></span>
+          </label>
+          <select id="edit-prod-var-select" class="input-custom" style="width: 100%; font-weight: 600; padding: 0.45rem 0.75rem;"></select>
+        </div>
+
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
           <!-- Preço de Venda Principal -->
           <div class="form-group">
