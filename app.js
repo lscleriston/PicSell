@@ -88,14 +88,15 @@
       }
     },
 
-    // Auditoria Shopee Real (184 itens reais)
+    // Auditoria Shopee Real (178 itens reais cadastrados com desconto)
     audit: {
-      discountPct: 20.0,
+      mode: 'real',           // 'real' (preço praticado) | 'custom' (desconto simulado)
+      discountPct: 26.6,
       search: '',
       filter: 'all',          // 'all' | 'safe' | 'warning' | 'danger' | 'no_sku'
       currentPage: 1,
       pageSize: 25,
-      sortField: 'shopee_price',
+      sortField: 'shopee_promo_price',
       sortDir: 'desc'
     }
   };
@@ -116,9 +117,13 @@
 
     // Auditoria Shopee Real
     auditKpiTotal: document.getElementById('audit-kpi-total'),
-    auditKpiPriceShopee: document.getElementById('audit-kpi-price-shopee'),
-    auditKpiMarginCheio: document.getElementById('audit-kpi-margin-cheio'),
-    auditKpiMaxDiscount: document.getElementById('audit-kpi-max-discount'),
+    auditKpiTotalSub: document.getElementById('audit-kpi-total-sub'),
+    auditKpiPriceCad: document.getElementById('audit-kpi-price-cad'),
+    auditKpiPriceCadSub: document.getElementById('audit-kpi-price-cad-sub'),
+    auditKpiPricePromo: document.getElementById('audit-kpi-price-promo'),
+    auditKpiPricePromoSub: document.getElementById('audit-kpi-price-promo-sub'),
+    auditKpiMarginReal: document.getElementById('audit-kpi-margin-real'),
+    auditKpiMarginRealSub: document.getElementById('audit-kpi-margin-real-sub'),
 
     auditDiscountSlider: document.getElementById('audit-discount-slider'),
     auditDiscountDisplay: document.getElementById('audit-discount-display'),
@@ -133,6 +138,11 @@
     auditSearchInput: document.getElementById('audit-search-input'),
     auditSearchClear: document.getElementById('audit-search-clear'),
     auditFilterPills: document.querySelectorAll('[data-audit-filter]'),
+    auditFilterAll: document.getElementById('audit-filter-all'),
+    auditFilterSafe: document.getElementById('audit-filter-safe'),
+    auditFilterWarning: document.getElementById('audit-filter-warning'),
+    auditFilterDanger: document.getElementById('audit-filter-danger'),
+    auditFilterNoSku: document.getElementById('audit-filter-nosku'),
     btnExportAudit: document.getElementById('btn-export-audit'),
 
     auditTableBody: document.getElementById('audit-table-body'),
@@ -4141,15 +4151,15 @@
   }
 
   // =========================================================================
-  // ABA 3: AUDITORIA SHOPEE REAL (184 Itens Cadastrados & Preço Âncora)
+  // ABA 4: AUDITORIA SHOPEE REAL (178 Itens com Âncora e Promoções Reais)
   // =========================================================================
   function calcAuditShopeeFee(p) {
     if (p <= 0) return { fee: 0, pct: 0, fix: 0, tier: 'Inválido' };
-    if (p < 9.00) return { fee: p * 0.20 + p * 0.50, pct: 20, fix: p * 0.50, tier: 'Sub R$ 9' };
-    if (p <= 79.99) return { fee: p * 0.20 + 4.50, pct: 20, fix: 4.50, tier: 'Até R$ 79,99' };
-    if (p <= 99.99) return { fee: p * 0.14 + 16.00, pct: 14, fix: 16.00, tier: 'R$ 80 a 99,99' };
-    if (p <= 199.99) return { fee: p * 0.14 + 20.00, pct: 14, fix: 20.00, tier: 'R$ 100 a 199,99' };
-    return { fee: p * 0.14 + 26.00, pct: 14, fix: 26.00, tier: 'Acima de R$ 200' };
+    if (p < 9.00) return { fee: p * 0.20 + p * 0.50, pct: 20, fix: p * 0.50, tier: 'Sub R$ 9: 20% + 50% taxa fixa' };
+    if (p <= 79.99) return { fee: p * 0.20 + 4.50, pct: 20, fix: 4.50, tier: 'Até R$ 79,99: 20% + R$ 4,50' };
+    if (p <= 99.99) return { fee: p * 0.14 + 16.00, pct: 14, fix: 16.00, tier: 'R$ 80 a 99,99: 14% + R$ 16,00' };
+    if (p <= 199.99) return { fee: p * 0.14 + 20.00, pct: 14, fix: 20.00, tier: 'R$ 100 a 199,99: 14% + R$ 20,00' };
+    return { fee: p * 0.14 + 26.00, pct: 14, fix: 26.00, tier: 'Acima de R$ 200: 14% + R$ 26,00' };
   }
 
   function setupShopeeAuditEventListeners() {
@@ -4160,14 +4170,15 @@
     if (elements.auditDiscountSlider) {
       elements.auditDiscountSlider.addEventListener('input', (e) => {
         const val = parseFloat(e.target.value) || 0;
+        state.audit.mode = 'custom';
         state.audit.discountPct = val;
         if (elements.auditDiscountDisplay) {
           elements.auditDiscountDisplay.textContent = `${val.toFixed(0)}% OFF`;
         }
         if (elements.auditPresetBtns) {
           elements.auditPresetBtns.forEach(btn => {
-            const bVal = parseFloat(btn.dataset.discount);
-            btn.classList.toggle('active', bVal === val);
+            const bVal = btn.dataset.discount;
+            btn.classList.toggle('active', bVal !== 'real' && parseFloat(bVal) === val);
           });
         }
         renderShopeeAudit();
@@ -4177,12 +4188,22 @@
     if (elements.auditPresetBtns) {
       elements.auditPresetBtns.forEach(btn => {
         btn.addEventListener('click', () => {
-          const val = parseFloat(btn.dataset.discount) || 0;
-          state.audit.discountPct = val;
-          if (elements.auditDiscountSlider) elements.auditDiscountSlider.value = val;
-          if (elements.auditDiscountDisplay) elements.auditDiscountDisplay.textContent = `${val.toFixed(0)}% OFF`;
+          const bVal = btn.dataset.discount;
           elements.auditPresetBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
+
+          if (bVal === 'real') {
+            state.audit.mode = 'real';
+            state.audit.discountPct = 26.6;
+            if (elements.auditDiscountSlider) elements.auditDiscountSlider.value = 26;
+            if (elements.auditDiscountDisplay) elements.auditDiscountDisplay.textContent = 'Real Praticado';
+          } else {
+            const val = parseFloat(bVal) || 0;
+            state.audit.mode = 'custom';
+            state.audit.discountPct = val;
+            if (elements.auditDiscountSlider) elements.auditDiscountSlider.value = val;
+            if (elements.auditDiscountDisplay) elements.auditDiscountDisplay.textContent = `${val.toFixed(0)}% OFF`;
+          }
           renderShopeeAudit();
         });
       });
@@ -4231,10 +4252,13 @@
     if (!auditData || !auditData.itens) return;
 
     if (elements.auditKpiTotal) elements.auditKpiTotal.textContent = auditData.total_shopee;
-    if (elements.auditKpiPriceShopee) elements.auditKpiPriceShopee.textContent = fmtCurrency.format(auditData.preco_medio_shopee_cheio);
-    if (elements.auditKpiMarginCheio) elements.auditKpiMarginCheio.textContent = `${auditData.margem_media_cheio}%`;
-    if (elements.auditKpiMaxDiscount) elements.auditKpiMaxDiscount.textContent = `Até ${auditData.desconto_medio_max_20}% OFF`;
+    if (elements.auditKpiPriceCad) elements.auditKpiPriceCad.textContent = fmtCurrency.format(auditData.preco_medio_cad || 119.46);
+    if (elements.auditKpiPricePromo) elements.auditKpiPricePromo.textContent = fmtCurrency.format(auditData.preco_medio_promo || 84.46);
+    if (elements.auditKpiPricePromoSub) elements.auditKpiPricePromoSub.textContent = `Média de ${(auditData.desconto_medio_praticado || 26.6).toFixed(1)}% OFF praticado`;
+    if (elements.auditKpiMarginReal) elements.auditKpiMarginReal.textContent = `${(auditData.margem_media_real || 29.8).toFixed(1)}%`;
+    if (elements.auditKpiMarginRealSub) elements.auditKpiMarginRealSub.innerHTML = `Lucro real médio: <strong>${fmtCurrency.format(auditData.lucro_medio_real || 27.15)}</strong> / peça`;
 
+    const isRealMode = state.audit.mode === 'real';
     const discount = state.audit.discountPct;
     const discountFactor = 1.0 - (discount / 100.0);
 
@@ -4242,14 +4266,33 @@
     let sumMargin = 0;
     let sumProfit = 0;
     let countSafe = 0;
+    let countWarning = 0;
     let countLoss = 0;
+    let countNoSku = 0;
     let validCount = 0;
 
     const calculatedItems = auditData.itens.map(it => {
-      const simPrice = it.shopee_price * discountFactor;
+      const cadPrice = it.shopee_cad_price || it.shopee_price || 0;
+      const realPromoPrice = it.shopee_promo_price || it.shopee_price || cadPrice;
+      const realDiscPct = it.shopee_real_discount_pct || 0;
+
+      let simPrice = 0;
+      let simDiscPct = 0;
+
+      if (isRealMode) {
+        simPrice = realPromoPrice;
+        simDiscPct = realDiscPct;
+      } else {
+        simPrice = cadPrice * discountFactor;
+        simDiscPct = discount;
+      }
+
       const { fee, tier } = calcAuditShopeeFee(simPrice);
-      const profit = simPrice - fee - it.custo - it.embalagem;
+      const profit = simPrice - fee - it.custo - (it.embalagem || 1.50);
       const margin = simPrice > 0 ? (profit / simPrice * 100.0) : 0;
+
+      const hasSku = Boolean(it.var_sku || it.parent_sku);
+      if (!hasSku) countNoSku++;
 
       if (it.custo > 0) {
         validCount++;
@@ -4257,28 +4300,45 @@
         sumMargin += margin;
         sumProfit += profit;
         if (margin >= 20.0) countSafe++;
-        if (profit < 0.0) countLoss++;
+        else if (profit < 0.0) countLoss++;
+        else countWarning++;
+      } else {
+        if (margin >= 20.0) countSafe++;
+        else if (profit < 0.0) countLoss++;
+        else countWarning++;
       }
 
       return {
         ...it,
+        _cadPrice: cadPrice,
+        _realPromoPrice: realPromoPrice,
+        _realDiscPct: realDiscPct,
         _simPrice: simPrice,
+        _simDiscPct: simDiscPct,
         _fee: fee,
         _tier: tier,
         _profit: profit,
-        _margin: margin
+        _margin: margin,
+        _hasSku: hasSku
       };
     });
 
-    if (elements.auditSimResPrice) elements.auditSimResPrice.textContent = fmtCurrency.format(validCount ? sumPrice / validCount : 0);
+    if (elements.auditSimResPrice) elements.auditSimResPrice.textContent = fmtCurrency.format(validCount ? sumPrice / validCount : (auditData.preco_medio_promo || 0));
     if (elements.auditSimResMargin) {
-      const avgM = validCount ? sumMargin / validCount : 0;
+      const avgM = validCount ? sumMargin / validCount : (auditData.margem_media_real || 0);
       elements.auditSimResMargin.textContent = `${avgM.toFixed(1)}%`;
       elements.auditSimResMargin.style.color = avgM >= 20 ? '#16a34a' : (avgM >= 10 ? '#d97706' : '#dc2626');
     }
-    if (elements.auditSimResProfit) elements.auditSimResProfit.textContent = fmtCurrency.format(validCount ? sumProfit / validCount : 0);
+    if (elements.auditSimResProfit) elements.auditSimResProfit.textContent = fmtCurrency.format(validCount ? sumProfit / validCount : (auditData.lucro_medio_real || 0));
     if (elements.auditSimResSafe) elements.auditSimResSafe.textContent = `${countSafe} / ${auditData.total_shopee}`;
     if (elements.auditSimResLoss) elements.auditSimResLoss.textContent = `${countLoss} / ${auditData.total_shopee}`;
+
+    // Atualizar labels dos filtros
+    if (elements.auditFilterAll) elements.auditFilterAll.textContent = `Todos (${auditData.total_shopee})`;
+    if (elements.auditFilterSafe) elements.auditFilterSafe.textContent = `Margem Segura ≥ 20% (${countSafe})`;
+    if (elements.auditFilterWarning) elements.auditFilterWarning.textContent = `Margem 0% a 20% (${countWarning})`;
+    if (elements.auditFilterDanger) elements.auditFilterDanger.textContent = `Prejuízo < 0% (${countLoss})`;
+    if (elements.auditFilterNoSku) elements.auditFilterNoSku.textContent = `Sem SKU Shopee (${countNoSku})`;
 
     const q = state.audit.search;
     const f = state.audit.filter;
@@ -4287,7 +4347,7 @@
       if (f === 'safe' && it._margin < 20.0) return false;
       if (f === 'warning' && (it._margin < 0.0 || it._margin >= 20.0)) return false;
       if (f === 'danger' && it._profit >= 0.0) return false;
-      if (f === 'no_sku' && (it.var_sku || it.parent_sku)) return false;
+      if (f === 'no_sku' && it._hasSku) return false;
 
       if (q) {
         const matchSearch = (
@@ -4315,7 +4375,7 @@
       if (pageItems.length === 0) {
         elements.auditTableBody.innerHTML = `
           <tr>
-            <td colspan="11" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
+            <td colspan="13" style="text-align: center; padding: 2.5rem; color: var(--text-muted);">
               Nenhum produto encontrado para os filtros selecionados.
             </td>
           </tr>
@@ -4342,8 +4402,7 @@
             diagPill = '<span class="risk-pill risk-safe">Margem Saudável</span>';
           }
 
-          const hasSku = Boolean(it.var_sku || it.parent_sku);
-          const skuBadge = hasSku 
+          const skuBadge = it._hasSku 
             ? `<code style="font-size:0.75rem;">${escapeHtml(it.var_sku || it.parent_sku)}</code>`
             : '<span class="sku-missing-badge">Sem SKU Shopee</span>';
 
@@ -4351,12 +4410,33 @@
             ? `<div style="font-size:0.75rem; color:var(--text-muted); margin-top:2px;">Loja: <code>${escapeHtml(it.loja_sku)}</code></div>`
             : '<div style="font-size:0.72rem; color:#d97706; margin-top:2px;">Não vinculado</div>';
 
-          const skuMissingAlert = !hasSku ? '<div style="margin-top:4px;"><span class="sku-missing-badge">⚠️ Vincular SKU</span></div>' : '';
+          const skuMissingAlert = !it._hasSku ? '<div style="margin-top:4px;"><span class="sku-missing-badge">⚠️ Vincular SKU</span></div>' : '';
+
+          const imgSrc = it.img || PLACEHOLDER_IMG;
+          const imgHtml = `
+            <img src="${escapeHtml(imgSrc)}" 
+                 alt="${escapeHtml(it.prod_name)}" 
+                 class="product-thumb" 
+                 loading="lazy" 
+                 onerror="this.src='${PLACEHOLDER_IMG}'"
+                 onclick="openLightbox('${escapeHtml(imgSrc)}', '${escapeHtml(it.prod_name)}', '${escapeHtml(it.var_sku || it.parent_sku || it.loja_sku || '')}', ${it.shopee_stock || 0}, ${it.custo || 0})"
+                 title="Clique para ampliar"
+                 style="cursor: pointer; width: 42px; height: 42px; object-fit: cover; border-radius: 6px; border: 1px solid var(--border-subtle);">
+          `;
+
+          const promoBadge = it._realDiscPct > 0
+            ? `<div style="font-size: 0.72rem; font-weight: 700; color: #ea580c; margin-top: 1px;">-${it._realDiscPct.toFixed(1)}% OFF</div>`
+            : '<div style="font-size: 0.72rem; color: var(--text-muted); margin-top: 1px;">Sem Desconto</div>';
+
+          const simBadge = `<div style="font-size: 0.72rem; font-weight: 600; color: #2563eb; margin-top: 1px;">-${it._simDiscPct.toFixed(1)}% OFF</div>`;
 
           return `
             <tr>
+              <td style="text-align: center; vertical-align: middle;">
+                ${imgHtml}
+              </td>
               <td>
-                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.85rem;">
+                <div style="font-weight: 600; color: var(--text-primary); font-size: 0.85rem; line-height: 1.3;">
                   ${escapeHtml(it.prod_name)}
                 </div>
                 ${it.var_name ? `<div style="font-size: 0.76rem; color: var(--text-muted); margin-top: 2px;">Variação: <strong>${escapeHtml(it.var_name)}</strong></div>` : ''}
@@ -4367,14 +4447,21 @@
               </td>
               <td style="font-weight: 500;">${fmtCurrency.format(it.custo)}</td>
               <td style="color: var(--text-secondary);">${it.preco_loja > 0 ? fmtCurrency.format(it.preco_loja) : '-'}</td>
-              <td style="font-weight: 600; color: var(--text-primary);">${fmtCurrency.format(it.shopee_price)}</td>
+              <td style="font-weight: 600; color: var(--text-primary);">
+                ${fmtCurrency.format(it._cadPrice)}
+                <div style="font-size: 0.70rem; color: var(--text-muted);">Âncora</div>
+              </td>
+              <td style="background-color: rgba(238, 77, 45, 0.04); font-weight: 700; color: #ea580c;">
+                ${fmtCurrency.format(it._realPromoPrice)}
+                ${promoBadge}
+              </td>
               <td style="background-color: rgba(37, 99, 235, 0.04); font-weight: 700; color: #2563eb;">
                 ${fmtCurrency.format(it._simPrice)}
-                <div style="font-size: 0.72rem; font-weight: 600; color: #2563eb;">-${discount}% OFF</div>
+                ${simBadge}
               </td>
               <td>
                 <div style="font-weight: 500;">${fmtCurrency.format(it._fee)}</div>
-                <div style="font-size: 0.72rem; color: var(--text-muted);">${it._tier}</div>
+                <div style="font-size: 0.70rem; color: var(--text-muted);">${it._tier}</div>
               </td>
               <td style="font-weight: 700; color: ${it._profit < 0 ? '#dc2626' : 'var(--text-primary)'};">
                 ${fmtCurrency.format(it._profit)}
@@ -4384,7 +4471,7 @@
               </td>
               <td style="background-color: rgba(139, 92, 246, 0.04); font-weight: 600; color: #8b5cf6;">
                 Até ${it.desc_max_seguro_20}% OFF
-                <div style="font-size: 0.72rem; color: var(--text-muted);">P/ 10%: até ${it.desc_max_seguro_10}%</div>
+                <div style="font-size: 0.70rem; color: var(--text-muted);">P/ 10%: até ${it.desc_max_seguro_10}%</div>
               </td>
               <td style="text-align: center;">
                 ${diagPill}
@@ -4402,7 +4489,7 @@
       } else {
         const from = start + 1;
         const to = Math.min(start + pageSize, total);
-        elements.auditPaginationInfo.textContent = `Mostrando ${from} a ${to} de ${total} itens cadastrados`;
+        elements.auditPaginationInfo.textContent = `Mostrando ${from} a ${to} de ${total} anúncios cadastrados`;
       }
     }
 
@@ -4456,18 +4543,25 @@
       return;
     }
 
+    const isRealMode = state.audit.mode === 'real';
     const discount = state.audit.discountPct;
     const discountFactor = 1.0 - (discount / 100.0);
 
     const exportRows = auditData.itens.map(it => {
-      const simPrice = it.shopee_price * discountFactor;
+      const cadPrice = it.shopee_cad_price || it.shopee_price || 0;
+      const realPromoPrice = it.shopee_promo_price || it.shopee_price || cadPrice;
+      const realDiscPct = it.shopee_real_discount_pct || 0;
+
+      let simPrice = isRealMode ? realPromoPrice : (cadPrice * discountFactor);
+      let simDisc = isRealMode ? realDiscPct : discount;
+
       const { fee, tier } = calcAuditShopeeFee(simPrice);
-      const profit = simPrice - fee - it.custo - it.embalagem;
+      const profit = simPrice - fee - it.custo - (it.embalagem || 1.50);
       const margin = simPrice > 0 ? (profit / simPrice * 100.0) : 0;
 
-      let status = 'Margem Saudável';
+      let status = 'Margem Saudável (≥ 20%)';
       if (profit < 0) status = 'Prejuízo Imediato - Aumentar Preço';
-      else if (margin < 20) status = 'Margem Baixa (< 20%)';
+      else if (margin < 20) status = 'Margem Baixa (0% a 20%)';
 
       const skuShopee = it.var_sku || it.parent_sku || 'SEM SKU';
 
@@ -4475,15 +4569,18 @@
         'Produto Shopee': it.prod_name,
         'Variação Shopee': it.var_name,
         'SKU Shopee': skuShopee,
-        'SKU Loja Integrada': it.loja_sku,
-        'Produto Loja Integrada': it.loja_nome,
+        'SKU Loja Integrada': it.loja_sku || 'Não Vinculado',
+        'Produto Loja Integrada': it.loja_nome || '-',
         'Custo Unitário (R$)': it.custo,
         'Preço Loja Integrada (R$)': it.preco_loja,
-        'Preço Âncora Cadastrado Shopee (R$)': it.shopee_price,
-        'Desconto Simulado (%)': discount,
+        'Preço Âncora Cadastrado Shopee (R$)': cadPrice,
+        'Preço Real com Desconto Shopee (R$)': realPromoPrice,
+        'Desconto Real Praticado Shopee (%)': realDiscPct,
         'Preço Simulado de Venda (R$)': parseFloat(simPrice.toFixed(2)),
-        'Faixa Shopee (Tier)': tier,
+        'Desconto Simulado (%)': parseFloat(simDisc.toFixed(1)),
+        'Faixa Shopee 2026': tier,
         'Taxas Totais Shopee 2026 (R$)': parseFloat(fee.toFixed(2)),
+        'Repasse Líquido Shopee (R$)': parseFloat((simPrice - fee).toFixed(2)),
         'Lucro Líquido Unitário (R$)': parseFloat(profit.toFixed(2)),
         'Margem Líquida Real (%)': parseFloat(margin.toFixed(1)),
         'Desconto Máx Seguro p/ Margem 20% (%)': it.desc_max_seguro_20,
@@ -4493,10 +4590,11 @@
       };
     });
 
+    const suffix = isRealMode ? 'Real_Praticado' : `${discount}pct_desconto`;
     const worksheet = XLSX.utils.json_to_sheet(exportRows);
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, `Auditoria_Shopee_${discount}pct`);
-    XLSX.writeFile(workbook, `Auditoria_Shopee_Real_${discount}pct_desconto_${new Date().toISOString().slice(0, 10)}.xlsx`);
+    XLSX.utils.book_append_sheet(workbook, worksheet, `Auditoria_Shopee`);
+    XLSX.writeFile(workbook, `Auditoria_Shopee_${suffix}_${new Date().toISOString().slice(0, 10)}.xlsx`);
 
     showToast('Planilha de auditoria exportada com sucesso!', 'success');
   }
