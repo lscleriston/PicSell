@@ -37,6 +37,15 @@
           Carregar Planilha
         </button>
 
+        <button id="btn-export-updated" class="btn btn-primary" title="Exportar planilha completa com os preços e estoques atualizados" style="display: none;">
+          <svg width="15" height="15" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>
+          <span id="btn-export-updated-label">Exportar Atualizados</span>
+        </button>
+
+        <button id="btn-reset-edits" class="btn btn-outline" title="Descartar edições locais e restaurar dados originais" style="display: none; color: #dc2626; border-color: rgba(220, 38, 38, 0.3);">
+          Restaurar Originais
+        </button>
+
         <button id="btn-export" class="btn btn-outline" title="Exportar dados filtrados para CSV / Excel">
           <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           Exportar Excel
@@ -1542,6 +1551,116 @@
           <div>Preço de Custo: <strong id="lightbox-cost" style="color: #2563eb;"></strong></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Modal de Edição de Preços e Estoque -->
+  <div id="modal-edit-product" class="modal-overlay">
+    <div class="modal-content" style="max-width: 520px; text-align: left; padding: 1.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+        <div style="display: flex; gap: 0.85rem; align-items: center;">
+          <img id="edit-prod-img" src="" alt="Produto" style="width: 52px; height: 52px; object-fit: cover; border-radius: 8px; border: 1px solid var(--border-subtle);">
+          <div>
+            <h3 id="edit-prod-title" style="font-size: 1rem; font-weight: 700; line-height: 1.3; color: var(--text-primary); margin: 0;"></h3>
+            <div style="display: flex; gap: 6px; align-items: center; margin-top: 3px;">
+              <span id="edit-prod-sku" class="sku-tag" style="font-size: 0.75rem; padding: 2px 6px;"></span>
+              <span id="edit-prod-var" style="font-size: 0.78rem; color: var(--text-muted);"></span>
+            </div>
+          </div>
+        </div>
+        <button id="edit-prod-close" class="modal-close" title="Fechar">&times;</button>
+      </div>
+
+      <form id="edit-prod-form">
+        <input type="hidden" id="edit-prod-sku-input">
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <!-- Preço de Venda Principal -->
+          <div class="form-group">
+            <label class="form-label" for="edit-input-preco-venda">
+              <span>Preço de Venda (Loja)</span>
+              <span class="brand-badge" style="background: rgba(37, 99, 235, 0.1); color: #2563eb;">Principal</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="edit-input-preco-venda" class="input-custom input-has-prefix" step="0.50" min="0" required>
+            </div>
+          </div>
+
+          <!-- Estoque Atual -->
+          <div class="form-group">
+            <label class="form-label" for="edit-input-estoque">
+              <span>Estoque Atual</span>
+            </label>
+            <div class="input-with-prefix">
+              <input type="number" id="edit-input-estoque" class="input-custom input-has-suffix" min="0" step="1" required>
+              <span class="input-suffix">un</span>
+            </div>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.85rem; margin-bottom: 0.85rem;">
+          <!-- Preço de Custo (CMV) -->
+          <div class="form-group">
+            <label class="form-label" for="edit-input-custo">
+              <span>Preço de Custo (CMV)</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="edit-input-custo" class="input-custom input-has-prefix" step="0.10" min="0">
+            </div>
+          </div>
+
+          <!-- Preço Promocional -->
+          <div class="form-group">
+            <label class="form-label" for="edit-input-preco-promo">
+              <span>Preço Promo (Opcional)</span>
+            </label>
+            <div class="input-with-prefix">
+              <span class="input-prefix">R$</span>
+              <input type="number" id="edit-input-preco-promo" class="input-custom input-has-prefix" step="0.50" min="0" placeholder="0.00">
+            </div>
+          </div>
+        </div>
+
+        <!-- Painel de Impacto Financeiro Imediato -->
+        <div style="background: var(--bg-secondary); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 0.75rem; margin-bottom: 1rem;">
+          <div style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem; text-transform: uppercase;">
+            📊 Impacto Financeiro Instantâneo
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; text-align: center;">
+            <div>
+              <div style="font-size: 0.70rem; color: var(--text-muted);">Lucro Unit.</div>
+              <strong id="edit-preview-lucro" style="font-size: 0.85rem; color: var(--text-primary);">R$ 0,00</strong>
+            </div>
+            <div>
+              <div style="font-size: 0.70rem; color: var(--text-muted);">Margem Loja</div>
+              <strong id="edit-preview-margem" style="font-size: 0.85rem; color: #16a34a;">0.0%</strong>
+            </div>
+            <div>
+              <div style="font-size: 0.70rem; color: #ee4d2d;">Shopee Sug.</div>
+              <strong id="edit-preview-shopee" style="font-size: 0.85rem; color: #ee4d2d;">R$ 0,00</strong>
+            </div>
+            <div>
+              <div style="font-size: 0.70rem; color: #fe2c55;">TikTok Sug.</div>
+              <strong id="edit-preview-tiktok" style="font-size: 0.85rem; color: #fe2c55;">R$ 0,00</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botões de Ação -->
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <button type="button" id="edit-btn-reset-single" class="btn btn-outline" style="font-size: 0.75rem; padding: 0.4rem 0.75rem; color: var(--text-muted);">
+            Restaurar Original
+          </button>
+          <div style="display: flex; gap: 0.5rem;">
+            <button type="button" id="edit-btn-cancel" class="btn btn-outline" style="padding: 0.45rem 0.9rem;">Cancelar</button>
+            <button type="submit" id="edit-btn-save" class="btn btn-primary" style="padding: 0.45rem 1.15rem;">
+              💾 Salvar Alterações
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
 

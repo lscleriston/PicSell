@@ -23,6 +23,7 @@
   const state = {
     activeTab: 'catalog',     // 'catalog' ou 'shopee'
     data: null,
+    overrides: {},            // Modificações locais de preço e estoque { [sku]: { preco_venda, estoque, custo, preco_promo, ... } }
     filteredItems: [],
     viewStructure: 'grouped', // 'grouped' (por modelo) ou 'skus' (por variação individual)
     viewMode: 'table',        // 'table' ou 'cards'
@@ -347,6 +348,32 @@
     tiktokPaginationInfo: document.getElementById('tiktok-pagination-info'),
     tiktokPaginationPages: document.getElementById('tiktok-pagination-pages'),
 
+    // Ações de Edição e Exportação de Atualizados
+    btnExportUpdated: document.getElementById('btn-export-updated'),
+    btnExportUpdatedLabel: document.getElementById('btn-export-updated-label'),
+    btnResetEdits: document.getElementById('btn-reset-edits'),
+
+    // Modal de Edição de Preços e Estoque
+    modalEditProduct: document.getElementById('modal-edit-product'),
+    editProdImg: document.getElementById('edit-prod-img'),
+    editProdTitle: document.getElementById('edit-prod-title'),
+    editProdSku: document.getElementById('edit-prod-sku'),
+    editProdVar: document.getElementById('edit-prod-var'),
+    editProdClose: document.getElementById('edit-prod-close'),
+    editProdForm: document.getElementById('edit-prod-form'),
+    editProdSkuInput: document.getElementById('edit-prod-sku-input'),
+    editInputPrecoVenda: document.getElementById('edit-input-preco-venda'),
+    editInputEstoque: document.getElementById('edit-input-estoque'),
+    editInputCusto: document.getElementById('edit-input-custo'),
+    editInputPrecoPromo: document.getElementById('edit-input-preco-promo'),
+    editPreviewLucro: document.getElementById('edit-preview-lucro'),
+    editPreviewMargem: document.getElementById('edit-preview-margem'),
+    editPreviewShopee: document.getElementById('edit-preview-shopee'),
+    editPreviewTiktok: document.getElementById('edit-preview-tiktok'),
+    editBtnResetSingle: document.getElementById('edit-btn-reset-single'),
+    editBtnCancel: document.getElementById('edit-btn-cancel'),
+    editBtnSave: document.getElementById('edit-btn-save'),
+
     // Modais e Utilitários
     lightboxModal: document.getElementById('lightbox-modal'),
     lightboxImg: document.getElementById('lightbox-img'),
@@ -390,7 +417,122 @@
     }
   }
 
+  function loadOverrides() {
+    try {
+      const saved = localStorage.getItem('luluks_product_overrides');
+      state.overrides = saved ? JSON.parse(saved) : {};
+    } catch (e) {
+      console.warn('Erro ao ler overrides do localStorage:', e);
+      state.overrides = {};
+    }
+  }
+
+  function saveOverridesToStorage() {
+    try {
+      localStorage.setItem('luluks_product_overrides', JSON.stringify(state.overrides));
+    } catch (e) {
+      console.warn('Erro ao salvar overrides no localStorage:', e);
+    }
+  }
+
+  function updateHeaderEditsButtons() {
+    const count = Object.keys(state.overrides || {}).length;
+    if (elements.btnExportUpdated && elements.btnResetEdits) {
+      if (count > 0) {
+        elements.btnExportUpdated.style.display = 'inline-flex';
+        elements.btnResetEdits.style.display = 'inline-flex';
+        if (elements.btnExportUpdatedLabel) {
+          elements.btnExportUpdatedLabel.textContent = `Exportar Atualizados (${count})`;
+        }
+      } else {
+        elements.btnExportUpdated.style.display = 'none';
+        elements.btnResetEdits.style.display = 'none';
+      }
+    }
+  }
+
+  function applyProductOverrides() {
+    if (!state.data || !state.data.itens_detalhados) return;
+
+    const overrides = state.overrides || {};
+
+    state.data.itens_detalhados.forEach(item => {
+      const ov = overrides[item.sku];
+      if (ov) {
+        if (ov.preco_venda !== undefined) item.preco_venda = Number(ov.preco_venda);
+        if (ov.estoque !== undefined) item.estoque = Number(ov.estoque);
+        if (ov.custo !== undefined) item.custo = Number(ov.custo);
+        if (ov.preco_promo !== undefined) item.preco_promo = Number(ov.preco_promo);
+        if (ov.preco_cheio !== undefined) item.preco_cheio = Number(ov.preco_cheio);
+        item.custo_total = item.custo * item.estoque;
+        item.venda_total = item.preco_venda * item.estoque;
+        item.lucro_total = item.venda_total - item.custo_total;
+        item.margem_pct = item.venda_total > 0 ? (item.lucro_total / item.venda_total * 100) : 0;
+        item._isEdited = true;
+      } else {
+        item._isEdited = false;
+      }
+    });
+
+    if (state.data.produtos_agrupados) {
+      state.data.produtos_agrupados.forEach(grp => {
+        if (grp.variacoes && grp.variacoes.length > 0) {
+          let estTotal = 0;
+          let cTotal = 0;
+          let vTotal = 0;
+          let minCusto = Infinity;
+          let maxCusto = -Infinity;
+          let minPreco = Infinity;
+          let maxPreco = -Infinity;
+          let anyEdited = false;
+
+          grp.variacoes.forEach(v => {
+            const ov = overrides[v.sku];
+            if (ov) {
+              if (ov.preco_venda !== undefined) v.preco_venda = Number(ov.preco_venda);
+              if (ov.estoque !== undefined) v.estoque = Number(ov.estoque);
+              if (ov.custo !== undefined) v.custo = Number(ov.custo);
+              if (ov.preco_promo !== undefined) v.preco_promo = Number(ov.preco_promo);
+              if (ov.preco_cheio !== undefined) v.preco_cheio = Number(ov.preco_cheio);
+              v.custo_total = v.custo * v.estoque;
+              v.venda_total = v.preco_venda * v.estoque;
+              v.lucro_total = v.venda_total - v.custo_total;
+              v.margem_pct = v.venda_total > 0 ? (v.lucro_total / v.venda_total * 100) : 0;
+              v._isEdited = true;
+              anyEdited = true;
+            } else {
+              v._isEdited = false;
+            }
+
+            estTotal += v.estoque;
+            cTotal += v.custo_total;
+            vTotal += v.venda_total;
+            if (v.custo < minCusto) minCusto = v.custo;
+            if (v.custo > maxCusto) maxCusto = v.custo;
+            if (v.preco_venda < minPreco) minPreco = v.preco_venda;
+            if (v.preco_venda > maxPreco) maxPreco = v.preco_venda;
+          });
+
+          grp.estoque_total = estTotal;
+          grp.custo_total = cTotal;
+          grp.venda_total = vTotal;
+          grp.lucro_total = vTotal - cTotal;
+          grp.margem_pct = vTotal > 0 ? ((vTotal - cTotal) / vTotal * 100) : 0;
+          grp.custo_min = minCusto === Infinity ? 0 : minCusto;
+          grp.custo_max = maxCusto === -Infinity ? 0 : maxCusto;
+          grp.preco_min = minPreco === Infinity ? 0 : minPreco;
+          grp.preco_max = maxPreco === -Infinity ? 0 : maxPreco;
+          grp._isEdited = anyEdited;
+        }
+      });
+    }
+
+    updateHeaderEditsButtons();
+  }
+
   function loadData() {
+    loadOverrides();
+
     const localData = localStorage.getItem('luluks_custom_data');
     if (localData) {
       try {
@@ -401,7 +543,7 @@
     }
 
     if (!state.data && window.DADOS_PRODUTOS) {
-      state.data = window.DADOS_PRODUTOS;
+      state.data = JSON.parse(JSON.stringify(window.DADOS_PRODUTOS));
     }
 
     if (!state.data) {
@@ -409,6 +551,7 @@
       return;
     }
 
+    applyProductOverrides();
     populateCategories();
     populateShopeeProductsSelect();
     computeCatalogShopeePrices();
@@ -2764,6 +2907,7 @@
             <button class="sku-copy-btn" title="Copiar SKU" data-copy-sku="${escapeHtml(item.sku)}">
               <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
             </button>
+            ${item._isEdited ? '<span class="edited-badge" title="Valores alterados manualmente">✏️ Editado</span>' : ''}
           </div>
         </td>
         <td>
@@ -2820,7 +2964,10 @@
           <span class="margin-pill">${item.margem_pct.toFixed(1)}%</span>
         </td>
         <td style="text-align: center;">
-          <div style="display: flex; gap: 4px; justify-content: center;">
+          <div style="display: flex; gap: 4px; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <button class="btn-edit-prod" data-edit-sku="${escapeHtml(firstSku)}" title="Editar Preço e Estoque deste produto">
+              ✏️ Editar
+            </button>
             <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(firstSku)}" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" title="Abrir análise detalhada no Precificador Shopee">
               Shopee
             </button>
@@ -2848,7 +2995,7 @@
                   <th>Estoque</th>
                   <th>Custo em Estoque</th>
                   <th>Status</th>
-                  <th style="text-align: center;">Simular</th>
+                  <th style="text-align: center;">Ações</th>
                 </tr>
               </thead>
               <tbody>
@@ -2865,6 +3012,7 @@
                           <button class="sku-copy-btn" title="Copiar SKU" data-copy-sku="${escapeHtml(v.sku)}">
                             <svg width="11" height="11" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
                           </button>
+                          ${v._isEdited ? '<span class="edited-badge" title="Variação alterada">✏️</span>' : ''}
                         </span>
                       </td>
                       <td class="currency-cost">${fmtCurrency.format(v.custo)}</td>
@@ -2917,7 +3065,10 @@
                         </span>
                       </td>
                       <td style="text-align: center;">
-                        <div style="display: flex; gap: 3px; justify-content: center;">
+                        <div style="display: flex; gap: 3px; justify-content: center; align-items: center;">
+                          <button class="btn-edit-prod" data-edit-sku="${escapeHtml(v.sku)}" style="padding: 0.15rem 0.45rem; font-size: 0.68rem;" title="Editar Preço e Estoque">
+                            ✏️ Editar
+                          </button>
                           <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(v.sku)}" style="padding: 0.15rem 0.35rem; font-size: 0.68rem;" title="Abrir no Precificador Shopee">
                             Shopee
                           </button>
@@ -2976,6 +3127,7 @@
             <button class="sku-copy-btn" title="Copiar SKU" data-copy-sku="${escapeHtml(item.sku)}">
               <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
             </button>
+            ${item._isEdited ? '<span class="edited-badge" title="Valores alterados manualmente">✏️ Editado</span>' : ''}
           </div>
         </td>
         <td>
@@ -3035,7 +3187,10 @@
           <span class="margin-pill">${item.margem_pct.toFixed(1)}%</span>
         </td>
         <td style="text-align: center;">
-          <div style="display: flex; gap: 4px; justify-content: center;">
+          <div style="display: flex; gap: 4px; justify-content: center; align-items: center;">
+            <button class="btn-edit-prod" data-edit-sku="${escapeHtml(item.sku)}" title="Editar Preço e Estoque">
+              ✏️ Editar
+            </button>
             <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(item.sku)}" style="padding: 0.25rem 0.5rem; font-size: 0.72rem;" title="Abrir análise detalhada no Precificador Shopee">
               Shopee
             </button>
@@ -3143,6 +3298,7 @@
               <button class="sku-copy-btn" data-copy-sku="${escapeHtml(item.sku)}">
                 <svg width="12" height="12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>
               </button>
+              ${item._isEdited ? '<span class="edited-badge" title="Valores alterados manualmente">✏️ Editado</span>' : ''}
             </div>
 
             ${isGrouped && item.variacoes ? `
@@ -3202,12 +3358,15 @@
               </div>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; margin-top: 0.5rem;">
-              <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(firstSku)}" style="justify-content: center; font-size: 0.75rem; padding: 0.35rem;">
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.35rem; margin-top: 0.5rem;">
+              <button class="btn-edit-prod" data-edit-sku="${escapeHtml(firstSku)}" style="justify-content: center; font-size: 0.72rem; padding: 0.35rem 0.2rem;" title="Editar Preço e Estoque">
+                ✏️ Editar
+              </button>
+              <button class="btn btn-outline-shopee btn-goto-shopee" data-target-sku="${escapeHtml(firstSku)}" style="justify-content: center; font-size: 0.72rem; padding: 0.35rem 0.2rem;" title="Simulador Shopee">
                 Shopee
               </button>
-              <button class="btn btn-outline-tiktok btn-goto-tiktok" data-target-sku="${escapeHtml(firstSku)}" style="justify-content: center; font-size: 0.75rem; padding: 0.35rem;">
-                TikTok Shop
+              <button class="btn btn-outline-tiktok btn-goto-tiktok" data-target-sku="${escapeHtml(firstSku)}" style="justify-content: center; font-size: 0.72rem; padding: 0.35rem 0.2rem;" title="Simulador TikTok">
+                TikTok
               </button>
             </div>
           </div>
@@ -3649,6 +3808,41 @@
     elements.btnPrint.addEventListener('click', () => window.print());
     elements.btnExport.addEventListener('click', exportToCsv);
 
+    if (elements.btnExportUpdated) {
+      elements.btnExportUpdated.addEventListener('click', exportUpdatedCatalogToExcel);
+    }
+    if (elements.btnResetEdits) {
+      elements.btnResetEdits.addEventListener('click', resetAllProductEdits);
+    }
+
+    // Modal de Edição de Produto
+    if (elements.editProdClose) {
+      elements.editProdClose.addEventListener('click', closeEditProductModal);
+    }
+    if (elements.editBtnCancel) {
+      elements.editBtnCancel.addEventListener('click', closeEditProductModal);
+    }
+    if (elements.modalEditProduct) {
+      elements.modalEditProduct.addEventListener('click', (e) => {
+        if (e.target === elements.modalEditProduct) closeEditProductModal();
+      });
+    }
+    if (elements.editProdForm) {
+      elements.editProdForm.addEventListener('submit', saveProductEdit);
+    }
+    if (elements.editBtnResetSingle) {
+      elements.editBtnResetSingle.addEventListener('click', () => {
+        const sku = elements.editProdSkuInput?.value;
+        if (sku) resetProductEdit(sku);
+      });
+    }
+
+    // Inputs de recálculo instantâneo no modal de edição
+    if (elements.editInputPrecoVenda) elements.editInputPrecoVenda.addEventListener('input', updateEditModalPreview);
+    if (elements.editInputCusto) elements.editInputCusto.addEventListener('input', updateEditModalPreview);
+    if (elements.editInputEstoque) elements.editInputEstoque.addEventListener('input', updateEditModalPreview);
+    if (elements.editInputPrecoPromo) elements.editInputPrecoPromo.addEventListener('input', updateEditModalPreview);
+
     elements.btnUpload.addEventListener('click', () => elements.fileInput.click());
     elements.fileInput.addEventListener('change', handleFileSelect);
 
@@ -3674,7 +3868,10 @@
       if (e.target === elements.lightboxModal) closeLightbox();
     });
     document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'Escape') {
+        closeLightbox();
+        closeEditProductModal();
+      }
     });
   }
 
@@ -3686,15 +3883,15 @@
           state.sort.direction = state.sort.direction === 'asc' ? 'desc' : 'asc';
         } else {
           state.sort.field = field;
-          state.sort.direction = 'desc';
         }
+        state.sort.direction = 'desc';
         applyFilters();
       });
     });
 
     elements.tableBody.querySelectorAll('tr.accordion-toggle').forEach(tr => {
       tr.addEventListener('click', (e) => {
-        if (e.target.closest('.sku-copy-btn') || e.target.closest('.product-thumb') || e.target.closest('.btn-goto-shopee') || e.target.closest('.btn-goto-tiktok')) return;
+        if (e.target.closest('.sku-copy-btn') || e.target.closest('.product-thumb') || e.target.closest('.btn-goto-shopee') || e.target.closest('.btn-goto-tiktok') || e.target.closest('.btn-edit-prod')) return;
 
         const sku = tr.getAttribute('data-group-sku');
         if (state.expandedGroups.has(sku)) {
@@ -3703,6 +3900,14 @@
           state.expandedGroups.add(sku);
         }
         renderTable();
+      });
+    });
+
+    elements.tableBody.querySelectorAll('.btn-edit-prod').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sku = btn.getAttribute('data-edit-sku');
+        if (sku) openEditProductModal(sku);
       });
     });
 
@@ -3750,6 +3955,14 @@
   }
 
   function attachCardEvents() {
+    elements.cardsContainer.querySelectorAll('.btn-edit-prod').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const sku = btn.getAttribute('data-edit-sku');
+        if (sku) openEditProductModal(sku);
+      });
+    });
+
     elements.cardsContainer.querySelectorAll('.card-img').forEach(img => {
       img.addEventListener('click', () => {
         openLightbox(
@@ -4659,6 +4872,217 @@
     }, 3200);
   }
 
+  // =========================================================================
+  // Edição de Preços & Estoque (Modal, Persistência Local e Exportação)
+  // =========================================================================
+  function openEditProductModal(sku) {
+    if (!state.data?.itens_detalhados) return;
+    const prod = state.data.itens_detalhados.find(p => p.sku === sku);
+    if (!prod) {
+      showToast(`Produto com SKU "${sku}" não encontrado.`, 'error');
+      return;
+    }
+
+    if (elements.editProdSkuInput) elements.editProdSkuInput.value = prod.sku;
+    if (elements.editProdTitle) elements.editProdTitle.textContent = prod.nome;
+    if (elements.editProdSku) elements.editProdSku.textContent = `SKU: ${prod.sku}`;
+    if (elements.editProdVar) elements.editProdVar.textContent = prod.variacao ? `Variação: ${prod.variacao}` : 'Produto Padrão';
+    if (elements.editProdImg) elements.editProdImg.src = prod.img || PLACEHOLDER_IMG;
+
+    if (elements.editInputPrecoVenda) elements.editInputPrecoVenda.value = prod.preco_venda.toFixed(2);
+    if (elements.editInputEstoque) elements.editInputEstoque.value = prod.estoque;
+    if (elements.editInputCusto) elements.editInputCusto.value = prod.custo.toFixed(2);
+    if (elements.editInputPrecoPromo) elements.editInputPrecoPromo.value = prod.preco_promo > 0 ? prod.preco_promo.toFixed(2) : '';
+
+    const isAlreadyEdited = Boolean(state.overrides && state.overrides[prod.sku]);
+    if (elements.editBtnResetSingle) {
+      elements.editBtnResetSingle.style.display = isAlreadyEdited ? 'inline-block' : 'none';
+    }
+
+    updateEditModalPreview();
+
+    if (elements.modalEditProduct) {
+      elements.modalEditProduct.classList.add('active');
+    }
+  }
+
+  function closeEditProductModal() {
+    if (elements.modalEditProduct) {
+      elements.modalEditProduct.classList.remove('active');
+    }
+  }
+
+  function updateEditModalPreview() {
+    const precoVenda = parseFloat(elements.editInputPrecoVenda?.value) || 0;
+    const custo = parseFloat(elements.editInputCusto?.value) || 0;
+    const lucro = precoVenda - custo;
+    const margem = precoVenda > 0 ? (lucro / precoVenda * 100) : 0;
+
+    // Shopee sug
+    const packaging = parseFloat(elements.shopeeCfgPack?.value) || 1.50;
+    const marginShopee = parseFloat(elements.shopeeCfgMargin?.value) || 20.0;
+    const taxShopee = parseFloat(elements.shopeeCfgTax?.value) || 0.0;
+    const sellerType = elements.shopeeCfgSellerType?.value || 'cnpj';
+    const rounding = elements.shopeeCfgRounding?.value || 'none';
+    const discountPromoShopee = parseFloat(elements.shopeeCfgPromoDiscount?.value) || 30.0;
+    const pairShopee = calcShopeePricingPair(custo, packaging, marginShopee, taxShopee, sellerType, rounding, discountPromoShopee);
+
+    // TikTok sug
+    const sellerRegimeTik = elements.tiktokCfgNewSeller?.value || 'standard';
+    const discountPromoTik = parseFloat(elements.tiktokCfgPromoDiscount?.value) || 30.0;
+    const pairTik = calcTikTokPricingPair(custo, packaging, marginShopee, taxShopee, sellerRegimeTik, rounding, discountPromoTik);
+
+    if (elements.editPreviewLucro) {
+      elements.editPreviewLucro.textContent = fmtCurrency.format(lucro);
+      elements.editPreviewLucro.style.color = lucro >= 0 ? 'var(--text-primary)' : 'var(--danger-dot)';
+    }
+    if (elements.editPreviewMargem) {
+      elements.editPreviewMargem.textContent = `${margem.toFixed(1)}%`;
+      elements.editPreviewMargem.style.color = margem >= 20 ? 'var(--success-dot)' : (margem > 0 ? 'var(--warning-dot)' : 'var(--danger-dot)');
+    }
+    if (elements.editPreviewShopee) {
+      elements.editPreviewShopee.textContent = fmtCurrency.format(pairShopee.precoComDesconto);
+    }
+    if (elements.editPreviewTiktok) {
+      elements.editPreviewTiktok.textContent = fmtCurrency.format(pairTik.precoComDesconto);
+    }
+  }
+
+  function saveProductEdit(e) {
+    if (e) e.preventDefault();
+    const sku = elements.editProdSkuInput?.value;
+    if (!sku) return;
+
+    const precoVenda = parseFloat(elements.editInputPrecoVenda?.value);
+    const estoque = parseInt(elements.editInputEstoque?.value, 10);
+    const custo = parseFloat(elements.editInputCusto?.value) || 0;
+    const precoPromo = parseFloat(elements.editInputPrecoPromo?.value) || 0;
+
+    if (isNaN(precoVenda) || precoVenda < 0) {
+      showToast('Informe um Preço de Venda válido.', 'error');
+      return;
+    }
+    if (isNaN(estoque) || estoque < 0) {
+      showToast('Informe um Estoque válido.', 'error');
+      return;
+    }
+
+    if (!state.overrides) state.overrides = {};
+    state.overrides[sku] = {
+      preco_venda: precoVenda,
+      estoque: estoque,
+      custo: custo,
+      preco_promo: precoPromo,
+      preco_cheio: precoPromo > 0 ? precoVenda : precoVenda,
+      updated_at: new Date().toISOString()
+    };
+
+    saveOverridesToStorage();
+    applyProductOverrides();
+    computeCatalogShopeePrices();
+    computeCatalogTikTokPrices();
+
+    applyFilters();
+    updateShopeeSimulator();
+    updateTikTokSimulator();
+    renderShopeeTable();
+    renderTikTokTable();
+
+    closeEditProductModal();
+    showToast(`Produto ${sku} atualizado com sucesso!`, 'success');
+  }
+
+  function resetProductEdit(sku) {
+    if (!sku || !state.overrides || !state.overrides[sku]) return;
+
+    delete state.overrides[sku];
+    saveOverridesToStorage();
+
+    // Reload base dataset and re-apply remaining overrides
+    if (window.DADOS_PRODUTOS) {
+      state.data = JSON.parse(JSON.stringify(window.DADOS_PRODUTOS));
+    }
+    applyProductOverrides();
+    computeCatalogShopeePrices();
+    computeCatalogTikTokPrices();
+
+    applyFilters();
+    updateShopeeSimulator();
+    updateTikTokSimulator();
+    renderShopeeTable();
+    renderTikTokTable();
+
+    closeEditProductModal();
+    showToast(`Valores originais restaurados para ${sku}!`, 'info');
+  }
+
+  function resetAllProductEdits() {
+    const count = Object.keys(state.overrides || {}).length;
+    if (count === 0) return;
+
+    if (!confirm(`Deseja descartar todas as alterações de preço e estoque (${count} itens) e voltar aos dados originais da planilha/banco?`)) {
+      return;
+    }
+
+    state.overrides = {};
+    localStorage.removeItem('luluks_product_overrides');
+
+    if (window.DADOS_PRODUTOS) {
+      state.data = JSON.parse(JSON.stringify(window.DADOS_PRODUTOS));
+    }
+    applyProductOverrides();
+    computeCatalogShopeePrices();
+    computeCatalogTikTokPrices();
+
+    applyFilters();
+    updateShopeeSimulator();
+    updateTikTokSimulator();
+    renderShopeeTable();
+    renderTikTokTable();
+
+    showToast('Todas as alterações manuais foram revertidas!', 'info');
+  }
+
+  function exportUpdatedCatalogToExcel() {
+    if (!state.data?.itens_detalhados || typeof XLSX === 'undefined') {
+      showToast('Nenhum dado ou biblioteca XLSX não disponível para exportação.', 'warning');
+      return;
+    }
+
+    const exportRows = state.data.itens_detalhados.map(it => {
+      const isEdited = Boolean(state.overrides && state.overrides[it.sku]);
+      return {
+        'SKU': it.sku,
+        'SKU Pai': it.sku_pai || '',
+        'Nome do Produto': it.nome,
+        'Variação': it.variacao || '',
+        'Categoria': it.categoria || '',
+        'Estoque Atual': it.estoque,
+        'Preço Custo (R$)': it.custo,
+        'Preço Cheio (R$)': it.preco_cheio || it.preco_venda,
+        'Preço Promo (R$)': it.preco_promo || 0,
+        'Preço de Venda Final (R$)': it.preco_venda,
+        'Preço Sugerido Shopee (R$)': it.preco_shopee_promo || it.preco_shopee || 0,
+        'Preço Cadastro Shopee Âncora (R$)': it.preco_shopee_cad || 0,
+        'Preço Sugerido TikTok (R$)': it.preco_tiktok_promo || it.preco_tiktok || 0,
+        'Preço Cadastro TikTok Âncora (R$)': it.preco_tiktok_cad || 0,
+        'Custo Total Estoque (R$)': it.custo_total,
+        'Valor Total Venda Estoque (R$)': it.venda_total,
+        'Lucro Total Estoque (R$)': it.lucro_total,
+        'Margem (%)': parseFloat(it.margem_pct.toFixed(1)),
+        'Status': it.ativo === 'S' ? 'Ativo' : 'Inativo',
+        'Alterado Manualmente': isEdited ? 'SIM' : 'NÃO'
+      };
+    });
+
+    const worksheet = XLSX.utils.json_to_sheet(exportRows);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Catalogo_Atualizado');
+    XLSX.writeFile(workbook, `Luluks_Estoque_Precos_Atualizados_${new Date().toISOString().slice(0, 10)}.xlsx`);
+
+    showToast('Planilha com catálogo atualizado exportada com sucesso!', 'success');
+  }
+
   // Iniciar quando o DOM estiver pronto
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
@@ -4666,3 +5090,4 @@
     init();
   }
 })();
+

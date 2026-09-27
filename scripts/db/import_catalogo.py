@@ -111,34 +111,36 @@ def importar_catalogo(caminho_arquivo=None, db_path=None):
 
         # Grades (tamanho, cor, etc.)
         tam = str(sheet.cell(row=r, column=54).value or '').strip()
-        cor = str(sheet.cell(row=r, column=56).value or '').strip()
-        var_nome = []
-        if tam: var_nome.append(tam)
-        if cor and cor != tam: var_nome.append(cor)
-        variacao = ' / '.join(var_nome) if var_nome else 'Padrão'
+        cor = str(sheet.cell(row=r, column=44).value or '').strip()
+        acess = str(sheet.cell(row=r, column=53).value or '').strip()
+        var_nome = [g for g in [tam, cor, acess] if g]
+        variacao = ' / '.join(var_nome) if var_nome else ('Padrão' if tipo == 'sem-variacao' else 'Único')
 
-        # Valores financeiros
+        # Estoque (Coluna 17)
         try:
-            custo = float(sheet.cell(row=r, column=17).value or 0.0)
+            estoque = int(float(sheet.cell(row=r, column=17).value or 0))
+        except (ValueError, TypeError):
+            estoque = 0
+
+        # Custo (Coluna 21)
+        try:
+            custo = float(sheet.cell(row=r, column=21).value or 0.0)
         except (ValueError, TypeError):
             custo = 0.0
 
+        # Preço Cheio (Coluna 23)
         try:
-            preco_cheio = float(sheet.cell(row=r, column=15).value or 0.0)
+            preco_cheio = float(sheet.cell(row=r, column=23).value or 0.0)
         except (ValueError, TypeError):
             preco_cheio = 0.0
 
+        # Preço Promocional (Coluna 24)
         try:
-            preco_promo = float(sheet.cell(row=r, column=16).value or 0.0)
+            preco_promo = float(sheet.cell(row=r, column=24).value or 0.0)
         except (ValueError, TypeError):
             preco_promo = 0.0
 
         preco_venda = preco_promo if preco_promo > 0 else preco_cheio
-
-        try:
-            estoque = int(float(sheet.cell(row=r, column=19).value or 0))
-        except (ValueError, TypeError):
-            estoque = 0
 
         ativo = str(sheet.cell(row=r, column=5).value or 'S')
         ncm = str(sheet.cell(row=r, column=8).value or '').strip()

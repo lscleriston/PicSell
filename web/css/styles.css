@@ -2345,4 +2345,49 @@ body {
   font-size: 0.84rem;
 }
 
+/* ==========================================================================
+   Botão e Badges de Edição de Produtos
+   ========================================================================== */
+.btn-edit-prod {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0.25rem 0.55rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-strong);
+  background-color: var(--bg-surface);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-edit-prod:hover {
+  background-color: var(--brand-light);
+  color: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.edited-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  background: rgba(245, 158, 11, 0.12);
+  color: #b45309;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 5px;
+  border-radius: 4px;
+  margin-left: 4px;
+}
+
+[data-theme="dark"] .edited-badge {
+  background: rgba(245, 158, 11, 0.2);
+  color: #fcd34d;
+  border-color: rgba(245, 158, 11, 0.4);
+}
+
+
 
