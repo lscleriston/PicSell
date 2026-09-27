@@ -12,6 +12,11 @@ import re
 import html
 import openpyxl
 
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+PASTA_CATALOGO = os.path.join(ROOT, 'data', 'raw', 'catalogo')
+SAIDA_JSON = os.path.join(ROOT, 'data', 'processed', 'dados_produtos.json')
+SAIDA_JS = os.path.join(ROOT, 'web', 'data', 'dados_produtos.js')
+
 def clean_html(raw_html):
     if not raw_html:
         return ''
@@ -21,10 +26,10 @@ def clean_html(raw_html):
 
 def processar_planilha(caminho_arquivo=None):
     if not caminho_arquivo:
-        # Busca o arquivo xlsx mais recente no diretório atual
-        arquivos = glob.glob('*.xlsx')
+        # Busca o arquivo xlsx mais recente na pasta de catalogo
+        arquivos = glob.glob(os.path.join(PASTA_CATALOGO, '*.xlsx'))
         if not arquivos:
-            print("Erro: Nenhum arquivo .xlsx encontrado na pasta.")
+            print(f"Erro: Nenhum arquivo .xlsx encontrado em {os.path.relpath(PASTA_CATALOGO, ROOT)}.")
             return None
         # Ordena pelo mais recente
         arquivos.sort(key=os.path.getmtime, reverse=True)
@@ -261,11 +266,13 @@ def processar_planilha(caminho_arquivo=None):
     }
 
     # Salva em JSON
-    with open('dados_produtos.json', 'w', encoding='utf-8') as f:
+    os.makedirs(os.path.dirname(SAIDA_JSON), exist_ok=True)
+    os.makedirs(os.path.dirname(SAIDA_JS), exist_ok=True)
+    with open(SAIDA_JSON, 'w', encoding='utf-8') as f:
         json.dump(resultado, f, ensure_ascii=False, indent=2)
 
     # Salva em JS com window.DADOS_PRODUTOS para compatibilidade direta no navegador
-    with open('dados_produtos.js', 'w', encoding='utf-8') as f:
+    with open(SAIDA_JS, 'w', encoding='utf-8') as f:
         f.write('window.DADOS_PRODUTOS = ' + json.dumps(resultado, ensure_ascii=False) + ';\n')
 
     print("\nProcessamento concluído com sucesso!")
@@ -275,7 +282,7 @@ def processar_planilha(caminho_arquivo=None):
     print(f"- Custo Total em Estoque: R$ {kpis['total_custo_estoque']:,.2f}")
     print(f"- Venda Total Estimada: R$ {kpis['total_venda_estoque']:,.2f}")
     print(f"- Lucro Bruto Estimado: R$ {kpis['lucro_bruto_estoque']:,.2f} ({kpis['margem_media_estoque']}%)")
-    print(f"- Arquivos gerados: dados_produtos.json e dados_produtos.js")
+    print(f"- Arquivos gerados: {os.path.relpath(SAIDA_JSON, ROOT)} e {os.path.relpath(SAIDA_JS, ROOT)}")
 
     return resultado
 

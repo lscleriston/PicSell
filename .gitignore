@@ -20,3 +20,9 @@ desktop.ini
 .idea/
 *.sublime-project
 *.sublime-workspace
+
+# SQLite temporários
+*.db-journal
+*.db-wal
+*.db-shm
+

@@ -13,6 +13,22 @@ A aplicação funciona **100% offline e sem necessidade de instalação**.
 
 ---
 
+## 📂 Estrutura de Pastas
+
+| Pasta | Conteúdo |
+|---|---|
+| `web/` | Frontend: `web/css`, `web/js` (app + bibliotecas) e `web/data` (bases carregadas pelo navegador) |
+| `scripts/etl/` | ETL Python: `gerar_dados.py` (catálogo) e `processar_shopee.py` (auditoria Shopee) |
+| `scripts/utils/` | Ferramentas de diagnóstico de matching e `shopee_exact_map.py` |
+| `scripts/config/` | `map_helper.txt` (dicionário de equivalências manuais) |
+| `data/raw/` | Planilhas brutas de importação: `catalogo/` e `shopee/` |
+| `data/processed/` | JSONs processados (`dados_produtos.json`, `analise_shopee_real.json`) |
+| `docs/` | Documentação técnica |
+
+Para regenerar as bases após importar novas planilhas, dê um duplo clique em **`Atualizar_Dados.bat`**.
+
+---
+
 ## 🏷️ O Novo Precificador Shopee 2026
 
 Na nova aba superior **`Shopee Precificador 2026`**, você encontra um motor completo de precificação baseado no artigo oficial do Centro de Educação do Vendedor Shopee:
@@ -83,7 +99,7 @@ $$P = \frac{19,50 + 4,50}{1 - (0,20 + 0 + 0,20)} = \frac{24,00}{0,60} = \mathbf{
 
 ## 🔍 Nova Aba: Auditoria Shopee Real (184 Itens & Preço Âncora)
 
-Com base no relatório oficial exportado da Shopee (`mass_update_sales_info...xlsx`), a aplicação conta com uma aba exclusiva de **Auditoria dos Preços Reais Cadastrados**:
+Com base no relatório oficial exportado da Shopee (`data/raw/shopee/Shopee_Anuncios_Exportacao_Atual.xlsx`), a aplicação conta com uma aba exclusiva de **Auditoria dos Preços Reais Cadastrados**:
 
 ### 🎯 Principais Funcionalidades da Auditoria:
 1. **Auditoria de 100% dos Itens Cadastrados (184 variações):**

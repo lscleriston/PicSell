@@ -1,7 +1,21 @@
 # -*- coding: utf-8 -*-
+import os
+import glob
 import json, re
 
-with open('dados_produtos.json', 'r', encoding='utf-8') as f:
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+SHOPEE_DIR = os.path.join(ROOT, 'data', 'raw', 'shopee')
+PRODUTOS_JSON = os.path.join(ROOT, 'data', 'processed', 'dados_produtos.json')
+
+
+def planilha_legada():
+    encontrados = glob.glob(os.path.join(SHOPEE_DIR, 'mass_update_sales_info*.xlsx'))
+    if not encontrados:
+        raise SystemExit(f'Nenhuma mass_update_sales_info*.xlsx em {SHOPEE_DIR}')
+    encontrados.sort(key=os.path.getmtime, reverse=True)
+    return encontrados[0]
+
+with open(PRODUTOS_JSON, 'r', encoding='utf-8') as f:
     loja_data = json.load(f)
 
 loja_items = loja_data['itens_detalhados']
@@ -22,7 +36,7 @@ def carregar_shopee_workbook(caminho):
     out_buf.seek(0)
     return openpyxl.load_workbook(out_buf, data_only=True)
 
-wb = carregar_shopee_workbook('mass_update_sales_info_1634195952_20260927054221.xlsx')
+wb = carregar_shopee_workbook(planilha_legada())
 sheet = wb.active
 
 sem_sku = {}
