@@ -2926,7 +2926,7 @@
         </td>
         <td>
           <span class="variation-badge" style="cursor: pointer;" title="Clique para ${isExpanded ? 'recolher' : 'expandir'} variações">
-            ${item.qtd_variacoes} grade(s) ${isExpanded ? '▲' : '▼'}
+            ${item.qtd_variacoes} ${item.qtd_variacoes === 1 ? 'variação' : 'variações'} ${isExpanded ? '▲' : '▼'}
           </span>
         </td>
         <td>
@@ -2935,33 +2935,33 @@
         <td>
           <span class="currency-sale">${precoDisplay}</span>
         </td>
-        <td style="background-color: rgba(238, 77, 45, 0.04);">
-          <div style="display: flex; flex-direction: column; gap: 2px;">
+        <td style="background-color: rgba(238, 77, 45, 0.02);">
+          <div style="display: flex; flex-direction: column; gap: 1px;">
             <div style="font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
-              <span style="font-weight: 500;">Cad:</span>
-              <span style="font-weight: 600; text-decoration: line-through; color: var(--text-secondary);">${shopeeCadDisplay}</span>
+              <span>Cad:</span>
+              <span style="text-decoration: line-through; color: var(--text-muted); font-weight: 500;">${shopeeCadDisplay}</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 4px;">
-              <strong style="color: #ee4d2d; font-size: 0.88rem; background: rgba(238, 77, 45, 0.12); padding: 2px 6px; border-radius: 4px;">
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <strong style="color: var(--shopee-text); font-size: 0.88rem; font-weight: 700; font-variant-numeric: tabular-nums;">
                 ${shopeePromoDisplay}
               </strong>
-              <span style="background: #ee4d2d; color: white; font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px;">
+              <span style="color: var(--shopee-text); font-size: 0.70rem; font-weight: 600;">
                 -${descPct.toFixed(0)}%
               </span>
             </div>
           </div>
         </td>
-        <td style="background-color: rgba(254, 44, 85, 0.04);">
-          <div style="display: flex; flex-direction: column; gap: 2px;">
+        <td style="background-color: rgba(254, 44, 85, 0.02);">
+          <div style="display: flex; flex-direction: column; gap: 1px;">
             <div style="font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
-              <span style="font-weight: 500;">Cad:</span>
-              <span style="font-weight: 600; text-decoration: line-through; color: var(--text-secondary);">${tiktokCadDisplay}</span>
+              <span>Cad:</span>
+              <span style="text-decoration: line-through; color: var(--text-muted); font-weight: 500;">${tiktokCadDisplay}</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 4px;">
-              <strong style="color: #fe2c55; font-size: 0.88rem; background: rgba(254, 44, 85, 0.12); padding: 2px 6px; border-radius: 4px;">
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <strong style="color: var(--tiktok-text); font-size: 0.88rem; font-weight: 700; font-variant-numeric: tabular-nums;">
                 ${tiktokPromoDisplay}
               </strong>
-              <span style="background: #fe2c55; color: white; font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px;">
+              <span style="color: var(--tiktok-text); font-size: 0.70rem; font-weight: 600;">
                 -${tikDescPct.toFixed(0)}%
               </span>
             </div>
@@ -3171,33 +3171,33 @@
             ${fmtCurrency.format(item.preco_venda)}
           </span>
         </td>
-        <td style="background-color: rgba(238, 77, 45, 0.04);">
-          <div style="display: flex; flex-direction: column; gap: 2px;">
+        <td style="background-color: rgba(238, 77, 45, 0.02);">
+          <div style="display: flex; flex-direction: column; gap: 1px;">
             <div style="font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
-              <span style="font-weight: 500;">Cad:</span>
-              <span style="font-weight: 600; text-decoration: line-through; color: var(--text-secondary);">${fmtCurrency.format(cadPrice)}</span>
+              <span>Cad:</span>
+              <span style="text-decoration: line-through; color: var(--text-muted); font-weight: 500;">${fmtCurrency.format(cadPrice)}</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 4px;">
-              <strong style="color: #ee4d2d; font-size: 0.88rem; background: rgba(238, 77, 45, 0.12); padding: 2px 6px; border-radius: 4px;">
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <strong style="color: var(--shopee-text); font-size: 0.88rem; font-weight: 700; font-variant-numeric: tabular-nums;">
                 ${fmtCurrency.format(promoPrice)}
               </strong>
-              <span style="background: #ee4d2d; color: white; font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px;">
+              <span style="color: var(--shopee-text); font-size: 0.70rem; font-weight: 600;">
                 -${descPct.toFixed(0)}%
               </span>
             </div>
           </div>
         </td>
-        <td style="background-color: rgba(254, 44, 85, 0.04);">
-          <div style="display: flex; flex-direction: column; gap: 2px;">
+        <td style="background-color: rgba(254, 44, 85, 0.02);">
+          <div style="display: flex; flex-direction: column; gap: 1px;">
             <div style="font-size: 0.72rem; color: var(--text-muted); display: flex; align-items: center; gap: 4px;">
-              <span style="font-weight: 500;">Cad:</span>
-              <span style="font-weight: 600; text-decoration: line-through; color: var(--text-secondary);">${fmtCurrency.format(tikCadPrice)}</span>
+              <span>Cad:</span>
+              <span style="text-decoration: line-through; color: var(--text-muted); font-weight: 500;">${fmtCurrency.format(tikCadPrice)}</span>
             </div>
-            <div style="display: flex; align-items: center; gap: 4px;">
-              <strong style="color: #fe2c55; font-size: 0.88rem; background: rgba(254, 44, 85, 0.12); padding: 2px 6px; border-radius: 4px;">
+            <div style="display: flex; align-items: baseline; gap: 4px;">
+              <strong style="color: var(--tiktok-text); font-size: 0.88rem; font-weight: 700; font-variant-numeric: tabular-nums;">
                 ${fmtCurrency.format(tikPromoPrice)}
               </strong>
-              <span style="background: #fe2c55; color: white; font-size: 0.65rem; font-weight: 700; padding: 1px 4px; border-radius: 3px;">
+              <span style="color: var(--tiktok-text); font-size: 0.70rem; font-weight: 600;">
                 -${tikDescPct.toFixed(0)}%
               </span>
             </div>

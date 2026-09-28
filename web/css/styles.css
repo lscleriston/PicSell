@@ -702,51 +702,57 @@ body {
 .variation-badge {
   display: inline-flex;
   align-items: center;
-  background-color: var(--brand-light);
-  color: var(--brand-text);
-  font-weight: 600;
-  font-size: 0.75rem;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+  font-weight: 500;
+  font-size: 0.76rem;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
 }
 
-/* Stock Badges */
+/* Stock Badges (Minimalist & Clean) */
 .stock-badge {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
-  padding: 0.25rem 0.65rem;
-  border-radius: var(--radius-full);
+  gap: 0.45rem;
+  padding: 2px 6px;
+  border-radius: var(--radius-sm);
   font-size: 0.8rem;
-  font-weight: 600;
+  font-weight: 500;
+  background: transparent;
+  color: var(--text-primary);
+  font-variant-numeric: tabular-nums;
 }
 
 .stock-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
 .stock-high {
-  background-color: var(--success-bg);
-  color: var(--success-text);
-  border: 1px solid var(--success-border);
+  color: var(--text-primary);
 }
-.stock-high .stock-dot { background-color: var(--success-dot); }
+.stock-high .stock-dot {
+  background-color: var(--success-dot);
+}
 
 .stock-low {
-  background-color: var(--warning-bg);
   color: var(--warning-text);
-  border: 1px solid var(--warning-border);
 }
-.stock-low .stock-dot { background-color: var(--warning-dot); }
+.stock-low .stock-dot {
+  background-color: var(--warning-dot);
+}
 
 .stock-zero {
-  background-color: var(--danger-bg);
   color: var(--danger-text);
-  border: 1px solid var(--danger-border);
 }
-.stock-zero .stock-dot { background-color: var(--danger-dot); }
+.stock-zero .stock-dot {
+  background-color: var(--danger-dot);
+}
 
 /* Currency Values */
 .currency-cost {
@@ -2016,10 +2022,11 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
-  padding: 2px 8px;
-  border-radius: var(--radius-full);
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
+  white-space: nowrap;
 }
 
 .risk-safe {
